@@ -45,33 +45,6 @@ public class _Mono : MonoBehaviour {
 		}
 	}
 
-	public int tileX {
-		set {
-			x = value;
-		}
-		get {
-			return Utils.Round(x);
-		}
-	}
-
-	public int tileY {
-		set {
-			y = value;
-		}
-		get {
-			return Utils.Round(y);
-		}
-	}
-
-	public Vector2 tileVector {
-		set {
-			transform.position = new Vector3(Utils.Round(value.x), Utils.Round(value.y), transform.position.z);
-		}
-		get {
-			return new Vector2(tileX, tileY);
-		}
-	}
-
 	public float xs {
 		set {
 			transform.localScale = new Vector3 (value, transform.localScale.y, transform.localScale.z);
