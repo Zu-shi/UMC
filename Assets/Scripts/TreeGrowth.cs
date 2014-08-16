@@ -9,14 +9,31 @@ public class TreeGrowth : _Mono {
 
 	public GUIText heightText;
 
+	public bool stopped = false;
+
+	public float speedModifier = 1f;
+
 	// Use this for initialization
 	void Start () {
+	}
+
+	void ChangeSpeed(float modifier){
+		speedModifier = modifier;
+	}
+
+	void Restart(){
+		stopped = false;
+	}
+
+	void Stop(){
+		stopped = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		height += growthRate * Time.deltaTime;
-
+		if(!stopped){
+			height += growthRate * speedModifier * Time.deltaTime;
+		}
 		heightText.text = "Height: " + height;
 	}
 }
