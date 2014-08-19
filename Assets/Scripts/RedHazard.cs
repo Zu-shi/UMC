@@ -20,12 +20,12 @@ public class RedHazard : Hazard {
 	}
 
 	public override void Finish(){
-	
+		hasFinished = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(!isStopped){
+		if(!isStopped && !hasFinished){
 			float step = speed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards(transform.position, targetTree.transform.position, step);
 		}
