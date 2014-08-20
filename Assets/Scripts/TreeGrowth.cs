@@ -3,6 +3,8 @@ using System.Collections;
 
 public class TreeGrowth : _Mono {
 
+	public int lives = 3;
+
 	public float height = 3f;
 
 	public float growthRate = .1f;
