@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//Red Hazards do extra damage
-public class RedHazard : Hazard {
+//Orange Hazards slow growth
+public class OrangeHazard : Hazard {
 
 	public GameObject targetTree;
 
 	public float speed;
 
-	public int damage;
+	public float slowFactor;
 
 	// Use this for initialization
 	public override void Start () {
@@ -21,7 +21,7 @@ public class RedHazard : Hazard {
 	public override void Stop(){
 		isStopped = true;
 	}
-
+	
 	public override void Finish(){
 		hasFinished = true;
 	}
@@ -34,6 +34,3 @@ public class RedHazard : Hazard {
 		}
 	}
 }
-
-
-
