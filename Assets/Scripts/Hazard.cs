@@ -9,11 +9,20 @@ public abstract class Hazard : _Mono {
 	protected bool isHarmful;
 	protected int damage;
 
-	public abstract void Start ();
+	public virtual void Start (){
+		hasStarted = true;
+		isStopped = false;
+		hasFinished = false;
+		isHarmful = true;
+	}
 
-	public abstract void Finish();
+	public virtual void Finish(){
+		hasFinished = true;
+	}
 
-	public abstract void Stop();
+	public virtual void Stop(){
+		isStopped = true;
+	}
 
 
 }
