@@ -9,18 +9,18 @@ public abstract class Hazard : _Mono {
 	protected bool isHarmful;
 	protected int damage;
 
-	public void Start (){
+	public virtual void Start (){
 		hasStarted = true;
 		isStopped = false;
 		hasFinished = false;
 		isHarmful = true;
 	}
 
-	public void Finish(){
+	public virtual void Finish(){
 		hasFinished = true;
 	}
 
-	public void Stop(){
+	public virtual void Stop(){
 		isStopped = true;
 	}
 
