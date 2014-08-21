@@ -9,6 +9,24 @@ public class _Mono : MonoBehaviour {
 
 	private SpriteRenderer _spriteRenderer;
 
+	public Vector2 inputPos{
+		get {
+			return Globals.inputManager.inputPos;
+		}
+	}
+	
+	public float inputX{
+		get {
+			return Globals.inputManager.inputX;
+		}
+	}
+	
+	public float inputY {
+		get {
+			return Globals.inputManager.inputY;
+		}
+	}
+
 	public float x {
 		set {
 			transform.position = new Vector3 (value, transform.position.y, transform.position.z);
