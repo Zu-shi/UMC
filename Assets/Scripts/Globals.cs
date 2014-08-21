@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Globals {
 
-	private InputManagerScript _inputManager;
+	private static InputManagerScript _inputManager;
 
 	public static InputManagerScript inputManager {
 		get{
