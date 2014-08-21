@@ -28,7 +28,7 @@ public class InputManagerScript : MonoBehaviour {
 			inputX = Camera.main.ScreenToWorldPoint (Input.mousePosition).x;
 			inputY = Camera.main.ScreenToWorldPoint (Input.mousePosition).y;
 		} else {
-			
+			// Kinect controls to be implemented.
 		}
 
 	}

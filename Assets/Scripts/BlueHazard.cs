@@ -13,18 +13,15 @@ public class BlueHazard : Hazard {
 	
 	// Use this for initialization
 	public override void  Start () {
-		hasStarted = true;
-		isStopped = false;
-		hasFinished = false;
-		isHarmful = true;
+		base.Start ();
 	}
 	
 	public override void Stop(){
-		isStopped = true;
+		base.Stop ();
 	}
 	
 	public override void Finish(){
-		hasFinished = true;
+		base.Finish ();
 	}
 	
 	// Update is called once per frame

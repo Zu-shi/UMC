@@ -11,19 +11,16 @@ public class RedHazard : Hazard {
 	public int damage;
 
 	// Use this for initialization
-	public override void Start () {
-		hasStarted = true;
-		isStopped = false;
-		hasFinished = false;
-		isHarmful = true;
+	public override void  Start () {
+		base.Start ();
 	}
-
+	
 	public override void Stop(){
-		isStopped = true;
+		base.Stop ();
 	}
-
+	
 	public override void Finish(){
-		hasFinished = true;
+		base.Finish ();
 	}
 	
 	// Update is called once per frame
@@ -34,6 +31,3 @@ public class RedHazard : Hazard {
 		}
 	}
 }
-
-
-
