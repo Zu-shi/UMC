@@ -15,8 +15,26 @@ public class TreeGrowth : _Mono {
 
 	public float speedModifier = 1f;
 
+	public GameObject lifeIndicator;
+
+	private GameObject[] lifeSymbols;
+
+	public Vector2 leftMostLifeIndicatorPos;
+	public float lifeSymbolOffset;
+
+
 	// Use this for initialization
 	void Start () {
+		DisplayLives ();
+	}
+
+	void DisplayLives(){
+		lifeSymbols = new GameObject[lives];
+		for(int i = 0; i < lifeSymbols.Length; i++){
+			Vector2 pos = leftMostLifeIndicatorPos;
+			pos.x += i * lifeSymbolOffset;
+			lifeSymbols[i] = Instantiate(lifeIndicator, pos, Quaternion.identity ) as GameObject;
+		}
 	}
 
 	void ChangeSpeed(float modifier){
@@ -37,5 +55,16 @@ public class TreeGrowth : _Mono {
 			height += growthRate * speedModifier * Time.deltaTime;
 		}
 		heightText.text = "Height: " + height;
+
+		UpdateLives ();
+	}
+
+	void UpdateLives(){
+		int lastLifeIndex = lives - 1;
+		for(int i = 0; i < lifeSymbols.Length; i++){
+			if(i > lastLifeIndex){
+				lifeSymbols[i].gameObject.SetActive(false);
+			}
+		}
 	}
 }
