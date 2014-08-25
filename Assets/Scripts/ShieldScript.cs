@@ -18,16 +18,13 @@ public class ShieldScript : _Mono {
 	void Start () {
 		height = camera.orthographicSize;
 		width = height * camera.aspect;
-		print (GetYCoord(-600f));
-		print (GetYCoord(-300f));
-		print (GetYCoord(0f));
-		print (GetYCoord(300f));
-		print (GetYCoord(600f));
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		height = camera.orthographicSize;
+		width = height * camera.aspect;
+
 		float xPos = inputX;
 		float yPos;
 
