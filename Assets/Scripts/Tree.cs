@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TreeGrowth : _Mono {
+public class Tree : _Mono {
 
 	public int lives = 3;
 
@@ -22,6 +22,9 @@ public class TreeGrowth : _Mono {
 	public Vector2 leftMostLifeIndicatorPos;
 	public float lifeSymbolOffset;
 
+	private float invincibilityTimeLeft;
+	
+	public bool invincible{ get; set;}
 
 	// Use this for initialization
 	void Start () {
