@@ -26,6 +26,8 @@ public class TreeModel : _Mono {
 	public bool doneGrowing{ get; set; }
 	public GameObject foilage{ get; set; }
 	public Vector2 foilagePosition{ get; set; }
+	public float foilageXs{ get; set; }
+	public float foilageYs{ get; set; }
 	public float myAnglePermanant { get; set; }
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
@@ -47,8 +49,8 @@ public class TreeModel : _Mono {
 	protected float totalHeight { get; set; }
 	protected bool bloomed = false;
 	protected float givenHeight { get; set; }
-	protected TreeModel root { get; set; }
-	protected TreeModel parent { get; set; }
+	public TreeModel root { get; set; }
+	public TreeModel parent { get; set; }
 
 	// Use this for initialization
 	protected virtual void Awake () {
@@ -77,11 +79,13 @@ public class TreeModel : _Mono {
 		doneGrowing = false;
 		age = 0f;
 		foilagePosition = new Vector2 (0.5f, 0.6f);
-		//growFoilage = true;
+		growFoilage = true;
 		foilGen = 1;
 		givenHeight = 500.0f;
 		root = this;
 		parent = null;
+		foilageXs = 1f;
+		foilageYs = 1f;
 
 		if (fastGrowth) { age = maxAge;}
 		heightVariation = Random.Range (0.6f, 1.2f);
@@ -111,7 +115,7 @@ public class TreeModel : _Mono {
 
 			int loopBreakCounter = 0;
 
-			while( totalHeight < givenHeight && loopBreakCounter < 15){
+			while( totalHeight < givenHeight && loopBreakCounter < 3){
 				StartGrowing ();
 				ReportHeight ();
 				loopBreakCounter += 1;
@@ -165,8 +169,8 @@ public class TreeModel : _Mono {
 			_Mono foilMono = foilage.GetComponent<_Mono> ();
 			foilMono.xy = GetRootPosition (foilagePosition);
 			foilMono.angle = myAngle - 90;
-			foilMono.xs = ys * 2;
-			foilMono.ys = ys;
+			foilMono.xs = ys * 2 * foilageXs;
+			foilMono.ys = ys * foilageYs;
 		}
 
 		if(generation == 0){
@@ -345,7 +349,7 @@ public class TreeModel : _Mono {
 			float result = 0f;
 			result = maxHeight ();
 			totalHeight = result;
-			Debug.Log (totalHeight);
+//			Debug.Log (totalHeight);
 		} else {
 			totalHeight = root.totalHeight;
 		}

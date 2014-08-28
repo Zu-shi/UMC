@@ -3,19 +3,19 @@ using System.Collections;
 
 public class HeightManagerScript : MonoBehaviour {
 
-	public float maxHeight = 540f;
-	public float height = 300f;
-	public float minimumCameraSize = 50;
+	private float maxHeight = 540f;
+	public float height { get; set;}
+	private float minimumCameraSize = 350;
 
 	// Use this for initialization
 	void Start () {
-		
+		height = 0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(height < maxHeight){
-			height += 5f;
+			height += 1f;
 		}
 
 		float actualHeight = Mathf.Max (minimumCameraSize, height);
