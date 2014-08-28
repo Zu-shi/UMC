@@ -15,7 +15,7 @@ public class _Mono : MonoBehaviour {
 		}
 	}
 	
-	public float inputX{
+	public float inputX {
 		get {
 			return Globals.inputManager.inputX;
 		}
