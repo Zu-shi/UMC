@@ -31,7 +31,7 @@ public class GUITimerManager : MonoBehaviour {
 		//Calculate string to show.
 		int minutes = totalSeconds / 60;
 		int seconds = totalSeconds % 60;
-		string result = "";
+		string result = "Time Left: ";
 		if(minutes >= 10){
 			result = result + minutes.ToString();
 		}else{

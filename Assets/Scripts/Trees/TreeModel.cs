@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class TreeModel : _Mono {
 
-	protected const float scale = 0.9f;
+	protected const float scale = 1f;
 	protected const float SPRITE_WIDTH = 16f / scale;
 	protected const float SPRITE_HEIGHT = 64f / scale;
 	public Sprite foilageSprite;
@@ -19,9 +19,16 @@ public class TreeModel : _Mono {
 	public bool isAngled{ get; set; }
 	public float myAngle{ get; set; }
 	public float angleCentral{ get; set; }
+	public float proportion{ get; set; }
+	public int[] branchingOptions{ get; set; }
+	public float[] branchingProbability { get; set; }
+	public float[] branchingAngles { get; set; }
+	public bool doneGrowing{ get; set; }
+	public GameObject foilage{ get; set; }
+	public Vector2 foilagePosition{ get; set; }
+	public float myAnglePermanant { get; set; }
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
-	public float proportion{ get; set; }
 	protected float _age;
 	protected float _maxAge;
 	protected float maxAge{ get{ return _maxAge; } set{ _maxAge = value; if (maxAge < age){ _age = maxAge; } } }
@@ -29,29 +36,26 @@ public class TreeModel : _Mono {
 	protected bool stopGrowingAfterBranching{ get; set; } 
 	protected int maxGenerations{ get; set; }
 	protected float height{ get; set; }
-	public int[] branchingOptions{ get; set; }
-	public float[] branchingProbability { get; set; }
-	public float[] branchingAngles { get; set; }
 	protected float ageSinceLastBranch{ get; set;}
 	protected float actualAge{ get; set; }
 	protected float heightVariation{ get; set; }
-	public bool doneGrowing{ get; set; }
 	protected bool fastGrowth{ get; set; }
-	protected GameObject foilage{ get; set; }
-	public Vector2 foilagePosition{ get; set; }
 	protected bool growFoilage{ get; set; }
 	protected int foilGen{ get; set; }
-	public float myAnglePermanant { get; set; }
 	protected float angleSway { get; set; }
 	protected float rotationTracker { get; set; }
+	protected float totalHeight { get; set; }
 	protected bool bloomed = false;
+	protected float givenHeight { get; set; }
+	protected TreeModel root { get; set; }
+	protected TreeModel parent { get; set; }
 
 	// Use this for initialization
 	protected virtual void Awake () {
 
 		fastGrowth = false;
 
-		angleSway = 11.0f;
+		angleSway = 0f;
 		rotationTracker = 0f;
 
 		branches = new List<TreeModel> ();
@@ -68,13 +72,16 @@ public class TreeModel : _Mono {
 		height = 0f;
 		branchingOptions = new int[]{2, 3};
 		branchingProbability = new float[]{0.5f, 0.5f};
-		branchingAngles = new float[]{ 20f, 40f};
+		branchingAngles = new float[]{ 27f, 40f};
 		actualAge = 0f;
 		doneGrowing = false;
 		age = 0f;
 		foilagePosition = new Vector2 (0.5f, 0.6f);
-		growFoilage = true;
+		//growFoilage = true;
 		foilGen = 1;
+		givenHeight = 500.0f;
+		root = this;
+		parent = null;
 
 		if (fastGrowth) { age = maxAge;}
 		heightVariation = Random.Range (0.6f, 1.2f);
@@ -89,14 +96,6 @@ public class TreeModel : _Mono {
 		foreach (float p in branchingProbability) {result += p;}
 		Utils.Assert (result >= 1f, "checking probability adds to 1");
 	}
-	
-	protected virtual void CreateFoilage(){
-		foilage = new GameObject();
-		SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
-		foilage.AddComponent<_Mono> ();
-		sr.sprite = foilageSprite;
-		sr.sortingOrder = 1;
-	}
 
 	public Vector2 absoluteRoot{
 		get{return xy;}
@@ -106,45 +105,93 @@ public class TreeModel : _Mono {
 	// Update is called once per frame
 	protected virtual void Update () {
 
+		if(generation == 0){
+			givenHeight = Globals.heightManager.height;
+			ReportHeight ();
+
+			int loopBreakCounter = 0;
+
+			while( totalHeight < givenHeight && loopBreakCounter < 15){
+				StartGrowing ();
+				ReportHeight ();
+				loopBreakCounter += 1;
+			}
+
+			Orient();
+
+			if(growFoilage){
+				CreateFoilage ();
+				PositionFoilage ();
+			}
+		}
+
+	}
+
+	//Recusive
+	protected virtual void StartGrowing() {
 		if (generation != 0) {
 			float myAngleTemp = myAnglePermanant + Mathf.Sin (rotationTracker) * angleSway;
 			myAngle = myAngleTemp;
 		}
-
+			
 		rotationTracker += Mathf.PI / 150f;
-
+		
 		if (!doneGrowing && (age < maxAge)) {
 			age += 1f;
 		}
-	
+		
 		while (actualAge < age && !doneGrowing) {
 			Grow();
-			//Debug.Log(actualAge);
 		}
-
+		
 		if (generation == 0) {
 			PositionBranches ();
 		}
 		
 		Determineheight ();
-		Orient();
 
-		if(growFoilage){
-			if (foilage == null && generation >= foilGen) {
-				CreateFoilage ();
-			}
-			if (foilage != null) {
-				PositionFoilage ();
+		if(generation == 0){
+			//Do not use foreach loop here because the tree will be modified.
+			for(int i = 0; i < branches.Count; i++ ){
+				TreeModel branch = branches[i];
+				branch.StartGrowing ();
 			}
 		}
 	}
-
+	
+	//Recusive
 	protected virtual void PositionFoilage() {
-		_Mono foilMono = foilage.GetComponent<_Mono> ();
-		foilMono.xy = GetRootPosition (foilagePosition);
-		foilMono.angle = myAngle - 90;
-		foilMono.xs = ys * 2;
-		foilMono.ys = ys;
+		if (foilage != null) {
+			_Mono foilMono = foilage.GetComponent<_Mono> ();
+			foilMono.xy = GetRootPosition (foilagePosition);
+			foilMono.angle = myAngle - 90;
+			foilMono.xs = ys * 2;
+			foilMono.ys = ys;
+		}
+
+		if(generation == 0){
+			foreach (TreeModel branch in branches) {
+				branch.PositionFoilage ();
+			}
+		}
+	}
+	
+	//Recusive
+	protected virtual void CreateFoilage(){
+
+		if (generation >= foilGen && foilage == null) {
+			foilage = new GameObject ();
+			SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
+			foilage.AddComponent<_Mono> ();
+			sr.sprite = foilageSprite;
+			sr.sortingOrder = 1;
+		}
+		
+		if(generation == 0){
+			foreach (TreeModel branch in branches) {
+				branch.CreateFoilage ();
+			}
+		}
 	}
 
 	//Grows the tree based on age of the tree
@@ -157,13 +204,20 @@ public class TreeModel : _Mono {
 		ageSinceLastBranch++;
 		TryBranch();
 	}
-
+	
+	//Recusive
 	protected virtual void Orient(){
 		//Debug.Log ("Orient called.");
 		xs = proportion * height / SPRITE_WIDTH;
 		//Debug.Log (proportion + "," + height + "," + SPRITE_WIDTH + "," + xs);
 		ys = height / SPRITE_HEIGHT;
 		angle = myAngle - 90;
+		
+		if(generation == 0){
+			foreach (TreeModel branch in branches) {
+				branch.Orient ();
+			}
+		}
 	}
 
 	// Decides whether the tree will branch right now (Based on the age of the tree and the random number generator)
@@ -207,17 +261,14 @@ public class TreeModel : _Mono {
 				t.doneGrowing = false;
 				t.myAngle = t.angleCentral;
 				t.myAnglePermanant = t.myAngle;
-				//t.gameObject.transform.parent = this.gameObject.transform;
+				t.parent = this;
+				t.root = this.root;
 
 				for( int i2 = 0; i2 < branchingAngles.Length; i2++ ){
-					//Debug.Log( t.branchingAngles );
-					//Debug.Log( t.branchingAngles[0] );
 					t.branchingAngles[i2] = branchingAngles[i2]/2;
 				}
 
-				branches.Add (t);
-				//Debug.Log( "Created New Branch." );
-				
+				root.branches.Add (t);
 				tempA += a;
 			}
 		}
@@ -256,8 +307,11 @@ public class TreeModel : _Mono {
 	//Updates the branch positions based on relative root, and updates absolute root (recursive call)
 	protected virtual void PositionBranches() {
 		foreach (TreeModel branch in branches) {
-			branch.absoluteRoot = GetRootPosition(branch.relativeRoot);
-			branch.PositionBranches();
+			if(branch.parent != null){
+				branch.absoluteRoot = branch.parent.GetRootPosition(branch.relativeRoot);
+			}
+
+			//branch.PositionBranches();
 			//Debug.Log("Generation " + generation + " position branches called.");
 		}
 	}
@@ -285,4 +339,28 @@ public class TreeModel : _Mono {
 		//                    childRelativeRoot.y * height + absoluteRoot.y);
 	}
 
+	private void ReportHeight(){
+
+		if (generation == 0) {
+			float result = 0f;
+			result = maxHeight ();
+			totalHeight = result;
+			Debug.Log (totalHeight);
+		} else {
+			totalHeight = root.totalHeight;
+		}
+
+	}
+
+	//Recursive method to calculate height.
+	public float maxHeight(){
+		float result = height * Mathf.Sin (myAnglePermanant) + y;
+		float highest = 0f;
+
+		foreach (TreeModel branch in branches) {
+			highest = Mathf.Max(highest, branch.maxHeight());
+		}
+
+		return result + highest;
+	}
 }

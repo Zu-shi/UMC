@@ -12,4 +12,14 @@ public class Globals {
 			return _inputManager;
 		}
 	}
+	
+	private static HeightManagerScript _heightManager;
+	
+	public static HeightManagerScript heightManager {
+		get{
+			if(_heightManager == null)
+				_heightManager = GameObject.Find("HeightManager").GetComponent<HeightManagerScript>();
+			return _heightManager;
+		}
+	}
 }
