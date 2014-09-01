@@ -45,7 +45,8 @@ public class TreeModelPreMorph : TreeModel {
 					t.branchingAngles[i2] = branchingAngles[i2]/2;
 				}
 				
-				root.branches.Add (t);
+				branches.Add (t);
+				root.allBranches.Add (t);
 				tempA += a;
 			}
 		}

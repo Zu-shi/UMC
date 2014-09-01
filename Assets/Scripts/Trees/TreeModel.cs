@@ -15,6 +15,7 @@ public class TreeModel : _Mono {
 	//public bool stopGrowingAfterBranching = true;
 	
 	public List<TreeModel> branches{ get; set; }
+	public List<TreeModel> allBranches{ get; set; }
 	public int generation{ get; set; }
 	public bool isAngled{ get; set; }
 	public float myAngle{ get; set; }
@@ -61,6 +62,7 @@ public class TreeModel : _Mono {
 		rotationTracker = 0f;
 
 		branches = new List<TreeModel> ();
+		allBranches = new List<TreeModel> ();
 		generation = 0;
 		isAngled = true;
 		myAngle = 90f;
@@ -89,6 +91,7 @@ public class TreeModel : _Mono {
 
 		if (fastGrowth) { age = maxAge;}
 		heightVariation = Random.Range (0.6f, 1.2f);
+		heightVariation = Random.Range (0.9f, 1.0f);
 
 		spriteRenderer.sprite = isAngled ? angledSprite : nonangledSprite;
 		Orient ();
@@ -132,7 +135,8 @@ public class TreeModel : _Mono {
 	}
 
 	//Recusive
-	protected virtual void StartGrowing() {
+	protected virtual void StartGrowing() {			totalHeight = root.totalHeight;
+		
 		if (generation != 0) {
 			float myAngleTemp = myAnglePermanant + Mathf.Sin (rotationTracker) * angleSway;
 			myAngle = myAngleTemp;
@@ -173,10 +177,8 @@ public class TreeModel : _Mono {
 			foilMono.ys = ys * foilageYs;
 		}
 
-		if(generation == 0){
-			foreach (TreeModel branch in branches) {
-				branch.PositionFoilage ();
-			}
+		foreach (TreeModel branch in branches) {
+			branch.PositionFoilage ();
 		}
 	}
 	
@@ -190,11 +192,9 @@ public class TreeModel : _Mono {
 			sr.sprite = foilageSprite;
 			sr.sortingOrder = 1;
 		}
-		
-		if(generation == 0){
-			foreach (TreeModel branch in branches) {
-				branch.CreateFoilage ();
-			}
+
+		foreach (TreeModel branch in branches) {
+			branch.CreateFoilage ();
 		}
 	}
 
@@ -216,11 +216,9 @@ public class TreeModel : _Mono {
 		//Debug.Log (proportion + "," + height + "," + SPRITE_WIDTH + "," + xs);
 		ys = height / SPRITE_HEIGHT;
 		angle = myAngle - 90;
-		
-		if(generation == 0){
-			foreach (TreeModel branch in branches) {
-				branch.Orient ();
-			}
+
+		foreach (TreeModel branch in branches) {
+			branch.Orient ();
 		}
 	}
 
@@ -272,7 +270,8 @@ public class TreeModel : _Mono {
 					t.branchingAngles[i2] = branchingAngles[i2]/2;
 				}
 
-				root.branches.Add (t);
+				branches.Add (t);
+				root.allBranches.Add (t);
 				tempA += a;
 			}
 		}
@@ -351,7 +350,6 @@ public class TreeModel : _Mono {
 			totalHeight = result;
 //			Debug.Log (totalHeight);
 		} else {
-			totalHeight = root.totalHeight;
 		}
 
 	}

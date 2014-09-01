@@ -24,11 +24,11 @@ public class TreeMorpher : _Mono {
 		if(Globals.heightManager.height > startHeight && Globals.heightManager.height < endHeight){
 			float process = (Globals.heightManager.height - startHeight) / (endHeight - startHeight);
 			//Utils.Assert (preMorph.branches.Count == postMorph.branches.Count, "Check branch number equality.");
-			if(preMorph.branches.Count == postMorph.branches.Count){
-				for(int i = 0; i < preMorph.branches.Count; i++){
-					TreeModel preB = preMorph.branches[i];
-					TreeModel postB = postMorph.branches[i];
-					TreeModel toB = toMorph.branches[i];
+			if(preMorph.allBranches.Count == postMorph.allBranches.Count){
+				for(int i = 0; i < preMorph.allBranches.Count; i++){
+					TreeModel preB = preMorph.allBranches[i];
+					TreeModel postB = postMorph.allBranches[i];
+					TreeModel toB = toMorph.allBranches[i];
 
 					toB.relativeRoot = Vector2.Lerp(preB.relativeRoot, postB.relativeRoot, process);
 					toB.foilagePosition = Vector2.Lerp(preB.foilagePosition, postB.foilagePosition, process);
