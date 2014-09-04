@@ -40,6 +40,8 @@ public class TreeModelPreMorph : TreeModel {
 				t.myAnglePermanant = t.myAngle;// + (90f - t.angleCentral)/Mathf.Abs (90f - t.angleCentral) * Random.Range(8f, 15f);
 				t.parent = this;
 				t.root = this.root;
+				t.foilageXs = foilageXs;
+				t.foilageYs = foilageYs;
 				
 				for( int i2 = 0; i2 < branchingAngles.Length; i2++ ){
 					t.branchingAngles[i2] = branchingAngles[i2]/2;

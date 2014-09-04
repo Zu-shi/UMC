@@ -30,12 +30,17 @@ public class TreeModel : _Mono {
 	public float foilageXs{ get; set; }
 	public float foilageYs{ get; set; }
 	public float myAnglePermanant { get; set; }
+	public TreeModel root { get; set; }
+	public TreeModel parent { get; set; }
+	public int growingSpeed { get; set; }
+	public float targetAge{ get{ return _targetAge; } set{ _targetAge = value; if (targetAge < age){ _age = targetAge; } } }
+	public float age{ get{ return _age; } set{ _age = value; if (targetAge < age){ _age = targetAge; } } }
+	public float totalHeight { get; set; }
+
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
 	protected float _age;
-	protected float _maxAge;
-	protected float maxAge{ get{ return _maxAge; } set{ _maxAge = value; if (maxAge < age){ _age = maxAge; } } }
-	protected float age{ get{ return _age; } set{ _age = value; if (maxAge < age){ _age = maxAge; } } }
+	protected float _targetAge;
 	protected bool stopGrowingAfterBranching{ get; set; } 
 	protected int maxGenerations{ get; set; }
 	protected float height{ get; set; }
@@ -47,15 +52,13 @@ public class TreeModel : _Mono {
 	protected int foilGen{ get; set; }
 	protected float angleSway { get; set; }
 	protected float rotationTracker { get; set; }
-	protected float totalHeight { get; set; }
 	protected bool bloomed = false;
 	protected float givenHeight { get; set; }
-	public TreeModel root { get; set; }
-	public TreeModel parent { get; set; }
 
 	// Use this for initialization
 	protected virtual void Awake () {
-
+		
+		growFoilage = true;
 		fastGrowth = false;
 
 		angleSway = 0f;
@@ -70,7 +73,7 @@ public class TreeModel : _Mono {
 		symmetricGrowth = true;
 		symmetric = true;
 		proportion = 0.125f;
-		maxAge = 800f;
+		targetAge = 800f;
 		stopGrowingAfterBranching = true;
 		maxGenerations = 4;
 		height = 0f;
@@ -81,15 +84,15 @@ public class TreeModel : _Mono {
 		doneGrowing = false;
 		age = 0f;
 		foilagePosition = new Vector2 (0.5f, 0.6f);
-		growFoilage = true;
 		foilGen = 1;
 		givenHeight = 500.0f;
 		root = this;
 		parent = null;
 		foilageXs = 1f;
 		foilageYs = 1f;
+		growingSpeed = 30;
 
-		if (fastGrowth) { age = maxAge;}
+		if (fastGrowth) { age = targetAge;}
 		heightVariation = Random.Range (0.6f, 1.2f);
 		heightVariation = Random.Range (0.9f, 1.0f);
 
@@ -113,15 +116,22 @@ public class TreeModel : _Mono {
 	protected virtual void Update () {
 
 		if(generation == 0){
-			givenHeight = Globals.heightManager.height;
+			//givenHeight = Globals.heightManager.height;
 			ReportHeight ();
 
-			int loopBreakCounter = 0;
-
-			while( totalHeight < givenHeight && loopBreakCounter < 3){
-				StartGrowing ();
-				ReportHeight ();
-				loopBreakCounter += 1;
+			if(Globals.fixedHeightMode){
+				int loopBreakCounter = 0;
+				while( totalHeight < givenHeight && loopBreakCounter < growingSpeed){
+					StartGrowing ();
+					ReportHeight ();
+					loopBreakCounter += 1;
+				}
+			}else{
+				int loopBreakCounter = 0;
+				while( age < targetAge && loopBreakCounter < growingSpeed){
+					StartGrowing();
+					loopBreakCounter += 1;
+				}
 			}
 
 			Orient();
@@ -135,7 +145,11 @@ public class TreeModel : _Mono {
 	}
 
 	//Recusive
-	protected virtual void StartGrowing() {			totalHeight = root.totalHeight;
+	protected virtual void StartGrowing() {			
+		if (generation == 0) {
+			//Debug.Log ("Age = " + age);
+			//Debug.Log ("targetAge = " + age);
+		}
 		
 		if (generation != 0) {
 			float myAngleTemp = myAnglePermanant + Mathf.Sin (rotationTracker) * angleSway;
@@ -144,7 +158,7 @@ public class TreeModel : _Mono {
 			
 		rotationTracker += Mathf.PI / 150f;
 		
-		if (!doneGrowing && (age < maxAge)) {
+		if (!doneGrowing && (age < targetAge)) {
 			age += 1f;
 		}
 		
@@ -158,12 +172,8 @@ public class TreeModel : _Mono {
 		
 		Determineheight ();
 
-		if(generation == 0){
-			//Do not use foreach loop here because the tree will be modified.
-			for(int i = 0; i < branches.Count; i++ ){
-				TreeModel branch = branches[i];
-				branch.StartGrowing ();
-			}
+		foreach( TreeModel branch in branches ){
+			branch.StartGrowing ();
 		}
 	}
 	
@@ -224,11 +234,11 @@ public class TreeModel : _Mono {
 
 	// Decides whether the tree will branch right now (Based on the age of the tree and the random number generator)
 	protected virtual bool WillBranch() {
-		float threshold = (generation == 0) ? 50f : 100f - generation * 10;
+		float threshold = (generation == 0) ? 120f : 100f - generation * 10;
 
 		if (ageSinceLastBranch > threshold && !doneGrowing) {
 			if(generation < maxGenerations && !bloomed){bloomed = true; return true;}
-			else if(stopGrowingAfterBranching && generation != 0){doneGrowing = true; return false;}
+			else if(stopGrowingAfterBranching && generation!=0){doneGrowing = true; return false;}
 		}
 
 		return false;
@@ -265,6 +275,8 @@ public class TreeModel : _Mono {
 				t.myAnglePermanant = t.myAngle;
 				t.parent = this;
 				t.root = this.root;
+				t.foilageXs = foilageXs;
+				t.foilageYs = foilageYs;
 
 				for( int i2 = 0; i2 < branchingAngles.Length; i2++ ){
 					t.branchingAngles[i2] = branchingAngles[i2]/2;
@@ -314,7 +326,7 @@ public class TreeModel : _Mono {
 				branch.absoluteRoot = branch.parent.GetRootPosition(branch.relativeRoot);
 			}
 
-			//branch.PositionBranches();
+			branch.PositionBranches();
 			//Debug.Log("Generation " + generation + " position branches called.");
 		}
 	}
@@ -343,26 +355,22 @@ public class TreeModel : _Mono {
 	}
 
 	private void ReportHeight(){
-
 		if (generation == 0) {
-			float result = 0f;
-			result = maxHeight ();
+			float result = maxHeight ();
 			totalHeight = result;
-//			Debug.Log (totalHeight);
-		} else {
+			//Debug.Log (totalHeight);
 		}
-
 	}
 
 	//Recursive method to calculate height.
 	public float maxHeight(){
-		float result = height * Mathf.Sin (myAnglePermanant) + y;
-		float highest = 0f;
+		float highest = height * Mathf.Sin (myAnglePermanant) + y;
 
 		foreach (TreeModel branch in branches) {
 			highest = Mathf.Max(highest, branch.maxHeight());
 		}
 
-		return result + highest;
+		//Debug.Log ("maxheight returned " + highest);
+		return highest;
 	}
 }

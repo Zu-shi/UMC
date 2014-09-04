@@ -10,6 +10,6 @@ public class MainCameraScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Camera.main.orthographicSize = Globals.heightManager.height;
+		//Camera.main.orthographicSize = Globals.heightManager.height;
 	}
 }

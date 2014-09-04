@@ -54,4 +54,12 @@ public class GUITimerManagerScript : MonoBehaviour {
 			guiText.color = nonFlashingColor;
 		}
 	}
+	
+	public void StartCutscene(){
+		Debug.Log ("GUITimerManager.StartCutscene");
+	}
+	
+	public void EndCutscene(){
+		Debug.Log ("GUITimerManager.EndCutscene");
+	}
 }

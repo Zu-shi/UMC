@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TreeScene : MonoBehaviour {
-
-	public GUITimerManager guiTimerManager;
+public class StateManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

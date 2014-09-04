@@ -3,7 +3,11 @@ using System.Collections;
 
 public class Globals {
 
+	public static bool fixedHeightMode = false;
 	private static InputManagerScript _inputManager;
+	public static int STAGE_STARTING = 0;
+	public static int STAGE_ONE = 1;
+	public static int STAGE_TWO = 2;
 
 	public static InputManagerScript inputManager {
 		get{
@@ -13,13 +17,48 @@ public class Globals {
 		}
 	}
 	
-	private static HeightManagerScript _heightManager;
-	
-	public static HeightManagerScript heightManager {
+	private static TreeManagerScript _treeManager;
+	public static TreeManagerScript treeManager {
 		get{
-			if(_heightManager == null)
-				_heightManager = GameObject.Find("HeightManager").GetComponent<HeightManagerScript>();
-			return _heightManager;
+			if(_treeManager == null)
+				_treeManager = GameObject.Find("TreeManager").GetComponent<TreeManagerScript>();
+			return _treeManager;
+		}
+	}
+
+	private static GUITimerManagerScript _guiTimerManager;
+	public static GUITimerManagerScript guiTimerManager {
+		get{
+			if(_guiTimerManager == null)
+				_guiTimerManager = GameObject.Find("GUITimerManager").GetComponent<GUITimerManagerScript>();
+			return _guiTimerManager;
+		}
+	}
+
+	private static CameraManagerScript _cameraManager;
+	public static CameraManagerScript cameraManager {
+		get{
+			if(_cameraManager == null)
+				_cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManagerScript>();
+			return _cameraManager;
+		}
+	}
+
+	private static ShieldScript _shieldManager;
+	public static ShieldScript shieldManager {
+		get{
+			if(_shieldManager == null)
+				_shieldManager = GameObject.Find("ShieldManager").GetComponent<ShieldScript>();
+			return _shieldManager;
+		}
+	}
+
+	private static HazardManagerScript _hazardManager;
+	public static HazardManagerScript hazardManager {
+		get{
+			if(_hazardManager == null)
+				_hazardManager = GameObject.Find("HazardManager").GetComponent<HazardManagerScript>();
+			return _hazardManager;
 		}
 	}
 }

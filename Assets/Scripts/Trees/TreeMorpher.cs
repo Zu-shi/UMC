@@ -4,6 +4,7 @@ using System.Linq;
 
 public class TreeMorpher : _Mono {
 
+	/*
 	public TreeModel preMorph;
 	public TreeModel postMorph;
 	public TreeModel toMorph;
@@ -41,4 +42,5 @@ public class TreeMorpher : _Mono {
 			}
 		}
 	}
+	*/
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class TreeModel2 : TreeModel {
@@ -70,11 +70,11 @@ public class TreeModel2 : TreeModel {
 				t.angleCentral = tempA;
 				t.generation = generation + 1;
 				t.proportion = 0.05f;
-				t.relativeRoot = new Vector2( 0.5f, actualAge/maxAge );
+				t.relativeRoot = new Vector2( 0.5f, actualAge/targetAge );
 				t.seed = Random.Range(0, 10000);
 				t.doneGrowing = false;
 				t.myAngle = t.angleCentral + (angleCentral - t.angleCentral)/Mathf.Abs (angleCentral - t.angleCentral) * Random.Range(-5f, 5f);
-				t.maxAge = maxAge/(blooms + 1);
+				t.targetAge = targetAge/(blooms + 1);
 				t.myAnglePermanant = t.myAngle;
 				t.Orient();
 				//t.gameObject.transform.parent = this.gameObject.transform;
