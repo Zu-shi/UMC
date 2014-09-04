@@ -22,6 +22,10 @@ public class TreeGrowth : _Mono {
 	public Vector2 leftMostLifeIndicatorPos;
 	public float lifeSymbolOffset;
 
+	public float invincibleTimer;
+
+	public float invincibleOnHitTime;
+
 
 	// Use this for initialization
 	void Start () {
@@ -54,6 +58,9 @@ public class TreeGrowth : _Mono {
 		if(!stopped){
 			height += growthRate * speedModifier * Time.deltaTime;
 		}
+		if(invincibleTimer >= 0f){
+			invincibleTimer -= Time.deltaTime;
+		}
 		heightText.text = "Height: " + height;
 
 		UpdateLives ();
@@ -65,6 +72,33 @@ public class TreeGrowth : _Mono {
 			if(i > lastLifeIndex){
 				lifeSymbols[i].gameObject.SetActive(false);
 			}
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D col){
+		if (col.gameObject.tag == "RedHazard") {
+			if(invincibleTimer >= 0f){
+					int damage = col.gameObject.GetComponent<RedHazard> ().damage;
+					if (damage > lives) {
+							lives = 0;
+					} 
+					else {
+							lives -= damage;
+					}
+			}
+		}
+
+		else if(col.gameObject.tag == "BlueHazard"){
+			if(lives > 0 && invincibleTimer >= 0f){
+				lives--;
+			}
+			//Logic for freezing goes here
+		}
+		else if(col.gameObject.tag == "OrangeHazard"){
+			if(lives > 0 && invincibleTimer >= 0f){
+				lives--;
+			}
+			//Logic for slowing goes here
 		}
 	}
 }
