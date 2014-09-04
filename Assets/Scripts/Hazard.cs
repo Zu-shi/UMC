@@ -7,7 +7,14 @@ public abstract class Hazard : _Mono {
 	protected bool isStopped;
 	protected bool hasFinished;
 	protected bool isHarmful;
-	protected int damage;
+
+
+	public float fadeOutRate;
+
+	public void FadeOut(){
+		Stop ();
+		Destroy ();
+	}
 
 	public virtual void Start (){
 		hasStarted = true;
@@ -24,5 +31,12 @@ public abstract class Hazard : _Mono {
 		isStopped = true;
 	}
 
+	void OnCollisionEnter2D(Collision2D col){
+		print("Collision");
+
+		if(col.gameObject.tag == "Tree" || col.gameObject.tag == "Shield"){
+			FadeOut();
+		}
+	}
 
 }
