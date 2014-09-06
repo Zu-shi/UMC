@@ -32,10 +32,11 @@ public class TreeModel : _Mono {
 	public float myAnglePermanant { get; set; }
 	public TreeModel root { get; set; }
 	public TreeModel parent { get; set; }
-	public int growingSpeed { get; set; }
-	public float targetAge{ get{ return _targetAge; } set{ _targetAge = value; if (targetAge < age){ _age = targetAge; } } }
-	public float age{ get{ return _age; } set{ _age = value; if (targetAge < age){ _age = targetAge; } } }
-	public float totalHeight { get; set; }
+	public int highestGrowingSpeed { get; set; }
+    public float targetAge;
+    public float age;
+    public float totalHeight;
+    public float height;
 
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
@@ -43,7 +44,6 @@ public class TreeModel : _Mono {
 	protected float _targetAge;
 	protected bool stopGrowingAfterBranching{ get; set; } 
 	protected int maxGenerations{ get; set; }
-	protected float height{ get; set; }
 	protected float ageSinceLastBranch{ get; set;}
 	protected float actualAge{ get; set; }
 	protected float heightVariation{ get; set; }
@@ -51,7 +51,7 @@ public class TreeModel : _Mono {
 	protected bool growFoilage{ get; set; }
 	protected int foilGen{ get; set; }
 	protected float angleSway { get; set; }
-	protected float rotationTracker { get; set; }
+	public float rotationTracker { get; set; }
 	protected bool bloomed = false;
 	protected float givenHeight { get; set; }
 
@@ -61,8 +61,7 @@ public class TreeModel : _Mono {
 		growFoilage = true;
 		fastGrowth = false;
 
-		angleSway = 0f;
-		rotationTracker = 0f;
+		angleSway = 10f;
 
 		branches = new List<TreeModel> ();
 		allBranches = new List<TreeModel> ();
@@ -70,10 +69,11 @@ public class TreeModel : _Mono {
 		isAngled = true;
 		myAngle = 90f;
 		angleCentral = 90f;
+        myAnglePermanant = 90f;
 		symmetricGrowth = true;
 		symmetric = true;
 		proportion = 0.125f;
-		targetAge = 800f;
+		targetAge = 0f;
 		stopGrowingAfterBranching = true;
 		maxGenerations = 4;
 		height = 0f;
@@ -90,11 +90,10 @@ public class TreeModel : _Mono {
 		parent = null;
 		foilageXs = 1f;
 		foilageYs = 1f;
-		growingSpeed = 30;
+		highestGrowingSpeed = 30;
 
-		if (fastGrowth) { age = targetAge;}
-		heightVariation = Random.Range (0.6f, 1.2f);
-		heightVariation = Random.Range (0.9f, 1.0f);
+        if (fastGrowth) { age = targetAge;}
+        heightVariation = Random.Range (0.6f, 0.8f);
 
 		spriteRenderer.sprite = isAngled ? angledSprite : nonangledSprite;
 		Orient ();
@@ -113,67 +112,62 @@ public class TreeModel : _Mono {
 	} //Absolute placement of branches in pixels
 	
 	// Update is called once per frame
-	protected virtual void Update () {
+    protected virtual void Update () {
 
-		if(generation == 0){
-			//givenHeight = Globals.heightManager.height;
-			ReportHeight ();
+		if (generation == 0)
+        {
+            heightVariation = 1f;
+            //givenHeight = Globals.heightManager.height;
+            ReportHeight();
 
-			if(Globals.fixedHeightMode){
-				int loopBreakCounter = 0;
-				while( totalHeight < givenHeight && loopBreakCounter < growingSpeed){
-					StartGrowing ();
-					ReportHeight ();
-					loopBreakCounter += 1;
-				}
-			}else{
-				int loopBreakCounter = 0;
-				while( age < targetAge && loopBreakCounter < growingSpeed){
-					StartGrowing();
-					loopBreakCounter += 1;
-				}
-			}
+            if (Globals.fixedHeightMode)
+            {
+                int loopBreakCounter = 0;
+                while (totalHeight < givenHeight && loopBreakCounter < highestGrowingSpeed)
+                {
+                    StartGrowing();
+                    ReportHeight();
+                    loopBreakCounter += 1;
+                }
+            } else
+            {
+                int loopBreakCounter = 0;
+                while (age < targetAge && loopBreakCounter < highestGrowingSpeed)
+                {
+                    StartGrowing();
+                    loopBreakCounter += 1;
+                }
+            }
 
-			Orient();
+            Orient();
 
-			if(growFoilage){
-				CreateFoilage ();
-				PositionFoilage ();
-			}
-		}
-
+            if (growFoilage)
+            {
+                CreateFoilage();
+                PositionFoilage();
+            }
+        } else {
+            rotationTracker += Mathf.PI / 150f;
+            float myAngleTemp = myAnglePermanant + Mathf.Sin (rotationTracker) * angleSway;
+            myAngle = myAngleTemp;
+        }
+        
+        PositionBranches ();
 	}
 
 	//Recusive
-	protected virtual void StartGrowing() {			
-		if (generation == 0) {
-			//Debug.Log ("Age = " + age);
-			//Debug.Log ("targetAge = " + age);
-		}
-		
-		if (generation != 0) {
-			float myAngleTemp = myAnglePermanant + Mathf.Sin (rotationTracker) * angleSway;
-			myAngle = myAngleTemp;
-		}
-			
-		rotationTracker += Mathf.PI / 150f;
-		
+    //Only called for generation = 0;
+	protected virtual void StartGrowing() {
+		//Debug.Log ("Age = " + age);
+		//Debug.Log ("targetAge = " + age);
+
+        /*
 		if (!doneGrowing && (age < targetAge)) {
 			age += 1f;
-		}
-		
-		while (actualAge < age && !doneGrowing) {
-			Grow();
-		}
-		
-		if (generation == 0) {
-			PositionBranches ();
-		}
-		
-		Determineheight ();
+		}*/
 
-		foreach( TreeModel branch in branches ){
-			branch.StartGrowing ();
+        while ((age < targetAge) && !doneGrowing) {
+			Grow();
 		}
 	}
 	
@@ -211,20 +205,29 @@ public class TreeModel : _Mono {
 	//Grows the tree based on age of the tree
 	protected virtual void Grow(){
 		if (generation == 0) {
-			heightVariation = 1f;
+            heightVariation = 1f;
 		}
-		Random.seed = seed;
-		actualAge++;
+        Random.seed = seed;
+        Determineheight ();
+
+		age++;
 		ageSinceLastBranch++;
 		TryBranch();
+
+        foreach( TreeModel branch in branches ){
+            branch.Grow ();
+        }
 	}
 	
 	//Recusive
 	protected virtual void Orient(){
+
+        //Debug.Log ("Orient called. Height = " + height);
+
 		//Debug.Log ("Orient called.");
-		xs = proportion * height / SPRITE_WIDTH;
+        xs = proportion * height / SPRITE_WIDTH;
+        ys = height / SPRITE_HEIGHT;
 		//Debug.Log (proportion + "," + height + "," + SPRITE_WIDTH + "," + xs);
-		ys = height / SPRITE_HEIGHT;
 		angle = myAngle - 90;
 
 		foreach (TreeModel branch in branches) {
@@ -234,7 +237,10 @@ public class TreeModel : _Mono {
 
 	// Decides whether the tree will branch right now (Based on the age of the tree and the random number generator)
 	protected virtual bool WillBranch() {
-		float threshold = (generation == 0) ? 120f : 100f - generation * 10;
+		//float threshold = (generation == 0) ? 100f : 100f - generation * 10;
+        float threshold = (generation == 0) ? 45f : 100f - generation * 10;
+        //Debug.Log("age " + age);
+        //Debug.Log("ageSinceLastBranch" + ageSinceLastBranch);
 
 		if (ageSinceLastBranch > threshold && !doneGrowing) {
 			if(generation < maxGenerations && !bloomed){bloomed = true; return true;}
@@ -265,7 +271,8 @@ public class TreeModel : _Mono {
 				//t.Start();
 				t.angleCentral = tempA;
 				if(t.angleCentral != 90f)
-					t.angleCentral += (90f - t.angleCentral)/Mathf.Abs (90f - t.angleCentral) * Random.Range(-2f, 10f);
+                    t.angleCentral += (90f - t.angleCentral)/Mathf.Abs (90f - t.angleCentral) * Random.Range(-2f, 10f);
+                t.rotationTracker = Random.Range(0f, 180f);
 				t.generation = generation + 1;
 				t.proportion = proportion / 1.3f;
 				t.relativeRoot = new Vector2( 0.5f, 0.8f );
@@ -322,18 +329,19 @@ public class TreeModel : _Mono {
 	//Updates the branch positions based on relative root, and updates absolute root (recursive call)
 	protected virtual void PositionBranches() {
 		foreach (TreeModel branch in branches) {
-			if(branch.parent != null){
-				branch.absoluteRoot = branch.parent.GetRootPosition(branch.relativeRoot);
-			}
+			branch.absoluteRoot = branch.parent.GetRootPosition(branch.relativeRoot);
 
 			branch.PositionBranches();
-			//Debug.Log("Generation " + generation + " position branches called.");
+            //Debug.Log("Generation " + generation + " position branches called. Relative root y " + branch.relativeRoot.y);
+            //Debug.Log("Generation " + generation + " position branches called. Absolute root y " + branch.absoluteRoot.y);
+            //Debug.Log("Generation " + generation + " position branches called. y " + branch.y);
 		}
 	}
 
 	//Determines and sets the new height of the tree as a function of age and seed
 	protected virtual void Determineheight() {
-		height = Mathf.Min(actualAge, age) * heightVariation;
+        //Debug.Log("DetermineHeight called age = " + age + " hv = " + heightVariation);
+		height = age * heightVariation;
 	}
 	
 	//Determines and sets the new proportion of the tree as a function of age and seed

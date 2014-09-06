@@ -31,6 +31,7 @@ public class TreeModelPreMorph : TreeModel {
 				t.angleCentral = tempA;
 				if(t.angleCentral != 90f)
 					t.angleCentral += (90f - t.angleCentral)/Mathf.Abs (90f - t.angleCentral) * Random.Range(-2f, 10f);
+                t.rotationTracker = Random.Range(0f, 180f);
 				t.generation = generation + 1;
 				t.proportion = proportion / 1.3f;
 				t.relativeRoot = new Vector2( 0.5f, 0.8f );

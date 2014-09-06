@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Globals {
+public static class Globals {
 
 	public static bool fixedHeightMode = false;
 	private static InputManagerScript _inputManager;
-	public static int STAGE_STARTING = 0;
-	public static int STAGE_ONE = 1;
-	public static int STAGE_TWO = 2;
+	public const int STAGE_STARTING = 0;
+	public const int STAGE_ONE = 1;
+	public const int STAGE_TWO = 2;
 
 	public static InputManagerScript inputManager {
 		get{
@@ -17,6 +17,15 @@ public class Globals {
 		}
 	}
 	
+    private static StateManagerScript _stateManager;
+    public static StateManagerScript stateManager {
+        get{
+            if(_stateManager == null)
+                _stateManager = GameObject.Find("StateManager").GetComponent<StateManagerScript>();
+            return _stateManager;
+        }
+    }
+
 	private static TreeManagerScript _treeManager;
 	public static TreeManagerScript treeManager {
 		get{

@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class GUITimerManagerScript : MonoBehaviour {
-
+    
+    public bool inCutscene = true;
 	public int totalSeconds;
 	public int secondsToFlash;
 	public float flashesPerSecond;
@@ -57,9 +58,11 @@ public class GUITimerManagerScript : MonoBehaviour {
 	
 	public void StartCutscene(){
 		Debug.Log ("GUITimerManager.StartCutscene");
+        inCutscene = true;
 	}
 	
 	public void EndCutscene(){
 		Debug.Log ("GUITimerManager.EndCutscene");
+        inCutscene = false;
 	}
 }

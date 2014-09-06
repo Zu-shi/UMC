@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class TreeManagerScript : _Mono {
 
 	//Only these two variables should be exposed at all times.
 	public TreeModel mainTree { get; set; }
-	public float currentGrowthPercentage { get; set; }
-	public float targetGrowthPercentage { get; set; }
+    public float currentGrowthPercentage = 0f;
+    private float targetGrowthPercentage = 1.5f/7f;
+    public int seed;
+    public TreeModel[] morphingStagesPrefab;
+    public Vector2[] morphingRanges;
 
-	private float growthRate = 0.002f;
-	private bool inCutscene { get; set; }
+    private bool inCutscene = true;
 	private Vector2 stage1Range { get; set; }
 	private Vector2 stage2Range { get; set; }
-	private TreeModel[] morphingStagesPrefab;
-	private Vector2[] morphingRanges;
-	private int seed;
-	private float stage1Evaluation { get; set; }
-	private float stage2Evaluation { get; set; }
 	private float targetAge { get; set; }
 	private float maxAge { get; set; }
 	private List<TreeModel> morphingStages { get; set; }
 	private int morphingIndex = 0;
+    private float currentEvaluation = 0.3f;
+    private float stage1Evaluation = 0f;
+    private float stage2Evaluation = 0f;
+    private float stage3Evaluation = 0f;
+    private Sequence seq;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -29,15 +32,11 @@ public class TreeManagerScript : _Mono {
 
 		if (!Globals.fixedHeightMode) {
 
-			maxAge = 523f;
-			stage1Range = new Vector2 (0.222f, 0.444f);
-			stage2Range = new Vector2 (0.444f, 0.777f);
-			targetAge = maxAge * 0.222f;
+			maxAge = 400f;
+			stage1Range = new Vector2 (3/7f, 4/7f);
+			stage2Range = new Vector2 (4/7f, 7/7f);
 			stage1Evaluation = 0f;
 			stage2Evaluation = 0f;
-			currentGrowthPercentage = 0f;
-			targetGrowthPercentage = 0.111f;
-
 
 			morphingStages = new List<TreeModel> ();
 			Utils.Assert (morphingStagesPrefab != null, "Check morphingStagesPrefab not null.");
@@ -70,36 +69,92 @@ public class TreeManagerScript : _Mono {
 					previousTreeInstance = treeInstance;
 				}
 
-			}			
+			}
 		}
 	}
 	
-	protected virtual void Update () {
-		if (inCutscene) {
-			if (currentGrowthPercentage < targetGrowthPercentage) {
-				currentGrowthPercentage += growthRate;
-			}
-		}
-
-		mainTree.targetAge = maxAge * targetGrowthPercentage;
-
-		if (!Globals.fixedHeightMode) {
-			foreach(TreeModel tree in morphingStages){
-				tree.targetAge = targetAge;
-			}
-		}
-
+    protected virtual void Update () {
+        mainTree.targetAge = maxAge * currentGrowthPercentage;
+        foreach(TreeModel tree in morphingStages){
+            tree.targetAge = mainTree.targetAge;
+        }
 	}
 
-	private bool doneGrowing () {
+    private void EndGame(){
+
+    }
+
+	private bool DoneGrowing () {
 		return (currentGrowthPercentage >= targetGrowthPercentage);
 	}
 	
-	public void StartCutscene(){
-		Debug.Log ("TreeManager.StartCutscene");
+    public void StartGame(float duration){
+        Debug.Log ("TreeManager.StartGame");
+        inCutscene = true;
+        //mainTree.targetAge
+        Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, duration / 4 * 3);
+        t.Play();
+        //seq.Append(t);
+        //seq.Play();
+        //seq.AppendCallback(AppendCameraSequence);
+    }
+
+    public void StartCutscene(float duration){
+        Debug.Log ("TreeManager.StartCutscene");
+        inCutscene = true;
+
+        switch (Globals.stateManager.currentStage) {
+            case Globals.STAGE_ONE: {
+                stage1Evaluation = currentEvaluation; 
+                targetGrowthPercentage = stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x;
+                break;
+            }
+            case Globals.STAGE_TWO: {
+                EvaluateStage2(); 
+                targetGrowthPercentage = stage2Evaluation;
+                break;
+            }
+        }
+
+        seq = DOTween.Sequence();
+        seq.Append(DOTween.To( ()=>currentGrowthPercentage, x=> currentGrowthPercentage = x, targetGrowthPercentage, duration/2));
+        seq.AppendCallback(AppendCameraSequence);
 	}
+
+    private void AppendCameraSequence() {
+        Globals.cameraManager.appendSequence(mainTree.totalHeight);
+    }
 	
+    private void EvaluateStage2() {
+        stage2Evaluation = currentEvaluation * ((stage2Range.y - stage2Range.x) / 3 * 2) + 
+            stage2Range.x + 
+            stage1Evaluation * ((stage2Range.y - stage2Range.x) / 3);
+    }
+
 	public void EndCutscene(){
 		Debug.Log ("TreeManager.EndCutscene");
+        inCutscene = false;
 	}
+
+    
+    private void GrowTree(){
+        /*
+        if (currentGrowthPercentage < targetGrowthPercentage)
+        {
+            currentGrowthPercentage += growthRate;
+        } else
+        {
+            if(!appendedSequence){
+                Globals.cameraManager.appendSequence(mainTree.totalHeight);
+            }
+        }
+        
+        mainTree.targetAge = maxAge * targetGrowthPercentage;
+        if (!Globals.fixedHeightMode) {
+            foreach(TreeModel tree in morphingStages){
+                tree.targetAge = targetAge;
+            }
+        }
+        */
+    }
 }

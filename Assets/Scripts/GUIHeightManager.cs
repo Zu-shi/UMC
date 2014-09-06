@@ -18,6 +18,6 @@ public class GUIHeightManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//guiText.text = "Height: " + Mathf.Floor(Globals.height);
-	}
+        guiText.text = "Height: " + Mathf.Round(Camera.main.orthographicSize);
+    }
 }
