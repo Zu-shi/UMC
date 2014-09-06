@@ -35,7 +35,7 @@ public class TreeGrowth : _Mono {
 	
 	// Update is called once per frame
 	void Update () {
-		if(invincibleTimer >= 0f){
+		if(invincibleTimer > 0f){
 			invincibleTimer -= Time.deltaTime;
 		}
 
@@ -61,26 +61,29 @@ public class TreeGrowth : _Mono {
 	void OnTriggerEnter2D(Collider2D col){
         Debug.LogError("Collision");
 		if (col.gameObject.tag == "RedHazard") {
-			if(invincibleTimer >= 0f){
-					int damage = col.gameObject.GetComponent<RedHazard> ().damage;
-					if (damage > lives) {
-							lives = 0;
-					} 
-					else {
-							lives -= damage;
-					}
+			int damage = col.gameObject.GetComponent<RedHazard> ().damage;
+			if(invincibleTimer <= 0f){
+				if (damage > lives) {
+					lives = 0;
+				} 
+				else {
+					lives -= damage;
+					invincibleTimer += invincibleOnHitTime;
+				}
 			}
 		}
 
 		else if(col.gameObject.tag == "BlueHazard"){
-			if(lives > 0 && invincibleTimer >= 0f){
+			if(lives > 0 && invincibleTimer <= 0f){
 				lives--;
+				invincibleTimer += invincibleOnHitTime;
 			}
 			//Logic for freezing goes here
 		}
 		else if(col.gameObject.tag == "OrangeHazard"){
-			if(lives > 0 && invincibleTimer >= 0f){
+			if(lives > 0 && invincibleTimer <= 0f){
 				lives--;
+				invincibleTimer += invincibleOnHitTime;
 			}
 			//Logic for slowing goes here
 		}
