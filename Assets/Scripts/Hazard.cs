@@ -31,8 +31,8 @@ public abstract class Hazard : _Mono {
 		isStopped = true;
 	}
 
-	void OnCollisionEnter2D(Collision2D col){
-		print("Collision");
+    public void OnTriggerEnter2D(Collider2D col){
+		Debug.LogError("Collision");
 
 		if(col.gameObject.tag == "Tree" || col.gameObject.tag == "Shield"){
 			FadeOut();

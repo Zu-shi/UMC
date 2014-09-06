@@ -5,30 +5,22 @@ public class TreeGrowth : _Mono {
 
 	public int lives = 3;
 
-	public float height = 3f;
-
-	public float growthRate = .1f;
-
-	public GUIText heightText;
-
-	public bool stopped = false;
-
-	public float speedModifier = 1f;
-
 	public GameObject lifeIndicator;
+    
+    public Vector2 leftMostLifeIndicatorPos;
+    public float lifeSymbolOffset;
+    
+    public float invincibleTimer;
+    
+    public float invincibleOnHitTime;
 
 	private GameObject[] lifeSymbols;
-
-	public Vector2 leftMostLifeIndicatorPos;
-	public float lifeSymbolOffset;
-
-	public float invincibleTimer;
-
-	public float invincibleOnHitTime;
-
+    private BoxCollider2D col;
 
 	// Use this for initialization
 	void Start () {
+        col = GetComponent<BoxCollider2D>();
+        Utils.Assert(col != null);
 		DisplayLives ();
 	}
 
@@ -40,31 +32,22 @@ public class TreeGrowth : _Mono {
 			lifeSymbols[i] = Instantiate(lifeIndicator, pos, Quaternion.identity ) as GameObject;
 		}
 	}
-
-	void ChangeSpeed(float modifier){
-		speedModifier = modifier;
-	}
-
-	void Restart(){
-		stopped = false;
-	}
-
-	void Stop(){
-		stopped = true;
-	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(!stopped){
-			height += growthRate * speedModifier * Time.deltaTime;
-		}
 		if(invincibleTimer >= 0f){
 			invincibleTimer -= Time.deltaTime;
 		}
-		heightText.text = "Height: " + height;
 
 		UpdateLives ();
+        UpdateCollisionBox();
 	}
+
+    void UpdateCollisionBox(){
+        float csize = Globals.treeManager.mainTree.totalHeight;
+        col.center =  new Vector2(0,  csize / 2);
+        col.size = new Vector2(csize / 6, csize);
+    }
 
 	void UpdateLives(){
 		int lastLifeIndex = lives - 1;
@@ -75,7 +58,8 @@ public class TreeGrowth : _Mono {
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D col){
+	void OnTriggerEnter2D(Collider2D col){
+        Debug.LogError("Collision");
 		if (col.gameObject.tag == "RedHazard") {
 			if(invincibleTimer >= 0f){
 					int damage = col.gameObject.GetComponent<RedHazard> ().damage;

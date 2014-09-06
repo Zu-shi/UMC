@@ -4,8 +4,6 @@ using System.Collections;
 
 //Blue hazards pause growth
 public class BlueHazard : Hazard {
-
-	public GameObject targetTree;
 	
 	public float speed;
 	
@@ -28,7 +26,15 @@ public class BlueHazard : Hazard {
 	void Update () {
 		if(!isStopped && !hasFinished){
 			float step = speed * Time.deltaTime;
-			transform.position = Vector3.MoveTowards(transform.position, targetTree.transform.position, step);
+            Vector3 cameraPos = Camera.main.transform.position;
+			transform.position = Vector3.MoveTowards(transform.position, 
+                 cameraPos - new Vector3(0f, Camera.main.orthographicSize / 4, 0f) , step);
 		}
+
 	}
+
+    /*
+    void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("Trigger entered");
+    }*/
 }
