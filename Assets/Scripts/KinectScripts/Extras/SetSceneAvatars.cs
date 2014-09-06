@@ -16,9 +16,10 @@ public class SetSceneAvatars : MonoBehaviour
 			
 			foreach(AvatarController avatar in avatars)
 			{
-				manager.avatarControllers.Add(avatar);
+				manager.Player1Avatars.Add(avatar.gameObject);
 			}
 			
+			manager.SetAvatarControllers();
 		}
 	}
 	

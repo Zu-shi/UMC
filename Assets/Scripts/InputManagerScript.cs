@@ -5,6 +5,19 @@ public class InputManagerScript : MonoBehaviour {
 
 	public float inputX{ get; set;}
 	public float inputY{ get; set;}
+	public bool mouseMode;
+	public KinectManager kinectManagerPrefab;
+	private KinectManager kinectManager;
+	
+	// Use this for initialization
+	void Start () {
+		inputX = 0;
+		inputY = 0;
+		if(!mouseMode){
+			kinectManager = Object.Instantiate(kinectManagerPrefab, Vector3.zero, Quaternion.identity) as KinectManager;
+		}
+	}
+
 	public Vector2 inputPos {
 		set {
 			inputX = value.x;
@@ -14,13 +27,6 @@ public class InputManagerScript : MonoBehaviour {
 			return new Vector2(inputX, inputY);
 		}
 	}
-	public bool mouseMode;
-
-	// Use this for initialization
-	void Start () {
-		inputX = 0;
-		inputY = 0;
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,8 +34,11 @@ public class InputManagerScript : MonoBehaviour {
 			inputX = Camera.main.ScreenToWorldPoint (Input.mousePosition).x;
 			inputY = Camera.main.ScreenToWorldPoint (Input.mousePosition).y;
 		} else {
+			inputX = kinectManager.HandCursor1.x;
+			inputY = kinectManager.HandCursor1.y;
 			// Kinect controls to be implemented.
 		}
 
+		//Debug.Log ("inputX = " + inputX + " inputY = " + inputY);
 	}
 }
