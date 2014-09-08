@@ -28,6 +28,6 @@ public class RedHazard : Hazard {
 		if(!isStopped && !hasFinished){
 			float step = speed * Time.deltaTime;
 			transform.position = Vector3.MoveTowards(transform.position, targetTree.transform.position, step);
-		}
+        }
 	}
 }

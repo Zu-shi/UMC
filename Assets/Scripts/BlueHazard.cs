@@ -29,12 +29,13 @@ public class BlueHazard : Hazard {
             Vector3 cameraPos = Camera.main.transform.position;
 			transform.position = Vector3.MoveTowards(transform.position, 
                  cameraPos - new Vector3(0f, Camera.main.orthographicSize / 4, 0f) , step);
+            z = 0f;
 		}
 
 	}
 
-    /*
-    void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Trigger entered");
-    }*/
+
+    void OnTriggerEnter(Collider other) {
+        Debug.Log("BlueHazard Collision");
+    }
 }

@@ -15,11 +15,11 @@ public class TreeGrowth : _Mono {
     public float invincibleOnHitTime;
 
 	private GameObject[] lifeSymbols;
-    private BoxCollider2D col;
+    private BoxCollider col;
 
 	// Use this for initialization
 	void Start () {
-        col = GetComponent<BoxCollider2D>();
+        col = GetComponent<BoxCollider>();
         Utils.Assert(col != null);
 		DisplayLives ();
 	}
@@ -45,8 +45,8 @@ public class TreeGrowth : _Mono {
 
     void UpdateCollisionBox(){
         float csize = Globals.treeManager.mainTree.totalHeight;
-        col.center =  new Vector2(0,  csize / 2);
-        col.size = new Vector2(csize / 6, csize);
+        col.center =  new Vector3(0f,  csize / 2, 0f);
+        col.size = new Vector3(csize / 6, csize, 1000f);
     }
 
 	void UpdateLives(){
@@ -58,8 +58,9 @@ public class TreeGrowth : _Mono {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col){
-        Debug.LogError("Collision");
+
+	void OnTriggerEnter(Collider col){
+        Debug.Log("Trigger");
 		if (col.gameObject.tag == "RedHazard") {
 			int damage = col.gameObject.GetComponent<RedHazard> ().damage;
 			if(invincibleTimer <= 0f){
@@ -80,6 +81,7 @@ public class TreeGrowth : _Mono {
 			}
 			//Logic for freezing goes here
 		}
+
 		else if(col.gameObject.tag == "OrangeHazard"){
 			if(lives > 0 && invincibleTimer <= 0f){
 				lives--;

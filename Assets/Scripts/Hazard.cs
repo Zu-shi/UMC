@@ -13,7 +13,7 @@ public abstract class Hazard : _Mono {
 
 	public void FadeOut(){
 		Stop ();
-		Destroy ();
+		//Destroy ();
 	}
 
 	public virtual void Start (){
@@ -31,7 +31,7 @@ public abstract class Hazard : _Mono {
 		isStopped = true;
 	}
 
-    public void OnTriggerEnter2D(Collider2D col){
+    void OnTriggerEnter2D(Collider2D col){
 		Debug.LogError("Collision");
 
 		if(col.gameObject.tag == "Tree" || col.gameObject.tag == "Shield"){

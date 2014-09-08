@@ -39,6 +39,9 @@ public class InputManagerScript : MonoBehaviour {
 			// Kinect controls to be implemented.
 		}
 
+        if (Input.GetKeyDown (KeyCode.Return)) {  
+            Application.LoadLevel (0);  
+        }  
 		//Debug.Log ("inputX = " + inputX + " inputY = " + inputY);
 	}
 }
