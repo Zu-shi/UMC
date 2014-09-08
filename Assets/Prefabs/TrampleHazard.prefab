@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d10f3fe66b5e0a48934d38b9d771611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeOutRate: .5
   targetTree: {fileID: 0}
   speed: 750
   slowFactor: .5
