@@ -4,10 +4,6 @@ using System.Collections;
 //Orange Hazards slow growth
 public class OrangeHazard : Hazard {
 
-	public GameObject targetTree;
-
-	public float speed;
-
 	public float slowFactor;
 
 	// Use this for initialization
@@ -23,11 +19,4 @@ public class OrangeHazard : Hazard {
 		base.Finish ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if(!isStopped && !hasFinished){
-			float step = speed * Time.deltaTime;
-			transform.position = Vector3.MoveTowards(transform.position, targetTree.transform.position, step);
-		}
-	}
 }

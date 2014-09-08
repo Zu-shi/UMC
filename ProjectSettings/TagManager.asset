@@ -5,6 +5,9 @@ TagManager:
   tags:
   - Tree
   - Shield
+  - RedHazard
+  - BlueHazard
+  - OrangeHazard
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -42,4 +45,8 @@ TagManager:
   - name: Default
     userID: 0
     uniqueID: 0
+    locked: 0
+  - name: Hazards
+    userID: 1
+    uniqueID: 2261379553
     locked: 0
