@@ -12,13 +12,14 @@ public class TreeManagerScript : _Mono {
     public int seed;
     public TreeModel[] morphingStagesPrefab;
     public Vector2[] morphingRanges;
+    public Vector2 treePos = Vector2.zero;
 
     private bool inCutscene = true;
 	private Vector2 stage1Range { get; set; }
 	private Vector2 stage2Range { get; set; }
 	private float targetAge { get; set; }
 	private float maxAge { get; set; }
-	private List<TreeModel> morphingStages { get; set; }
+	public List<TreeModel> morphingStages { get; set; }
 	private int morphingIndex = 0;
     private float currentEvaluation = 0.3f;
     private float stage1Evaluation = 0f;
@@ -43,7 +44,7 @@ public class TreeManagerScript : _Mono {
 			Utils.Assert (morphingStagesPrefab.Length != 0, "Check morphingStagesPrefab not empty.");
 			if (!Globals.fixedHeightMode) {
 
-				mainTree = Instantiate(morphingStagesPrefab[0], Vector3.zero, Quaternion.identity) as TreeModel;
+                mainTree = Instantiate(morphingStagesPrefab[0], treePos, Quaternion.identity) as TreeModel;
 				mainTree.seed = seed;
 
 				TreeModel treeInstance = null;

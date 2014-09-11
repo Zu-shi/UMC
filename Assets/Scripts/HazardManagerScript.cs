@@ -26,9 +26,20 @@ public class HazardManagerScript : MonoBehaviour {
 
     private HazardEnum[] firstStageHazards = {HazardEnum.BLIZZARD, HazardEnum.TRAMPLE, HazardEnum.BUG};
     private HazardEnum[] secondStageHazards = {HazardEnum.LIGHTNING, HazardEnum.HEAVY_WIND, HazardEnum.SWARM_OF_BUGS};
+    private GameObject[] firstStageHazardsPrefab = new GameObject[3];
+    private GameObject[] secondStageHazardsPrefab = new GameObject[3];
 
 	// Use this for initialization
 	void Start () {
+        firstStageHazardsPrefab[0] = blizzardPrefab;
+        firstStageHazardsPrefab[1] = bugPrefab;
+        firstStageHazardsPrefab[2] = tramplePrefab;
+        
+        secondStageHazardsPrefab[0] = lightningPrefab;
+        secondStageHazardsPrefab[1] = heavyWindPrefab;
+        secondStageHazardsPrefab[2] = swarmOfBugsPrefab;
+
+
         float initialSecondsPerHazard = 2f;
         float finalSecondsPerHazard = 0.4f;
         secondsPerHazard = initialSecondsPerHazard;
@@ -56,7 +67,9 @@ public class HazardManagerScript : MonoBehaviour {
 				hazardEntries.Remove(toCall);
                 switch(Globals.stateManager.currentStage){
                     case(Globals.STAGE_ONE):{
-                        HazardEnum next = firstStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
+                        int section = Random.Range(0, 3);
+                        HazardEnum next = firstStageHazards[section];
+                        Instantiate(firstStageHazardsPrefab[section], Vector3.zero, Quaternion.identity);
 
                         //Do not have the same 3 hazards in a row.
                         while(next == previousHazard && next == previousPreviousHazard){
@@ -67,7 +80,9 @@ public class HazardManagerScript : MonoBehaviour {
                         break;
                     }
                     case(Globals.STAGE_TWO):{
-                        HazardEnum next = secondStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
+                        int section = Random.Range(0, 3);
+                        HazardEnum next = secondStageHazards[section];
+                        Instantiate(secondStageHazardsPrefab[section], Vector3.zero, Quaternion.identity);
                         
                         //Do not have the same 3 hazards in a row.
                         while(next == previousHazard && next == previousPreviousHazard){

@@ -8,34 +8,65 @@ public abstract class Hazard : _Mono {
 	protected bool isStopped;
 	protected bool hasFinished;
     protected bool isHarmful;
+    protected bool isFading;
 
-    public float speed = 250f;
+    [Tooltip("Speed in terms of half-cameras per second")]
+    public float speed = 1f;
+    
+    [Tooltip("Time it takes to reach the player at the starting point")]
+    public float time = 3f;
+
+    [Tooltip("Starting angle from vertically up.")]
+    public float[] startingAngle;
+
 	public float fadeOutTime = 1f;
+
+    public virtual void Start(){
+        hasStarted = true;
+        isStopped = false;
+        hasFinished = false;
+        isHarmful = true;
+
+        float angle = Utils.RandomFromArray<float>(startingAngle);
+
+        Vector3 cameraPos = Camera.main.transform.position;
+        y = cameraPos.y - Camera.main.orthographicSize / 4;
+        x = Globals.treeManager.treePos.x;
+
+        x = ( x + Mathf.Cos( 90f + angle) * speed * Camera.main.orthographicSize * time);
+        y = ( y + Mathf.Sin( 90f + angle) * speed * Camera.main.orthographicSize * time);
+    }
 
     public virtual void Update(){
         if(!isStopped && !hasFinished){
-            float step = speed * Time.deltaTime;
+            float step = speed * Time.deltaTime * Camera.main.orthographicSize;
             Vector3 cameraPos = Camera.main.transform.position;
             transform.position = Vector3.MoveTowards(transform.position, 
                                                      cameraPos - new Vector3(0f, Camera.main.orthographicSize / 4, 0f) , step);
             z = 0f;
         }
+
+        if(Globals.stateManager.inCutscene && !isFading){
+            FadeOut();
+        }
     }
 
 	public void FadeOut(){
-		Stop ();
+        if (!isFading)
+        {
+            isFading = true;
+            Stop();
 
-        Sequence sq = DOTween.Sequence();
-        sq.Append( DOTween.To(()=> alpha, x=> alpha = x, 0f, fadeOutTime) );
-        sq.AppendCallback( Destroy );
+            Sequence sq = DOTween.Sequence();
+            sq.Append(DOTween.To(() => alpha, x => alpha = x, 0f, fadeOutTime));
+            //sq.AppendCallback( Kill );
+            sq.onComplete = Kill;
+        }
 	}
 
-	public virtual void Start (){
-		hasStarted = true;
-		isStopped = false;
-		hasFinished = false;
-		isHarmful = true;
-	}
+    public virtual void Kill(){
+        Destroy(this.gameObject);
+    }
 
 	public virtual void Finish(){
 		hasFinished = true;
@@ -44,13 +75,11 @@ public abstract class Hazard : _Mono {
 	public virtual void Stop(){
 		isStopped = true;
 	}
-
-    void OnTriggerEnter2D(Collider2D col){
-		Debug.LogError("Collision");
-
-		if(col.gameObject.tag == "Tree" || col.gameObject.tag == "Shield"){
-			FadeOut();
-		}
-	}
-
+    
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Tree" || other.gameObject.tag == "Shield")
+        {
+            FadeOut();
+        }
+    }
 }

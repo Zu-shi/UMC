@@ -5,11 +5,11 @@ public class StateManagerScript : MonoBehaviour {
 
 	public int currentStage { get; set; }
 	public const float secondsPerCutscene = 6f;
+	public bool inCutscene = true;
 
-	private bool inCutscene = true;
 	private int totalSeconds;
-	private int secondsForFirtstPart = 3;
-	private int secondsForSecondPart = 60;
+	private int secondsForFirtstPart = 30;
+	private int secondsForSecondPart = 3;
 	private float secondTracker; //Keeps track of amount of time passed since last second.
 	private GUITimerManagerScript guiTimerManager;
 	private TreeManagerScript treeManager;
@@ -85,8 +85,8 @@ public class StateManagerScript : MonoBehaviour {
 
 		currentStage += 1;
 		switch (currentStage) {
-		case Globals.STAGE_ONE: {totalSeconds = secondsForFirtstPart; break;}
-		case Globals.STAGE_TWO: {totalSeconds = secondsForSecondPart; break;}
+    		case Globals.STAGE_ONE: {totalSeconds = secondsForFirtstPart; break;}
+	    	case Globals.STAGE_TWO: {totalSeconds = secondsForSecondPart; break;}
 		}
 
 	}

@@ -136,7 +136,4 @@ public class _Mono : MonoBehaviour {
 		Destroy (this.gameObject);
 	}
 
-
-
-
 }

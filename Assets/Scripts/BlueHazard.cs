@@ -23,8 +23,4 @@ public class BlueHazard : Hazard {
         base.Update();
         angle = angle + 2f;
     }
-
-    void OnTriggerEnter(Collider other) {
-        base.FadeOut();
-    }
 }

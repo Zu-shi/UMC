@@ -70,4 +70,20 @@ public static class Globals {
 			return _hazardManager;
 		}
 	}
+
+    public static void RestartTreeScene(bool keepTrees){
+        GameObject treeScene = GameObject.Find("TreeScene");
+        GameObject treeSceneNew = GameObject.Instantiate(treeScene, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+        Object.DestroyImmediate(treeScene, true);
+        treeSceneNew.name = "TreeScene";
+
+        _hazardManager = GameObject.Find("HazardManager").GetComponent<HazardManagerScript>();
+        _shieldManager = GameObject.Find("ShieldManager").GetComponent<ShieldScript>();
+        _cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManagerScript>();
+        _guiTimerManager = GameObject.Find("GUITimerManager").GetComponent<GUITimerManagerScript>();
+        _stateManager = GameObject.Find("StateManager").GetComponent<StateManagerScript>();
+        _treeManager = GameObject.Find("TreeManager").GetComponent<TreeManagerScript>();
+        //_treeManager.mainTree.x = -100f + Random.Range(0f, 200f);
+        _treeManager.treePos = new Vector2(-100f + Random.Range(0f, 200f), 0);
+    }
 }

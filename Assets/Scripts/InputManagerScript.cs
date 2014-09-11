@@ -40,7 +40,8 @@ public class InputManagerScript : MonoBehaviour {
 		}
 
         if (Input.GetKeyDown (KeyCode.Return)) {  
-            Application.LoadLevel (0);  
+            //Application.LoadLevel (0);
+            Globals.RestartTreeScene(false);
         }  
 		//Debug.Log ("inputX = " + inputX + " inputY = " + inputY);
 	}

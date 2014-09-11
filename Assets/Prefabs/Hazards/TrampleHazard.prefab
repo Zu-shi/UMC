@@ -12,7 +12,7 @@ GameObject:
   - 60: {fileID: 6000000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: BugHazard
+  m_Name: TrampleHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -41,14 +41,53 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_Poly:
     m_Paths:
-    - - {x: -5.5, y: 6.5}
-      - {x: -8.5, y: 4.5}
-      - {x: -8.5, y: -4.5}
-      - {x: -3.5, y: -5.5}
-      - {x: 7.5, y: -5.5}
-      - {x: 9.5, y: -2.5}
-      - {x: 9.5, y: 3.5}
-      - {x: 7.5, y: 6.5}
+    - - {x: 117, y: -137}
+      - {x: 117, y: -120}
+      - {x: 112, y: -108}
+      - {x: 108, y: -104}
+      - {x: 99, y: -100}
+      - {x: 65, y: -98}
+      - {x: 40, y: -86}
+      - {x: 24, y: -70}
+      - {x: 11, y: -22}
+      - {x: 12, y: 8}
+      - {x: 30, y: 139}
+      - {x: 32, y: 151}
+      - {x: 17, y: 161}
+      - {x: -9, y: 163}
+      - {x: -47, y: 166}
+      - {x: -98, y: 166}
+      - {x: -104, y: 162}
+      - {x: -109, y: 156}
+      - {x: -109, y: 143}
+      - {x: -108, y: 142}
+      - {x: -108, y: 40}
+      - {x: -107, y: 24}
+      - {x: -105, y: 4}
+      - {x: -103, y: -13}
+      - {x: -97, y: -50}
+      - {x: -96, y: -86}
+      - {x: -98, y: -86}
+      - {x: -104, y: -116}
+      - {x: -103, y: -124}
+      - {x: -100, y: -133}
+      - {x: -94, y: -139}
+      - {x: -95, y: -156}
+      - {x: -84, y: -163}
+      - {x: -63, y: -164}
+      - {x: -56, y: -164}
+      - {x: -41, y: -163}
+      - {x: -35, y: -159}
+      - {x: -28, y: -148}
+      - {x: 1, y: -151}
+      - {x: 6, y: -157}
+      - {x: 26, y: -164}
+      - {x: 37, y: -163}
+      - {x: 45, y: -164}
+      - {x: 64, y: -164}
+      - {x: 79, y: -161}
+      - {x: 86, y: -156}
+      - {x: 99, y: -154}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,12 +96,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77a001769158cad4c91497e5bff2189a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d10f3fe66b5e0a48934d38b9d771611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTree: {fileID: 0}
-  speed: 750
-  damage: 2
+  speed: 1
+  time: 3
+  startingAngle:
+  - 0
+  fadeOutTime: 1
+  spawningLocations: []
+  slowFactor: .5
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -83,7 +126,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 343b89b1501c940a590702e78a12d701, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 53ec158152892434395d8356e0f34814, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
