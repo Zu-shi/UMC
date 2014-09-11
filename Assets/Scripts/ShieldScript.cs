@@ -43,7 +43,20 @@ public class ShieldScript : _Mono {
 		}
 		shield.transform.position = new Vector3 (xPos, yPos, shield.transform.position.z);
 
-        //Debug.Log("x = " + xPos + " y = " + yPos);
+		UpdateRotation (xPos);
+		
+	}
+
+	void UpdateRotation(float xCoord){
+
+		shield.angle = 60 * Mathf.Atan(getDerivative (xCoord));
+
+	}
+
+	float getDerivative(float xCoord){
+
+		return (2 * GetCoeff ()) * xCoord;
+	
 	}
 
 	float GetYCoord(float xCoord){
