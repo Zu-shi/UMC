@@ -16,10 +16,14 @@ public class TreeManagerScript : _Mono {
     public TreeModel mainTree { get; set; }
     public int secondsForFirtstPart{get; set;}
     public int secondsForSecondPart{get; set;}
+    public int secondsForThirdPart{get; set;}
     public List<TreeModel> morphingStages { get; set; }
     
+    private float stage1performance = 1f;
+    private float stage2performance = 1f;
     private bool isGameOver = false;
     private float targetGrowthPercentage = 1.5f/7f;
+    private float secondsSurvivedInStage3 = 0f;
     private float secondsSurvivedInStage2 = 0f;
     private float secondsSurvivedInStage1 = 0f;
     private int stage2HazardCount;
@@ -29,11 +33,12 @@ public class TreeManagerScript : _Mono {
 	private Vector2 stage2Range { get; set; }
 	private float targetAge { get; set; }
 	private float maxAge { get; set; }
-	private int morphingIndex = 0;
-    private float stage1Evaluation = 1f;
-    private float stage2Evaluation = 1f;
-    private float stage3Evaluation = 0f;
+    private float stage1Evaluation;
+    private float stage2Evaluation;
     private Sequence seq;
+    private bool monitorForFruits = false;
+    private int fruitCachedNumbers = 0;  //Tracks changes in fruitTweenedNumebers
+    private int fruitTweenedNumbers = 0;  //Is tweened to create cool effects in fruit intervals.
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -86,9 +91,14 @@ public class TreeManagerScript : _Mono {
         
         switch (Globals.stateManager.currentStage) {
             case Globals.STAGE_ONE: {
-                currentEvaluation -= 0.2f;
+                stage1performance -= 0.1f;
                 break;
             }
+            case Globals.STAGE_TWO: {
+                stage2performance -= 0.1f;
+                break;
+            }
+            //Stage three does not need a penalty for getting hit.
         }
 
     }
@@ -99,11 +109,21 @@ public class TreeManagerScript : _Mono {
             tree.targetAge = mainTree.targetAge;
         }
 
+        if(monitorForFruits){
+            if(fruitTweenedNumbers > fruitCachedNumbers) {
+                if(fruitCachedNumbers < fruitTweenedNumbers - 1){Debug.Log("At least the " + fruitCachedNumbers+ "th fruit was skipped.");}
+                fruitCachedNumbers = fruitTweenedNumbers;
+                mainTree.GrowFruit();
+            }
+        }
+
         if(!isGameOver && !inCutscene){
             if(!inCutscene && Globals.stateManager.currentStage == Globals.STAGE_TWO){
                 secondsSurvivedInStage2 += Time.deltaTime;
             }else if(!inCutscene && Globals.stateManager.currentStage == Globals.STAGE_ONE){
                 secondsSurvivedInStage1 += Time.deltaTime;
+            }else if(!inCutscene && Globals.stateManager.currentStage == Globals.STAGE_THREE){
+                secondsSurvivedInStage3 += Time.deltaTime;
             }
         }
 	}
@@ -112,15 +132,20 @@ public class TreeManagerScript : _Mono {
 		return (currentGrowthPercentage >= targetGrowthPercentage);
 	}
 	
+    public float GetCutsceneTime(){
+        if(Globals.stateManager.currentStage == Globals.STAGE_THREE){
+            //Can implement fruit appears slower and slower 
+            return Mathf.Floor(secondsSurvivedInStage3)/4 + 4;
+        }else{
+            return StateManagerScript.secondsPerCutscene;
+        }
+    }
+
     public void GameStart(float duration){
         Debug.Log ("TreeManager.StartGame");
         inCutscene = true;
-        //mainTree.targetAge
         Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, duration / 4 * 3);
         t.Play();
-        //seq.Append(t);
-        //seq.Play();
-        //seq.AppendCallback(AppendCameraSequence);
     }
 
     public void CutsceneStart(float duration){
@@ -131,7 +156,7 @@ public class TreeManagerScript : _Mono {
         switch (Globals.stateManager.currentStage) {
             case Globals.STAGE_ONE: {
                 stage1Evaluation = currentEvaluation; 
-                targetGrowthPercentage = stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x;
+                targetGrowthPercentage = (stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x) * stage1performance;
                 break;
             }
             case Globals.STAGE_TWO: {
@@ -139,19 +164,33 @@ public class TreeManagerScript : _Mono {
                 targetGrowthPercentage = stage2Evaluation;
                 break;
             }
+            case Globals.STAGE_THREE: {
+                break;
+            }
         }
 
+        //This code is not necessary for part 3.
         seq = DOTween.Sequence();
         seq.Append(DOTween.To( ()=>currentGrowthPercentage, x=> currentGrowthPercentage = x, targetGrowthPercentage, duration/2));
         seq.AppendCallback(AppendCameraSequence);
 	}
+
+    public void StartGrowFruitsSequence(){
+        monitorForFruits = true;
+
+        seq = DOTween.Sequence();
+        seq.AppendInterval(2f);
+        seq.Append(DOTween.To( ()=>fruitTweenedNumbers, x=> fruitTweenedNumbers = x, 
+                              Mathf.FloorToInt(secondsSurvivedInStage3), secondsSurvivedInStage3/4));
+        seq.AppendInterval(2f);
+    }
 
     public void GameOver(float duration){
         isGameOver = true;
         switch (Globals.stateManager.currentStage) {
             case Globals.STAGE_ONE: {
                 stage1Evaluation = secondsSurvivedInStage1/Globals.stateManager.secondsForFirtstPart; 
-                targetGrowthPercentage = stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x;
+                targetGrowthPercentage = (stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x) * stage1performance;
                 break;
             }
             case Globals.STAGE_TWO: {
@@ -160,14 +199,18 @@ public class TreeManagerScript : _Mono {
                 targetGrowthPercentage = stage2Evaluation;
                 break;
             }
+            case Globals.STAGE_THREE: {
+                StartGrowFruitsSequence();
+                break;
+            }
         }
-        
+
+        //Not use in stage 3
         Debug.Log("TGP = " + targetGrowthPercentage);
         targetGrowthPercentage = Mathf.Clamp(targetGrowthPercentage, 0f, 1f);
         seq = DOTween.Sequence();
         seq.Append(DOTween.To( ()=>currentGrowthPercentage, x=> currentGrowthPercentage = x, targetGrowthPercentage, duration/2));
         seq.AppendCallback(AppendCameraSequence);
-
     }
 
     private void AppendCameraSequence() {
@@ -178,17 +221,13 @@ public class TreeManagerScript : _Mono {
         stage2Evaluation = currentEvaluation * ((stage2Range.y - stage2Range.x) / 3 * 2) + 
         stage2Range.x + 
         stage1Evaluation * ((stage2Range.y - stage2Range.x) / 3);
+        stage2Evaluation *= stage2performance;
     }
 
 	public void CutsceneEnd(){
 		Debug.Log ("TreeManager.EndCutscene");
         inCutscene = false;
 	}
-
-    public void DestroyTree(TreeModel t){
-        //morphingStages.Remove(t);
-        //Destroy(t);
-    }
 
     public void OnDestory() {
         Debug.Log("Treemanager.ondestory()");

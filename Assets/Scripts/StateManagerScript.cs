@@ -4,7 +4,7 @@ using System.Collections;
 public class StateManagerScript : MonoBehaviour {
 
 	public int currentStage { get; set; }
-	public const float secondsPerCutscene = 6f;
+	public const float secondsPerCutscene = 4f;
 	public bool inCutscene = true;
     public int lives {get; set;}
 
@@ -12,6 +12,7 @@ public class StateManagerScript : MonoBehaviour {
 	private int totalSeconds;
     public int secondsForFirtstPart{get; set;}
     public int secondsForSecondPart{get; set;}
+    public int secondsForThirdPart{get; set;}
 	private float secondTracker; //Keeps track of amount of time passed since last second.
 	private GUITimerManagerScript guiTimerManager;
 	private TreeManagerScript treeManager;
@@ -20,8 +21,9 @@ public class StateManagerScript : MonoBehaviour {
 	private HazardManagerScript hazardManager;
 
 	public void Start(){
-        secondsForFirtstPart = 30;
-        secondsForSecondPart = 500;
+        secondsForFirtstPart = 1;
+        secondsForSecondPart = 1;
+        secondsForThirdPart = 60;
 
         currentStage = Globals.STAGE_STARTING;
 		guiTimerManager = Globals.guiTimerManager;
@@ -65,13 +67,13 @@ public class StateManagerScript : MonoBehaviour {
 
     private void GameOver() {
         if(!isGameOver){
-            float time = secondsPerCutscene;
+            float time = (currentStage == Globals.STAGE_THREE) ? Globals.treeManager.GetCutsceneTime() : secondsPerCutscene;
             isGameOver = true;
             guiTimerManager.GameOver ();
             hazardManager.GameOver ();
             cameraManager.GameOver (time);
             treeManager.GameOver(time);
-            Invoke("ShowGameOverGUI", secondsPerCutscene - 2f);
+            Invoke("ShowGameOverGUI", time - 2f);
         }
         //treeManager.GameOver(time);
 
@@ -116,7 +118,8 @@ public class StateManagerScript : MonoBehaviour {
 		currentStage += 1;
 		switch (currentStage) {
     		case Globals.STAGE_ONE: {totalSeconds = secondsForFirtstPart; break;}
-	    	case Globals.STAGE_TWO: {totalSeconds = secondsForSecondPart; break;}
+            case Globals.STAGE_TWO: {totalSeconds = secondsForSecondPart; break;}
+            case Globals.STAGE_THREE: {totalSeconds = secondsForThirdPart; break;}
 		}
 
 	}

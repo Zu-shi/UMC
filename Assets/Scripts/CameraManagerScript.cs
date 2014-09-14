@@ -84,12 +84,20 @@ public class CameraManagerScript : _Mono {
 	
     public void GameOver(float duration){
         isGameOver = true;
-        
-        durationCache = duration;
-        cutscene = DOTween.Sequence();
-        cutscene.Append( DOTween.To(()=> height, x=> height = x, nextCutsceneHeight, duration/6) );
-        cutscene.AppendInterval(duration / 3 * 2);
-        cutscene.Play();
+
+        if(Globals.stateManager.currentStage != Globals.STAGE_THREE){
+            durationCache = duration;
+            cutscene = DOTween.Sequence();
+            cutscene.Append( DOTween.To(()=> height, x=> height = x, nextCutsceneHeight, duration/6) );
+            cutscene.AppendInterval(duration / 3 * 2);
+            cutscene.Play();
+        }else{
+            float currentHeightTemp = height;
+            cutscene.Append( DOTween.To(()=> height, x=> height = x, Globals.treeManager.mainTree.totalHeight/1.5f, duration/6) );
+            cutscene.AppendInterval(duration / 3 * 2);
+            cutscene.Append( DOTween.To(()=> height, x=> height = x, currentHeightTemp, duration/6) );
+            cutscene.Play();
+        }
     }
 
 	public void CutsceneEnd(){

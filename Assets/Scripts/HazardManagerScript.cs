@@ -24,11 +24,17 @@ public class HazardManagerScript : MonoBehaviour {
     public GameObject lightningPrefab;
     public GameObject heavyWindPrefab;
     public GameObject swarmOfBugsPrefab;
+    
+    public GameObject ufoPrefab;
+    public GameObject meteorPrefab;
+    public GameObject lightningStormPrefab;
 
     private HazardEnum[] firstStageHazards = {HazardEnum.BLIZZARD, HazardEnum.TRAMPLE, HazardEnum.BUG};
     private HazardEnum[] secondStageHazards = {HazardEnum.LIGHTNING, HazardEnum.HEAVY_WIND, HazardEnum.SWARM_OF_BUGS};
+    private HazardEnum[] thirdStageHazards = {HazardEnum.LIGHTNING_STROM, HazardEnum.METEOR, HazardEnum.UFO};
     private GameObject[] firstStageHazardsPrefab = new GameObject[3];
     private GameObject[] secondStageHazardsPrefab = new GameObject[3];
+    private GameObject[] thirdStageHazardsPrefab = new GameObject[3];
 
 	// Use this for initialization
 	void Start () {
@@ -39,7 +45,10 @@ public class HazardManagerScript : MonoBehaviour {
         secondStageHazardsPrefab[0] = lightningPrefab;
         secondStageHazardsPrefab[1] = heavyWindPrefab;
         secondStageHazardsPrefab[2] = swarmOfBugsPrefab;
-
+        
+        thirdStageHazardsPrefab[0] = lightningStormPrefab;
+        thirdStageHazardsPrefab[1] = meteorPrefab;
+        thirdStageHazardsPrefab[2] = ufoPrefab;
 
         float initialSecondsPerHazard = 2f;
         float finalSecondsPerHazard = 0.4f;
@@ -92,6 +101,20 @@ public class HazardManagerScript : MonoBehaviour {
                         
                         AddHazard(next, timeElapsed + secondsPerHazard);
 
+                        break;
+                    }
+                    case(Globals.STAGE_THREE):{
+                        int section = Random.Range(0, 3);
+                        HazardEnum next = thirdStageHazards[section];
+                        Instantiate(thirdStageHazardsPrefab[section], Vector3.zero, Quaternion.identity);
+                        
+                        //Do not have the same 3 hazards in a row.
+                        while(next == previousHazard && next == previousPreviousHazard){
+                            next = thirdStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
+                        }
+                        
+                        AddHazard(next, timeElapsed + secondsPerHazard);
+                        
                         break;
                     }
                 }

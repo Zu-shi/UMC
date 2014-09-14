@@ -9,6 +9,7 @@ public class TreeModel : _Mono {
 	public Sprite foilageSprite;
 	public Sprite angledSprite;
 	public Sprite nonangledSprite;
+    public FruitScript fruitPrefab;
 
 	public Vector2 relativeRoot; //Relative placement of branches in normalized x and y scale.
 	public int seed = 1;
@@ -37,6 +38,7 @@ public class TreeModel : _Mono {
     public float age;
     public float totalHeight;
     public float height;
+    public List<FruitScript> fruits;
 
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
@@ -65,6 +67,7 @@ public class TreeModel : _Mono {
 
 		branches = new List<TreeModel> ();
 		allBranches = new List<TreeModel> ();
+        fruits = new List<FruitScript> ();
 		generation = 0;
 		isAngled = true;
 		myAngle = 90f;
@@ -140,6 +143,7 @@ public class TreeModel : _Mono {
             }
 
             Orient();
+            PositionFruits();
 
             if (growFoilage)
             {
@@ -192,6 +196,7 @@ public class TreeModel : _Mono {
 		if (generation >= foilGen && foilage == null) {
 			foilage = new GameObject ();
 			SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
+            sr.sortingLayerName = "Foilage";
 			foilage.AddComponent<_Mono> ();
 			sr.sprite = foilageSprite;
 			sr.sortingOrder = 1;
@@ -408,4 +413,23 @@ public class TreeModel : _Mono {
         Destroy();
     }
 
+    public void GrowFruit(){
+        int branch = Random.Range(0, allBranches.Count);
+        allBranches[branch].AddFruitToThisBranch();
+    }
+
+    public void AddFruitToThisBranch(){
+        fruits.Add(Instantiate(fruitPrefab, new Vector3(-10000f, -10000f, 0), Quaternion.identity) as FruitScript);
+    }
+
+    private void PositionFruits(){
+        foreach (TreeModel branch in branches) {
+            branch.PositionFruits();
+        }
+
+        foreach (FruitScript f in fruits){
+            Debug.Log("added fruit");
+            f.xy = GetRootPosition (f.position);
+        }
+    }
 }

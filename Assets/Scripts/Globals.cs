@@ -8,7 +8,8 @@ public static class Globals {
 	private static InputManagerScript _inputManager;
 	public const int STAGE_STARTING = 0;
 	public const int STAGE_ONE = 1;
-	public const int STAGE_TWO = 2;
+    public const int STAGE_TWO = 2;
+    public const int STAGE_THREE = 3;
     public static GameObject treePrefab;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
 
