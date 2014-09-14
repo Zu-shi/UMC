@@ -3,7 +3,10 @@ using System.Collections;
 
 public class TreeGrowth : _Mono {
 
-	public int lives = 3;
+    public int lives {
+        get{return Globals.stateManager.lives;} 
+        set{Globals.stateManager.lives = value;}
+    }
 
 	public GameObject lifeIndicator;
     
@@ -45,7 +48,7 @@ public class TreeGrowth : _Mono {
 
     void UpdateCollisionBox(){
         float csize = Globals.treeManager.mainTree.totalHeight;
-        col.center =  new Vector3(0f,  csize / 2, 0f);
+        col.center =  new Vector3(Globals.treeManager.treePos.x,  csize / 2, 0f);
         col.size = new Vector3(csize / 6, csize, 1000f);
     }
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public static class Globals {
 
@@ -8,6 +9,8 @@ public static class Globals {
 	public const int STAGE_STARTING = 0;
 	public const int STAGE_ONE = 1;
 	public const int STAGE_TWO = 2;
+    public static GameObject treePrefab;
+    public static List<TreeModel> mainTrees = new List<TreeModel>();
 
 	public static InputManagerScript inputManager {
 		get{
@@ -62,6 +65,15 @@ public static class Globals {
 		}
 	}
 
+    private static GameOverGUIScript _gameOverGUIScript;
+    public static GameOverGUIScript gameOverGUIScript {
+        get{
+            if(_gameOverGUIScript == null)
+                _gameOverGUIScript = GameObject.Find("GameOverGUI").GetComponent<GameOverGUIScript>();
+            return _gameOverGUIScript;
+        }
+    }
+
 	private static HazardManagerScript _hazardManager;
 	public static HazardManagerScript hazardManager {
 		get{
@@ -71,10 +83,24 @@ public static class Globals {
 		}
 	}
 
-    public static void RestartTreeScene(bool keepTrees){
+    public static void SaveTree (GameObject tree) {
+        treePrefab = tree;
+    }
+
+    public static void RestartTreeScene(bool keepTrees = true){
         GameObject treeScene = GameObject.Find("TreeScene");
-        GameObject treeSceneNew = GameObject.Instantiate(treeScene, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
-        Object.DestroyImmediate(treeScene, true);
+        if(treeScene != null){
+            mainTrees.Add(treeManager.mainTree);
+            foreach(TreeModel t in mainTrees){
+                t.setAlphaRecursive(t.alpha * 0.4f);
+            }
+            
+            Object.DestroyImmediate(treeScene, true);
+            Debug.Log("treeScene destoryed ");
+        }
+        
+        GameObject treeSceneNew = GameObject.Instantiate(treePrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+        Debug.Log("treeSceneNew made? " + treeSceneNew.name);
         treeSceneNew.name = "TreeScene";
 
         _hazardManager = GameObject.Find("HazardManager").GetComponent<HazardManagerScript>();
@@ -83,6 +109,8 @@ public static class Globals {
         _guiTimerManager = GameObject.Find("GUITimerManager").GetComponent<GUITimerManagerScript>();
         _stateManager = GameObject.Find("StateManager").GetComponent<StateManagerScript>();
         _treeManager = GameObject.Find("TreeManager").GetComponent<TreeManagerScript>();
+        _gameOverGUIScript = GameObject.Find("GameOverGUI").GetComponent<GameOverGUIScript>();
+
         //_treeManager.mainTree.x = -100f + Random.Range(0f, 200f);
         _treeManager.treePos = new Vector2(-100f + Random.Range(0f, 200f), 0);
     }

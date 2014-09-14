@@ -33,8 +33,8 @@ public abstract class Hazard : _Mono {
         y = cameraPos.y - Camera.main.orthographicSize / 4;
         x = Globals.treeManager.treePos.x;
 
-        x = ( x + Mathf.Cos( 90f + angle) * speed * Camera.main.orthographicSize * time);
-        y = ( y + Mathf.Sin( 90f + angle) * speed * Camera.main.orthographicSize * time);
+        x = ( x + Mathf.Cos( Mathf.Deg2Rad * (90f + angle)) * speed * Camera.main.orthographicSize * time);
+        y = ( y + Mathf.Sin( Mathf.Deg2Rad * (90f + angle)) * speed * Camera.main.orthographicSize * time);
     }
 
     public virtual void Update(){
@@ -44,9 +44,15 @@ public abstract class Hazard : _Mono {
             transform.position = Vector3.MoveTowards(transform.position, 
                                                      cameraPos - new Vector3(0f, Camera.main.orthographicSize / 4, 0f) , step);
             z = 0f;
+        }else{
+            float step = speed * Time.deltaTime * Camera.main.orthographicSize / 6;
+            Vector3 cameraPos = Camera.main.transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, 
+                                                     cameraPos - new Vector3(0f, Camera.main.orthographicSize / 4, 0f) , step);
+            z = 0f;
         }
 
-        if(Globals.stateManager.inCutscene && !isFading){
+        if( (Globals.stateManager.inCutscene || Globals.stateManager.isGameOver) && !isFading){
             FadeOut();
         }
     }

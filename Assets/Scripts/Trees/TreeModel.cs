@@ -381,4 +381,31 @@ public class TreeModel : _Mono {
 		//Debug.Log ("maxheight returned " + highest);
 		return highest;
 	}
+
+    public void setAlphaRecursive(float a){
+        alpha = a;
+
+        if(foilage != null){
+            _Mono foilMono = foilage.GetComponent<_Mono> ();
+            foilMono.alpha = a * 1.5f;
+        }
+
+        foreach (TreeModel branch in branches) {
+            branch.setAlphaRecursive(a);
+        }
+    }
+
+    
+    public void DestroyRecursive(){
+        if(foilage != null){
+            Destroy(foilage);
+        }
+        
+        foreach (TreeModel branch in branches) {
+            branch.DestroyRecursive();
+        }
+
+        Destroy();
+    }
+
 }

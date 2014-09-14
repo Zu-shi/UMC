@@ -108,6 +108,19 @@ public class _Mono : MonoBehaviour {
 		}
 	}
 
+    /*
+    public float rotation {
+        set {
+            //transform.rotation = Quaternion.AngleAxis(value % 360, Vector3.forward);
+            Quaternion rotation = Quaternion.identity;
+            rotation.eulerAngles = new Vector3(0, 0, value);
+            transform.rotation = rotation;
+        }
+        get {
+            return transform.rotation.eulerAngles.z;
+        }
+    }*/
+
 	public float guiAlpha {
 		set {
 			if(guiTexture != null){
@@ -122,6 +135,21 @@ public class _Mono : MonoBehaviour {
 			else return 0;
 		}
 	}
+
+    public float guiTextAlpha {
+        set {
+            if(guiText != null){
+                Color _color = guiText.material.color;
+                guiText.material.color = new Color(_color.r, _color.g, _color.b, value); 
+            }
+        }
+        get {
+            if(guiText != null){
+                return guiText.material.color.a;
+            }
+            else return 0;
+        }
+    }
 
 	public SpriteRenderer spriteRenderer{
 		get{

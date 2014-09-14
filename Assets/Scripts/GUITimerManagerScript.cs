@@ -9,6 +9,8 @@ public class GUITimerManagerScript : MonoBehaviour {
 	public float flashesPerSecond;
 	public Color nonFlashingColor = Color.white;
 	public Color flashingColor = Color.red;
+
+    private bool isGameOver = false;
 	private float flashesTracker; //Keeps track of amount of time passed since last flash.
 	private bool flashing = false;
 	private GUIText guiText;
@@ -25,43 +27,49 @@ public class GUITimerManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//Calculate string to show.
-		int minutes = totalSeconds / 60;
-		int seconds = totalSeconds % 60;
-		string result = "Time Left: ";
-		if(minutes >= 10){
-			result = result + minutes.ToString();
-		}else{
-			result = result + "0" + minutes.ToString();
-		}
-		result += ":";
-		if(seconds >= 10){
-			result = result + seconds.ToString();
-		}else{
-			result = result + "0" + seconds.ToString();
-		}
-		guiText.text = result;
+        if(!isGameOver && !inCutscene){
+    		//Calculate string to show.
+    		int minutes = totalSeconds / 60;
+    		int seconds = totalSeconds % 60;
+    		string result = "Time Left: ";
+    		if(minutes >= 10){
+    			result = result + minutes.ToString();
+    		}else{
+    			result = result + "0" + minutes.ToString();
+    		}
+    		result += ":";
+    		if(seconds >= 10){
+    			result = result + seconds.ToString();
+    		}else{
+    			result = result + "0" + seconds.ToString();
+    		}
+    		guiText.text = result;
 
-		//Flashes
-		flashesTracker += Time.deltaTime;
-		// /2 accounts for the fact that two flashing switches counts as one flash.
-		if (flashesTracker >= (1.0f / flashesPerSecond / 2)) {
-			flashing = !flashing;
-			flashesTracker = 0.0f;
-		}
-		if (flashing & (totalSeconds <= secondsToFlash)) {
-			guiText.color = flashingColor;
-		}else{
-			guiText.color = nonFlashingColor;
-		}
+    		//Flashes
+    		flashesTracker += Time.deltaTime;
+    		// /2 accounts for the fact that two flashing switches counts as one flash.
+    		if (flashesTracker >= (1.0f / flashesPerSecond / 2)) {
+    			flashing = !flashing;
+    			flashesTracker = 0.0f;
+    		}
+    		if (flashing & (totalSeconds <= secondsToFlash)) {
+    			guiText.color = flashingColor;
+    		}else{
+    			guiText.color = nonFlashingColor;
+    		}
+        }
 	}
 	
-	public void StartCutscene(){
+    public void GameOver(){
+        isGameOver = true;
+    }
+
+	public void CutsceneStart(){
 		Debug.Log ("GUITimerManager.StartCutscene");
         inCutscene = true;
 	}
 	
-	public void EndCutscene(){
+	public void CutsceneEnd(){
 		Debug.Log ("GUITimerManager.EndCutscene");
         inCutscene = false;
 	}

@@ -6,10 +6,12 @@ public class StateManagerScript : MonoBehaviour {
 	public int currentStage { get; set; }
 	public const float secondsPerCutscene = 6f;
 	public bool inCutscene = true;
+    public int lives {get; set;}
 
+    public bool isGameOver = false;
 	private int totalSeconds;
-	private int secondsForFirtstPart = 30;
-	private int secondsForSecondPart = 3;
+    public int secondsForFirtstPart{get; set;}
+    public int secondsForSecondPart{get; set;}
 	private float secondTracker; //Keeps track of amount of time passed since last second.
 	private GUITimerManagerScript guiTimerManager;
 	private TreeManagerScript treeManager;
@@ -18,6 +20,9 @@ public class StateManagerScript : MonoBehaviour {
 	private HazardManagerScript hazardManager;
 
 	public void Start(){
+        secondsForFirtstPart = 30;
+        secondsForSecondPart = 500;
+
         currentStage = Globals.STAGE_STARTING;
 		guiTimerManager = Globals.guiTimerManager;
 		treeManager = Globals.treeManager;
@@ -28,33 +33,58 @@ public class StateManagerScript : MonoBehaviour {
 		totalSeconds = secondsForFirtstPart;
 		guiTimerManager.SetTotalSeconds (totalSeconds);
 
-		StartGame ();
+        lives = 1;
+		GameStart ();
 	}
 
 	public void Update(){
 		UpdateTime ();
+        if(lives <= 0 && !isGameOver){
+            GameOver();
+        }
 	}
 
 	private void UpdateTime(){
-		secondTracker += Time.deltaTime;
-		if(secondTracker >= 1.0f){
-			if(totalSeconds > 0){
-				totalSeconds -= 1;
-			}
-			secondTracker = 0.0f;
-		}
+        if(!isGameOver){
 
-		if (totalSeconds == 0 && !inCutscene) {
-			StartCutscene();
-		}
+    		secondTracker += Time.deltaTime;
+    		if(secondTracker >= 1.0f){
+    			if(totalSeconds > 0){
+    				totalSeconds -= 1;
+    			}
+    			secondTracker = 0.0f;
+    		}
 
-		guiTimerManager.SetTotalSeconds (totalSeconds);
+    		if (totalSeconds == 0 && !inCutscene) {
+    			StartCutscene();
+    		}
+
+    		guiTimerManager.SetTotalSeconds (totalSeconds);
+        }
 	}
 
-	private void StartGame() {
+    private void GameOver() {
+        if(!isGameOver){
+            float time = secondsPerCutscene;
+            isGameOver = true;
+            guiTimerManager.GameOver ();
+            hazardManager.GameOver ();
+            cameraManager.GameOver (time);
+            treeManager.GameOver(time);
+            Invoke("ShowGameOverGUI", secondsPerCutscene - 2f);
+        }
+        //treeManager.GameOver(time);
+
+    }
+
+    private void ShowGameOverGUI(){
+        Globals.gameOverGUIScript.Show();
+    }
+
+	private void GameStart() {
         float time = secondsPerCutscene / 2;
-        cameraManager.StartGame (time);
-        treeManager.StartGame (time);
+        cameraManager.GameStart (time);
+        treeManager.GameStart (time);
         totalSeconds = (int)Mathf.Ceil(time);
         Invoke("EndCutscene", time);
 	}
@@ -65,10 +95,10 @@ public class StateManagerScript : MonoBehaviour {
 		}
 		inCutscene = true;
         
-        guiTimerManager.StartCutscene ();
-        cameraManager.StartCutscene (secondsPerCutscene);
-        hazardManager.StartCutscene ();
-        treeManager.StartCutscene(secondsPerCutscene);
+        guiTimerManager.CutsceneStart ();
+        cameraManager.CutsceneStart (secondsPerCutscene);
+        hazardManager.CutsceneStart ();
+        treeManager.CutsceneStart(secondsPerCutscene);
         Invoke("EndCutscene", secondsPerCutscene + 0.1f);
 	}
 	
@@ -78,10 +108,10 @@ public class StateManagerScript : MonoBehaviour {
 		}
 		inCutscene = false;
 
-		guiTimerManager.EndCutscene ();
-		cameraManager.EndCutscene ();
-		hazardManager.EndCutscene ();
-        treeManager.EndCutscene();
+		guiTimerManager.CutsceneEnd ();
+		cameraManager.CutsceneEnd ();
+		hazardManager.CutsceneEnd ();
+        treeManager.CutsceneEnd();
 
 		currentStage += 1;
 		switch (currentStage) {

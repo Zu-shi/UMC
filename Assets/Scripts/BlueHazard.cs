@@ -21,6 +21,5 @@ public class BlueHazard : Hazard {
 
     public override void Update(){
         base.Update();
-        angle = angle + 2f;
     }
 }

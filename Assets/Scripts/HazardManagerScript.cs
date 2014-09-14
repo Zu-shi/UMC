@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using DG.Tweening;
 
 public class HazardManagerScript : MonoBehaviour {
-
+    
+    private bool isGameOver = false;
 	private bool inCutscene = true;
 	private bool test = false;
 	private float timeElapsed = 0f;
@@ -45,15 +46,15 @@ public class HazardManagerScript : MonoBehaviour {
         secondsPerHazard = initialSecondsPerHazard;
         float totalTimeToWeen = 90f; //In Game Seconds
         secondsPerHazardTween = DOTween.To(() => secondsPerHazard, x => secondsPerHazard = x, finalSecondsPerHazard, totalTimeToWeen);
-        secondsPerHazardTween.Pause();
         
         HazardEnum next = firstStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
-        AddHazard(next, timeElapsed + secondsPerHazard);
+        AddHazard(next, timeElapsed + 0.1f);
+        secondsPerHazardTween.Pause();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!inCutscene){
+		if (!inCutscene && !isGameOver){
 			HazardEntry toCall = null;
 			timeElapsed += Time.deltaTime;
 			foreach(HazardEntry he in hazardEntries){
@@ -94,26 +95,33 @@ public class HazardManagerScript : MonoBehaviour {
                         break;
                     }
                 }
+
+                //Globals.treeManager.NewHazard();
+
 				Debug.Log ("Hazard called");
                 Debug.Log ("Seconds per hazards = " + secondsPerHazard);
 			}
 		}
 	}
 
+    public void GameOver(){
+        isGameOver = true;
+    }
+
 	public void AddHazard (HazardEnum h, float t) {
 		hazardEntries.Add ( new HazardEntry(h, t) );
 	}
 	
-	public void StartCutscene(){
+	public void CutsceneStart(){
 		Debug.Log ("HazardManager.StartCutscene");
         inCutscene = true;
-        secondsPerHazardTween.Play();
+        secondsPerHazardTween.Pause();
 	}
 	
-	public void EndCutscene(){
+	public void CutsceneEnd(){
 		Debug.Log ("HazardManager.EndCutscene");
         inCutscene = false;
-        secondsPerHazardTween.Pause();
+        secondsPerHazardTween.Play();
 	}
 }
 

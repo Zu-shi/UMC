@@ -53,6 +53,7 @@ public class AgeBasedTreeMorpher : _Mono {
 					toMorph.foilagePosition = postMorph.foilagePosition;
 
 					disabled = true;
+                    //tsc.DestroyTree(postMorph);
 				}
 			}
 		}
