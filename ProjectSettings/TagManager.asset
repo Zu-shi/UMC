@@ -50,3 +50,19 @@ TagManager:
     userID: 1
     uniqueID: 2261379553
     locked: 0
+  - name: Shield
+    userID: 2
+    uniqueID: 706656359
+    locked: 0
+  - name: Foilage
+    userID: 3
+    uniqueID: 4026578653
+    locked: 0
+  - name: Fruit
+    userID: 4
+    uniqueID: 2639931899
+    locked: 0
+  - name: New Layer 5
+    userID: 5
+    uniqueID: 1743783457
+    locked: 0

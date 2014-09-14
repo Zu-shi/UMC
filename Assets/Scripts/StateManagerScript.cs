@@ -21,9 +21,9 @@ public class StateManagerScript : MonoBehaviour {
 	private HazardManagerScript hazardManager;
 
 	public void Start(){
-        secondsForFirtstPart = 1;
-        secondsForSecondPart = 1;
-        secondsForThirdPart = 60;
+        secondsForFirtstPart = 20;
+        secondsForSecondPart = 20;
+        secondsForThirdPart = 120;
 
         currentStage = Globals.STAGE_STARTING;
 		guiTimerManager = Globals.guiTimerManager;
@@ -35,7 +35,7 @@ public class StateManagerScript : MonoBehaviour {
 		totalSeconds = secondsForFirtstPart;
 		guiTimerManager.SetTotalSeconds (totalSeconds);
 
-        lives = 1;
+        lives = 3;
 		GameStart ();
 	}
 
@@ -73,7 +73,7 @@ public class StateManagerScript : MonoBehaviour {
             hazardManager.GameOver ();
             cameraManager.GameOver (time);
             treeManager.GameOver(time);
-            Invoke("ShowGameOverGUI", time - 2f);
+            Invoke("ShowGameOverGUI", time - 1f);
         }
         //treeManager.GameOver(time);
 
