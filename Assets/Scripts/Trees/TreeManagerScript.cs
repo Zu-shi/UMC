@@ -113,7 +113,7 @@ public class TreeManagerScript : _Mono {
             if(fruitTweenedNumbers > fruitCachedNumbers) {
                 if(fruitCachedNumbers < fruitTweenedNumbers - 1){Debug.Log("At least the " + fruitCachedNumbers+ "th fruit was skipped.");}
                 fruitCachedNumbers = fruitTweenedNumbers;
-                mainTree.GrowFruit();
+                for(int i = 0; i < 1; i++){mainTree.GrowFruit();}
             }
         }
 

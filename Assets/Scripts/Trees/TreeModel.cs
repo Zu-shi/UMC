@@ -414,8 +414,15 @@ public class TreeModel : _Mono {
     }
 
     public void GrowFruit(){
-        int branch = Random.Range(0, allBranches.Count);
-        allBranches[branch].AddFruitToThisBranch();
+        bool growHere = false;
+        while( !growHere ){
+            int branch = Random.Range(0, allBranches.Count);
+
+            if( Random.Range(0, (int)Mathf.Pow(3, allBranches[branch].generation)) == 0 ) {
+                allBranches[branch].AddFruitToThisBranch();
+                growHere = true;
+            }
+        }
     }
 
     public void AddFruitToThisBranch(){

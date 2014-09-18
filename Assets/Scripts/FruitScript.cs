@@ -9,7 +9,7 @@ public class FruitScript : _Mono {
 
 	// Use this for initialization
 	void Start () {
-        position = new Vector2( Random.Range(-6f, 6f), Random.Range(0.4f, 1f) );   
+        position = new Vector2( Random.Range(-5f, 5f), Random.Range(0.62f, 1.2f) );   
 
         float size = Random.Range(0.3f, 0.5f);
 

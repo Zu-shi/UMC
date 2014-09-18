@@ -21,8 +21,8 @@ public class StateManagerScript : MonoBehaviour {
 	private HazardManagerScript hazardManager;
 
 	public void Start(){
-        secondsForFirtstPart = 20;
-        secondsForSecondPart = 20;
+        secondsForFirtstPart = 1;
+        secondsForSecondPart = 1;
         secondsForThirdPart = 120;
 
         currentStage = Globals.STAGE_STARTING;
