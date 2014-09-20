@@ -111,7 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   time: 5
-  startingAngle: []
+  startingAngle:
+  - -20
+  - 20
   fadeOutTime: 1
   slowFactor: .25
 --- !u!212 &21200000
