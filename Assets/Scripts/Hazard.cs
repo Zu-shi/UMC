@@ -45,7 +45,7 @@ public abstract class Hazard : _Mono {
                                                      cameraPos - new Vector3(0f, Camera.main.orthographicSize / 4, 0f) , step);
             z = 0f;
         }else{
-            float step = speed * Time.deltaTime * Camera.main.orthographicSize / 6;
+            float step = -speed * Time.deltaTime * Camera.main.orthographicSize / 6;
             Vector3 cameraPos = Camera.main.transform.position;
             transform.position = Vector3.MoveTowards(transform.position, 
                                                      cameraPos - new Vector3(0f, Camera.main.orthographicSize / 4, 0f) , step);

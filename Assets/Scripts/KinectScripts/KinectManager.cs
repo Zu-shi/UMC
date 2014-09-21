@@ -86,7 +86,9 @@ public class KinectManager : _Mono
 	
 	// GUI Texture to display the hand cursor for Player1
 	public _Mono HandCursor1;
-	
+    public float screenPosX;
+    public float screenPosY;
+
 	// GUI Texture to display the hand cursor for Player1
 	public _Mono HandCursor2;
 	
@@ -1170,6 +1172,8 @@ public class KinectManager : _Mono
 								//Range 0 to 1 for both x and y
 								HandCursor1.x = (gestureData.screenPos.x - 0.5f) * Camera.main.orthographicSize * Camera.main.aspect * 2;
 								HandCursor1.y = gestureData.screenPos.y * Camera.main.orthographicSize * 2;
+                                screenPosX = gestureData.screenPos.x;
+                                screenPosY = gestureData.screenPos.y;
 
 								//Debug.Log ("inputX = " + gestureData.screenPos.x + " inputY = " + gestureData.screenPos.y);
 							}

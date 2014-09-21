@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class TreeModel : _Mono {
 
@@ -386,6 +387,20 @@ public class TreeModel : _Mono {
 		//Debug.Log ("maxheight returned " + highest);
 		return highest;
 	}
+
+    public void startShake(){
+
+        Debug.Log("Shaking");
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(DOTween.To( ()=>angleSway, x=> angleSway = x, 100f, 0.5f));
+        seq.AppendInterval(1f);
+        seq.Append(DOTween.To( ()=>angleSway, x=> angleSway = x, 10f, 3f));
+        
+        foreach (TreeModel branch in branches) {
+            branch.startShake();
+        }
+    }
 
     public void setAlphaRecursive(float a){
         alpha = a;

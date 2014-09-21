@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ShieldScript : _Mono {
 
-	public _Mono shield;
+    public _Mono shield;
 
 	public float parabolaWidth;
 	public float parabolaHeight;
@@ -52,6 +53,10 @@ public class ShieldScript : _Mono {
 		else {
             yPos = GetYCoord(xPos - xOff);
 		}
+
+        //This code, though ugly, ensures that the collision between hazard and shield happens. 
+        shield.transform.position = new Vector3 (0f, 0f, 0f);
+
 		shield.transform.position = new Vector3 (xPos, yPos, shield.transform.position.z);
 
 		UpdateRotation (xPos - xOff);
@@ -67,7 +72,7 @@ public class ShieldScript : _Mono {
 	}
 
 	float GetYCoord(float xCoord){
-        return GetCoeff() * Mathf.Pow (xCoord, 2f) + (parabolaHeight * height) + mainCamera.transform.position.y;
+        return GetCoeff() * Mathf.Pow (xCoord, 2f) + (parabolaHeight * height * 2) + mainCamera.transform.position.y - mainCamera.orthographicSize;
 	}
 
 	float GetCoeff(){

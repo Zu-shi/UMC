@@ -125,6 +125,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400014}
   - 114: {fileID: 11400012}
+  - 114: {fileID: 11400020}
   m_Layer: 0
   m_Name: ShieldManager
   m_TagString: Untagged
@@ -278,7 +279,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.00117493, y: -98.0580521, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400010}
@@ -311,7 +312,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 31.0184326, y: -73.0432358, z: 0}
   m_LocalScale: {x: .5, y: .300000012, z: 1}
   m_Children:
   - {fileID: 400018}
@@ -511,7 +512,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d5d85756f7e6e44da49239d08981de3, type: 3}
   m_Name: 
@@ -557,6 +558,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0deb38ca5851496cb512a17f78cdbd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4624b2141a87e4ae9a47cb9b2a5a7539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldLeafPrefab: {fileID: 100000, guid: 96d52dcac20aa4794951a6639f3023c7, type: 2}
 --- !u!131 &13100000
 GUITexture:
   m_ObjectHideFlags: 1

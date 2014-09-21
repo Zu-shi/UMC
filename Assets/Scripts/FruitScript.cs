@@ -13,10 +13,10 @@ public class FruitScript : _Mono {
 
         float size = Random.Range(0.3f, 0.5f);
 
-        DOTween.defaultEaseType = Ease.InOutBack;
-        DOTween.To( ()=>xs, x=> xs = x, size, duration);
-        DOTween.To( ()=>xs, x=> ys = x, size, duration);
-        DOTween.defaultEaseType = Ease.OutQuad;
+        //DOTween.defaultEaseType = Ease.InOutBack;
+        DOTween.To( ()=>xs, x=> xs = x, size, duration).SetEase(Ease.InOutBack);
+        DOTween.To( ()=>xs, x=> ys = x, size, duration).SetEase(Ease.InOutBack);
+        //DOTween.defaultEaseType = Ease.OutQuad;
 
         //xs = size;
         //ys = size;

@@ -64,6 +64,7 @@ public class TreeGrowth : _Mono {
 
 	void OnTriggerEnter(Collider col){
         Debug.Log("Trigger");
+
 		if (col.gameObject.tag == "RedHazard") {
 			int damage = col.gameObject.GetComponent<RedHazard> ().damage;
 			if(invincibleTimer <= 0f){
@@ -72,15 +73,19 @@ public class TreeGrowth : _Mono {
 				} 
 				else {
 					lives -= damage;
-					invincibleTimer += invincibleOnHitTime;
+					invincibleTimer = invincibleOnHitTime;
 				}
+
+                Globals.treeManager.mainTree.startShake();
 			}
 		}
 
 		else if(col.gameObject.tag == "BlueHazard"){
 			if(lives > 0 && invincibleTimer <= 0f){
 				lives--;
-				invincibleTimer += invincibleOnHitTime;
+				invincibleTimer = invincibleOnHitTime;
+                
+                Globals.treeManager.mainTree.startShake();
 			}
 			//Logic for freezing goes here
 		}
@@ -88,7 +93,9 @@ public class TreeGrowth : _Mono {
 		else if(col.gameObject.tag == "OrangeHazard"){
 			if(lives > 0 && invincibleTimer <= 0f){
 				lives--;
-				invincibleTimer += invincibleOnHitTime;
+				invincibleTimer = invincibleOnHitTime;
+                
+                Globals.treeManager.mainTree.startShake();
 			}
 			//Logic for slowing goes here
 		}

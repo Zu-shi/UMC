@@ -56,8 +56,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: -31.0628853, y: 93.1887436, z: 0}
+  m_LocalScale: {x: .200000003, y: .200000003, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
   m_RootOrder: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36bfaec77daa842aa9e5fe90042f2bda, type: 3}
+  m_Script: {fileID: 11500000, guid: eeaad1d22b62843b299585e4501c2eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11400002
@@ -137,7 +137,9 @@ MonoBehaviour:
   MinTimeBetweenGestures: 0
   GestureListeners: []
   CalibrationText: {fileID: 100002}
-  HandCursor1: {fileID: 11400000}
+  HandCursor1: {fileID: 0}
+  screenPosX: 0
+  screenPosY: 0
   HandCursor2: {fileID: 0}
   ControlMouseCursor: 0
   kinectPos: {x: 0, y: 0}
@@ -184,7 +186,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 343b89b1501c940a590702e78a12d701, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e1b319e1ac1f436baff8976ffc8f5c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

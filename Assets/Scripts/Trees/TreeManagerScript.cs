@@ -22,7 +22,7 @@ public class TreeManagerScript : _Mono {
     private float stage1performance = 1f;
     private float stage2performance = 1f;
     private bool isGameOver = false;
-    private float targetGrowthPercentage = 1.5f/7f;
+    private float targetGrowthPercentage = 1.6f/7f;
     private float secondsSurvivedInStage3 = 0f;
     private float secondsSurvivedInStage2 = 0f;
     private float secondsSurvivedInStage1 = 0f;
