@@ -60,7 +60,7 @@ Transform:
   m_LocalScale: {x: .200000003, y: .200000003, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &400002
 Transform:
   m_ObjectHideFlags: 1
@@ -72,7 +72,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &400004
 Transform:
   m_ObjectHideFlags: 1
@@ -83,8 +83,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400000}
   - {fileID: 400002}
+  - {fileID: 400000}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!114 &11400000
@@ -123,7 +123,7 @@ MonoBehaviour:
   MinUserDistance: 1
   DetectClosestUser: 1
   IgnoreInferredJoints: 1
-  smoothing: 3
+  smoothing: 2
   UseBoneOrientationsFilter: 0
   UseClippedLegsFilter: 0
   UseBoneOrientationsConstraint: 1

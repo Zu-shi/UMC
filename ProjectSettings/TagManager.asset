@@ -62,7 +62,11 @@ TagManager:
     userID: 4
     uniqueID: 2639931899
     locked: 0
-  - name: New Layer 5
+  - name: Grass
     userID: 5
     uniqueID: 1743783457
+    locked: 0
+  - name: Cursor
+    userID: 6
+    uniqueID: 2380806643
     locked: 0
