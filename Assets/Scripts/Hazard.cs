@@ -35,6 +35,9 @@ public abstract class Hazard : _Mono {
 
         x = ( x + Mathf.Cos( Mathf.Deg2Rad * (90f + angle)) * speed * Camera.main.orthographicSize * time);
         y = ( y + Mathf.Sin( Mathf.Deg2Rad * (90f + angle)) * speed * Camera.main.orthographicSize * time);
+
+        //Horizontal mirroring.
+        if(angle < 0){xs = -xs;}
     }
 
     public virtual void Update(){

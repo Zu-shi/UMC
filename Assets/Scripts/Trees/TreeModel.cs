@@ -40,6 +40,7 @@ public class TreeModel : _Mono {
     public float totalHeight;
     public float height;
     public List<FruitScript> fruits;
+    public int numFruits { get; set; }
 
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
@@ -410,6 +411,11 @@ public class TreeModel : _Mono {
             foilMono.alpha = a * 1.5f;
         }
 
+        
+        foreach (FruitScript f in fruits) {
+            f.alpha = a * 1.5f;
+        }
+
         foreach (TreeModel branch in branches) {
             branch.setAlphaRecursive(a);
         }
@@ -436,6 +442,7 @@ public class TreeModel : _Mono {
             if( Random.Range(0, (int)Mathf.Pow(3, allBranches[branch].generation)) == 0 ) {
                 allBranches[branch].AddFruitToThisBranch();
                 growHere = true;
+                numFruits++;
             }
         }
     }
@@ -450,7 +457,7 @@ public class TreeModel : _Mono {
         }
 
         foreach (FruitScript f in fruits){
-            Debug.Log("added fruit");
+            //Debug.Log("added fruit");
             f.xy = GetRootPosition (f.position);
         }
     }

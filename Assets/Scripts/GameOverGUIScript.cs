@@ -7,6 +7,7 @@ public class GameOverGUIScript : _Mono{
     private float targetAlpha = 0.4f;
     private GUIText guiText;
     private _Mono guiTextMono;
+    private int score = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -20,8 +21,13 @@ public class GameOverGUIScript : _Mono{
 	// Update is called once per frame
     public void Show () {
         int h = Mathf.FloorToInt( Globals.treeManager.mainTree.totalHeight );
-        guiText.text = "Your tree grew to be " + h + " inches tall! \n Score: " + 
-            h + "\n Press Enter to Restart.";
+        Debug.Log(Globals.stateManager.currentStage);
+        guiText.text = (Globals.stateManager.currentStage != Globals.STAGE_THREE) ?
+        "Your tree grew to be " + h + " inches tall! \n Score: " + 
+                h + "\n Press Enter to Restart." :
+                "Your tree grew to be " + h + " inches tall! \n You grew " + Globals.treeManager.mainTree.numFruits + " fruits!\n Score: " + 
+                (h + Globals.treeManager.mainTree.numFruits * 5) + "\n Press Enter to Restart." ;
+        
 
         guiTextMono = guiText.gameObject.AddComponent<_Mono>();
         guiTextMono.guiTextAlpha = 0f;

@@ -34,8 +34,8 @@ public class ShieldScriptRounded : _Mono {
             GameObject leaf = Object.Instantiate(ShieldLeafPrefab, Vector3.zero, Quaternion.identity) as GameObject;
             _Mono leafMono = leaf.GetComponent<_Mono>();
             leaves.Add(leafMono);
-            Debug.Log("Added Leaf");
-            Debug.Log(leafMono.x);
+            //Debug.Log("Added Leaf");
+            //Debug.Log(leafMono.x);
         }
 	}
 
@@ -75,5 +75,11 @@ public class ShieldScriptRounded : _Mono {
         float height = Mathf.Sin(Mathf.Deg2Rad * angle) * parabolaHeight;
         //Debug.Log("width" + width + "height" + height);
         return new Vector2(width, height);
+    }
+
+    void OnDestroy(){
+        foreach(_Mono l in leaves) {
+            Destroy(l.gameObject);
+        }
     }
 }

@@ -93,7 +93,7 @@ public static class Globals {
         if(treeScene != null){
             mainTrees.Add(treeManager.mainTree);
             foreach(TreeModel t in mainTrees){
-                t.setAlphaRecursive(t.alpha * 0.4f);
+                t.setAlphaRecursive(t.alpha * 0.3f);
             }
             
             Object.DestroyImmediate(treeScene, true);
