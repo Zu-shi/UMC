@@ -39,7 +39,7 @@ public class RedHazard : Hazard {
 		float x = center.x + Mathf.Sin (Time.time * rotationSpeed) * radius;
 		float y = center.y + Mathf.Cos (Time.time * rotationSpeed) * radius;
 		transform.position = new Vector3 (x, y, transform.position.z);
-		Debug.Log ("x: " + (x - center.x) + " y: " + (y - center.y));
+		//Debug.Log ("x: " + (x - center.x) + " y: " + (y - center.y));
 
 	}
 	
