@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SwarmBug : MonoBehaviour {
+public class SwarmBug : _Mono {
 
 	public float radius;
 	public float rotationSpeed;
@@ -15,8 +15,8 @@ public class SwarmBug : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float x = center.x + Mathf.Sin (Time.time * rotationSpeed) * radius;
-		float y = center.y + Mathf.Cos (Time.time * rotationSpeed) * radius;
-		transform.position = new Vector3 (x, y, transform.position.z);
+        float x = transform.parent.position.x + Mathf.Sin (Time.time * rotationSpeed) * radius;
+        float y = transform.parent.position.y + Mathf.Cos (Time.time * rotationSpeed) * radius;
+        alpha = transform.parent.gameObject.GetComponent<_Mono>().alpha;
 	}
 }
