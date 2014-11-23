@@ -63,6 +63,16 @@ public class _Mono : MonoBehaviour {
 		}
 	}
 
+    
+    public Vector2 xys {
+        set {
+            transform.localScale = new Vector3 (value.x, value.y, transform.localScale.z);
+        }
+        get {
+            return new Vector2(xs, ys);
+        }
+    }
+
 	public float xs {
 		set {
 			transform.localScale = new Vector3 (value, transform.localScale.y, transform.localScale.z);

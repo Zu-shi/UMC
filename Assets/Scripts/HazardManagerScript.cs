@@ -121,8 +121,8 @@ public class HazardManagerScript : MonoBehaviour {
 
                 //Globals.treeManager.NewHazard();
 
-				Debug.Log ("Hazard called");
-                Debug.Log ("Seconds per hazards = " + secondsPerHazard);
+				//Debug.Log ("Hazard called");
+                //Debug.Log ("Seconds per hazards = " + secondsPerHazard);
 			}
 		}
 	}

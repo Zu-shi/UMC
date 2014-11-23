@@ -6,7 +6,10 @@ public class StateManagerScript : MonoBehaviour {
 	public int currentStage { get; set; }
 	public const float secondsPerCutscene = 4f;
 	public bool inCutscene = true;
-    public int lives {get; set;}
+    public float lives {get; set;}
+    public _Mono leafLifeIndicator;
+
+    //private Vector2 originalLifeIndicatorXYScale;
 
     public bool isGameOver = false;
 	private int totalSeconds;
@@ -21,7 +24,7 @@ public class StateManagerScript : MonoBehaviour {
 	private HazardManagerScript hazardManager;
 
 	public void Start(){
-        secondsForFirtstPart = 1;
+        secondsForFirtstPart = 30;
         secondsForSecondPart = 30;
         secondsForThirdPart = 120;
 
@@ -35,7 +38,8 @@ public class StateManagerScript : MonoBehaviour {
 		totalSeconds = secondsForFirtstPart;
 		guiTimerManager.SetTotalSeconds (totalSeconds);
 
-        lives = 3;
+        lives = 1f;
+        leafLifeIndicator = transform.GetChild(1).GetComponent<_Mono>();
 		GameStart ();
 	}
 

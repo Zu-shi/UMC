@@ -446,7 +446,7 @@ MonoBehaviour:
   - -30
   - 40
   fadeOutTime: 1
-  damage: 2
+  damage: .699999988
   radius: 10
   rotationSpeed: 10
 --- !u!212 &21200000

@@ -4,7 +4,7 @@ using System.Collections;
 //Red Hazards do extra damage
 public class RedHazard : Hazard {
 
-	public int damage;
+	public float damage;
 
 	public float radius;
 	public float rotationSpeed;

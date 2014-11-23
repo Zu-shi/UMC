@@ -3,12 +3,12 @@ using System.Collections;
 
 public class TreeGrowth : _Mono {
 
-    public int lives {
+    public float lives {
         get{return Globals.stateManager.lives;} 
         set{Globals.stateManager.lives = value;}
     }
 
-	public GameObject lifeIndicator;
+	public _Mono lifeIndicator;
     
     public Vector2 leftMostLifeIndicatorPos;
     public float lifeSymbolOffset;
@@ -28,12 +28,14 @@ public class TreeGrowth : _Mono {
 	}
 
 	void DisplayLives(){
+        /*
 		lifeSymbols = new GameObject[lives];
 		for(int i = 0; i < lifeSymbols.Length; i++){
 			Vector2 pos = leftMostLifeIndicatorPos;
 			pos.x += i * lifeSymbolOffset;
 			lifeSymbols[i] = Instantiate(lifeIndicator, pos, Quaternion.identity ) as GameObject;
-		}
+		}*/
+
 	}
 	
 	// Update is called once per frame
@@ -44,6 +46,7 @@ public class TreeGrowth : _Mono {
 
 		UpdateLives ();
         UpdateCollisionBox();
+
 	}
 
     void UpdateCollisionBox(){
@@ -53,12 +56,20 @@ public class TreeGrowth : _Mono {
     }
 
 	void UpdateLives(){
+        /*
 		int lastLifeIndex = lives - 1;
 		for(int i = 0; i < lifeSymbols.Length; i++){
 			if(i > lastLifeIndex){
 				lifeSymbols[i].gameObject.SetActive(false);
 			}
 		}
+        */
+        //Debug.Log
+        //Debug.Log(Globals.stateManager.leafLifeIndicator.xys);
+        if(lives<0){lives = 0f;}
+        Globals.stateManager.leafLifeIndicator.xys = new Vector2(lives, lives);
+        //Globals.stateManager.leafLifeIndicator.xs = lives;
+        //Globals.stateManager.leafLifeIndicator.ys = lives;
 	}
 
 
@@ -66,7 +77,7 @@ public class TreeGrowth : _Mono {
         Debug.Log("Trigger");
 
 		if (col.gameObject.tag == "RedHazard") {
-			int damage = col.gameObject.GetComponent<RedHazard> ().damage;
+			float damage = col.gameObject.GetComponent<RedHazard> ().damage;
 			if(invincibleTimer <= 0f){
 				if (damage > lives) {
 					lives = 0;
@@ -82,7 +93,7 @@ public class TreeGrowth : _Mono {
 
 		else if(col.gameObject.tag == "BlueHazard"){
 			if(lives > 0 && invincibleTimer <= 0f){
-				lives--;
+				lives -= 0.3f;
 				invincibleTimer = invincibleOnHitTime;
                 
                 Globals.treeManager.mainTree.startShake();
@@ -91,8 +102,8 @@ public class TreeGrowth : _Mono {
 		}
 
 		else if(col.gameObject.tag == "OrangeHazard"){
-			if(lives > 0 && invincibleTimer <= 0f){
-				lives--;
+            if(lives > 0 && invincibleTimer <= 0f){
+                lives -= 0.3f;
 				invincibleTimer = invincibleOnHitTime;
                 
                 Globals.treeManager.mainTree.startShake();

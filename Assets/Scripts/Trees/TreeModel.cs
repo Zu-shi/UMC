@@ -391,7 +391,7 @@ public class TreeModel : _Mono {
 
     public void startShake(){
 
-        Debug.Log("Shaking");
+        //Debug.Log("Shaking");
 
         Sequence seq = DOTween.Sequence();
         seq.Append(DOTween.To( ()=>angleSway, x=> angleSway = x, 100f, 0.5f));

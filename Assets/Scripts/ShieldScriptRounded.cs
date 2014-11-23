@@ -4,22 +4,27 @@ using System.Collections.Generic;
 
 public class ShieldScriptRounded : _Mono {
 
-    public GameObject ShieldLeafPrefab;
+    public GameObject shieldLeafPrefab;
+    public _Mono goldenShieldLeafPrefab;
     private int numLeaves = 7;
     private int angleSpread = 30;
     
     private float parabolaWidth = 0.6f;
     private float parabolaHeight = 0.6f;
+    private float parabolaWidthRange = 0.1f;
+    private float parabolaHeightRange = 0.3f;
+    //Determine whether the leaves' positions are determined by y position of the player
+    private bool parabolaRangeOn = true;
 
     private float swayRange = 21f;
     private float swayAngle = 0f;
     private float swayFreq = 3f;
 
-    private float bigLeafSize = 0.3f;
+    private float bigLeafSize = 0.45f;
     private float smallLeafSize = 0.2f;
 
     private List<_Mono> leaves;
-    private float cameraHeight;
+    //private float cameraHeight;
     private float w;
     private Camera mainCamera;
     private float originalXs;
@@ -27,15 +32,16 @@ public class ShieldScriptRounded : _Mono {
 
 	// Use this for initialization
     void Start () {
-        cameraHeight = Camera.main.orthographicSize;
+        //cameraHeight = Camera.main.orthographicSize;
 
         leaves = new List<_Mono>();
         for(int i = 0; i < numLeaves; i++){
-            GameObject leaf = Object.Instantiate(ShieldLeafPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+            GameObject leaf = Object.Instantiate(shieldLeafPrefab, Vector3.zero, Quaternion.identity) as GameObject;
             _Mono leafMono = leaf.GetComponent<_Mono>();
             leaves.Add(leafMono);
-            //Debug.Log("Added Leaf");
-            //Debug.Log(leafMono.x);
+            if(isBigLeaf(i)){
+                leafMono.gameObject.AddComponent<CenterLeafScript>().goldenLeaf = goldenShieldLeafPrefab;
+            }
         }
 	}
 
@@ -46,6 +52,7 @@ public class ShieldScriptRounded : _Mono {
         float centerAngle = (1 - Globals.inputManager.inputNormX) * 180f;
 
         int i = 0;
+
         foreach(_Mono l in leaves) {
             float angle = centerAngle - angleSpread/2f + i * angleSpread/(numLeaves - 1);
 
@@ -71,15 +78,22 @@ public class ShieldScriptRounded : _Mono {
 
     //Angle in degrees.
     Vector2 getNormedXY (float angle) {
-        float width = Mathf.Cos(Mathf.Deg2Rad * angle) * parabolaWidth/2f + 0.5f;
-        float height = Mathf.Sin(Mathf.Deg2Rad * angle) * parabolaHeight;
+        float width = 0f;
+        float height = 0f;
+        if(!parabolaRangeOn){
+            width = Mathf.Cos(Mathf.Deg2Rad * angle) * parabolaWidth/2f + 0.5f;
+            height = Mathf.Sin(Mathf.Deg2Rad * angle) * parabolaHeight;
+        }else{
+            width = Mathf.Cos(Mathf.Deg2Rad * angle) * ( parabolaWidth/2f + (Globals.inputManager.inputNormY - 0.5f) * 2 * parabolaWidthRange) + 0.5f;
+            height = Mathf.Sin(Mathf.Deg2Rad * angle) * ( parabolaHeight  + (Globals.inputManager.inputNormY - 0.5f) * 2 * parabolaHeightRange);
+        }
         //Debug.Log("width" + width + "height" + height);
         return new Vector2(width, height);
     }
 
     void OnDestroy(){
-        foreach(_Mono l in leaves) {
-            Destroy(l.gameObject);
-        }
+        //foreach(_Mono l in leaves) {
+        //    Destroy(l.gameObject);
+        //}
     }
 }

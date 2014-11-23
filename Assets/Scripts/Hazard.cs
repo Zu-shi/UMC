@@ -88,7 +88,12 @@ public abstract class Hazard : _Mono {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Tree" || other.gameObject.tag == "Shield")
         {
-            FadeOut();
+            if(!isFading){
+                if(other.gameObject.GetComponent<CenterLeafScript>()!=null){
+                    other.gameObject.GetComponent<CenterLeafScript>().MakeSpecialEffect();
+                }
+                FadeOut();
+            }
         }
     }
 }

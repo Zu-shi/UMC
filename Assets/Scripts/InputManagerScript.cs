@@ -62,4 +62,10 @@ public class InputManagerScript : MonoBehaviour {
         //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
         return Camera.main.ScreenToWorldPoint (new Vector2(v.x * Screen.width, v.y * Screen.height));
     }
+
+    
+    public Vector2 normToScreenPoint (float x, float y) {
+        //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
+        return Camera.main.ScreenToWorldPoint (new Vector2(x * Screen.width, y * Screen.height));
+    }
 }
