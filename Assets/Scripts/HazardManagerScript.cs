@@ -10,54 +10,41 @@ public class HazardManagerScript : MonoBehaviour {
 	private bool test = false;
 	private float timeElapsed = 0f;
     private float timeSinceLastHazard = 0f;
-    private HazardEnum previousHazard = HazardEnum.NONE;
-    private HazardEnum previousPreviousHazard = HazardEnum.NONE;
     private float secondsPerHazard;
     private Tween secondsPerHazardTween;
 
 	public Dictionary<HazardEnum, GameObject> hazardDictionary = new Dictionary<HazardEnum, GameObject>();
 	private List< HazardEntry > hazardEntries = new List< HazardEntry >();
-    public GameObject blizzardPrefab;
+
     public GameObject bugPrefab;
-    public GameObject tramplePrefab;
+    public GameObject healPrefab;
 
-    public GameObject lightningPrefab;
-    public GameObject heavyWindPrefab;
-    public GameObject swarmOfBugsPrefab;
-    
-    public GameObject ufoPrefab;
-    public GameObject meteorPrefab;
-    public GameObject lightningStormPrefab;
+    public GameObject redBugGenPrefab;
+    public GameObject yellowBugGenPrefab;
+    public GameObject blueBugGenPrefab;
 
-    private HazardEnum[] firstStageHazards = {HazardEnum.BLIZZARD, HazardEnum.TRAMPLE, HazardEnum.BUG};
-    private HazardEnum[] secondStageHazards = {HazardEnum.LIGHTNING, HazardEnum.HEAVY_WIND, HazardEnum.SWARM_OF_BUGS};
-    private HazardEnum[] thirdStageHazards = {HazardEnum.LIGHTNING_STROM, HazardEnum.METEOR, HazardEnum.UFO};
-    private GameObject[] firstStageHazardsPrefab = new GameObject[3];
-    private GameObject[] secondStageHazardsPrefab = new GameObject[3];
+    private GameObject[] firstStageHazardsPrefab = new GameObject[1];
+    private GameObject[] secondStageHazardsPrefab = new GameObject[2];
     private GameObject[] thirdStageHazardsPrefab = new GameObject[3];
 
 	// Use this for initialization
 	void Start () {
-        firstStageHazardsPrefab[0] = blizzardPrefab;
-        firstStageHazardsPrefab[1] = bugPrefab;
-        firstStageHazardsPrefab[2] = tramplePrefab;
+        firstStageHazardsPrefab[0] = redBugGenPrefab;
+        secondStageHazardsPrefab[0] = redBugGenPrefab;
+        thirdStageHazardsPrefab[0] = redBugGenPrefab;
         
-        secondStageHazardsPrefab[0] = lightningPrefab;
-        secondStageHazardsPrefab[1] = heavyWindPrefab;
-        secondStageHazardsPrefab[2] = swarmOfBugsPrefab;
+        secondStageHazardsPrefab[1] = yellowBugGenPrefab;
+        thirdStageHazardsPrefab[1] = yellowBugGenPrefab;
         
-        thirdStageHazardsPrefab[0] = lightningStormPrefab;
-        thirdStageHazardsPrefab[1] = meteorPrefab;
-        thirdStageHazardsPrefab[2] = ufoPrefab;
+        thirdStageHazardsPrefab[2] = blueBugGenPrefab;
 
-        float initialSecondsPerHazard = 2f;
-        float finalSecondsPerHazard = 0.4f;
+        float initialSecondsPerHazard = 2.3f;
+        float finalSecondsPerHazard = 1.8f;
         secondsPerHazard = initialSecondsPerHazard;
-        float totalTimeToWeen = 90f; //In Game Seconds
+        float totalTimeToWeen = 120f; //In Game Seconds
         secondsPerHazardTween = DOTween.To(() => secondsPerHazard, x => secondsPerHazard = x, finalSecondsPerHazard, totalTimeToWeen);
-        
-        HazardEnum next = firstStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
-        AddHazard(next, timeElapsed + 0.1f);
+
+        AddHazard(HazardEnum.BUG, timeElapsed + 0.1f);
         secondsPerHazardTween.Pause();
 	}
 	
@@ -74,56 +61,31 @@ public class HazardManagerScript : MonoBehaviour {
 			}
 
 			if (toCall != null) {
+
+                if( Mathf.Floor(Random.Range(0f, 8f)) == 0 ){
+                    GameObject gen = Instantiate(healPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+                }
+
 				hazardEntries.Remove(toCall);
                 switch(Globals.stateManager.currentStage){
                     case(Globals.STAGE_ONE):{
-                        int section = Random.Range(0, 3);
-                        HazardEnum next = firstStageHazards[section];
-                        Instantiate(firstStageHazardsPrefab[section], Vector3.zero, Quaternion.identity);
-
-                        //Do not have the same 3 hazards in a row.
-                        while(next == previousHazard && next == previousPreviousHazard){
-                            next = firstStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
-                        }
-
-                        AddHazard(next, timeElapsed + secondsPerHazard);
+                        AddHazard(HazardEnum.BUG, timeElapsed + secondsPerHazard);
+                        GameObject gen = Instantiate(Utils.RandomFromArray<GameObject>(firstStageHazardsPrefab), Vector3.zero, Quaternion.identity) as GameObject;
                         break;
                     }
                     case(Globals.STAGE_TWO):{
-                        int section = Random.Range(0, 3);
-                        HazardEnum next = secondStageHazards[section];
-                        Instantiate(secondStageHazardsPrefab[section], Vector3.zero, Quaternion.identity);
-                        
-                        //Do not have the same 3 hazards in a row.
-                        while(next == previousHazard && next == previousPreviousHazard){
-                            next = secondStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
-                        }
-                        
-                        AddHazard(next, timeElapsed + secondsPerHazard);
-
+                        AddHazard(HazardEnum.BUG, timeElapsed + secondsPerHazard);
+                        GameObject gen = Instantiate(Utils.RandomFromArray<GameObject>(secondStageHazardsPrefab), Vector3.zero, Quaternion.identity) as GameObject;
                         break;
                     }
                     case(Globals.STAGE_THREE):{
-                        int section = Random.Range(0, 3);
-                        HazardEnum next = thirdStageHazards[section];
-                        Instantiate(thirdStageHazardsPrefab[section], Vector3.zero, Quaternion.identity);
-                        
-                        //Do not have the same 3 hazards in a row.
-                        while(next == previousHazard && next == previousPreviousHazard){
-                            next = thirdStageHazards[Mathf.FloorToInt(Random.Range(0f, 3f))];
-                        }
-                        
-                        AddHazard(next, timeElapsed + secondsPerHazard);
-                        
+                        AddHazard(HazardEnum.BUG, timeElapsed + secondsPerHazard);
+                        GameObject gen = Instantiate(Utils.RandomFromArray<GameObject>(thirdStageHazardsPrefab), Vector3.zero, Quaternion.identity) as GameObject;
                         break;
                     }
                 }
-
-                //Globals.treeManager.NewHazard();
-
-				//Debug.Log ("Hazard called");
-                //Debug.Log ("Seconds per hazards = " + secondsPerHazard);
 			}
+
 		}
 	}
 

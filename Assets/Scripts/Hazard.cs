@@ -19,13 +19,14 @@ public abstract class Hazard : _Mono {
     [Tooltip("Starting angle from vertically up.")]
     public float[] startingAngle;
 
-	public float fadeOutTime = 1f;
+	private float fadeOutTime = 0.5f;
 
     public virtual void Start(){
         hasStarted = true;
         isStopped = false;
         hasFinished = false;
         isHarmful = true;
+        isFading = false;
 
         float angle = Utils.RandomFromArray<float>(startingAngle);
 
@@ -55,12 +56,14 @@ public abstract class Hazard : _Mono {
             z = 0f;
         }
 
-        if( (Globals.stateManager.inCutscene || Globals.stateManager.isGameOver) && !isFading){
+        //Debug.Log(Globals.treeGrowthManager.clearAllTimer);
+        if( (Globals.stateManager.inCutscene || Globals.stateManager.isGameOver || Globals.treeGrowthManager.clearAllTimer > 0f) && !isFading){
             FadeOut();
         }
     }
 
 	public void FadeOut(){
+        //Debug.Log("Call to fadeout");
         if (!isFading)
         {
             isFading = true;
@@ -68,7 +71,7 @@ public abstract class Hazard : _Mono {
 
             Sequence sq = DOTween.Sequence();
             sq.Append(DOTween.To(() => alpha, x => alpha = x, 0f, fadeOutTime));
-            //sq.AppendCallback( Kill );
+            sq.AppendCallback( Kill );
             sq.onComplete = Kill;
         }
 	}
@@ -92,8 +95,9 @@ public abstract class Hazard : _Mono {
                 if(other.gameObject.GetComponent<CenterLeafScript>()!=null){
                     other.gameObject.GetComponent<CenterLeafScript>().MakeSpecialEffect();
                 }
-                FadeOut();
             }
+            
+            FadeOut();
         }
     }
 }

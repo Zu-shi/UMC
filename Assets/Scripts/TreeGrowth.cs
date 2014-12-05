@@ -8,34 +8,29 @@ public class TreeGrowth : _Mono {
         set{Globals.stateManager.lives = value;}
     }
 
-	public _Mono lifeIndicator;
+    public GameObject healRing;
+    public GameObject growRing;
+    public GameObject healLeaf;
     
     public Vector2 leftMostLifeIndicatorPos;
+    public Vector2 initialSize;
     public float lifeSymbolOffset;
     
     public float invincibleTimer;
     
     public float invincibleOnHitTime;
+    
+    public float clearAllTimer;
+    public float clearAllTime {get; set;}
 
 	private GameObject[] lifeSymbols;
     private BoxCollider col;
 
 	// Use this for initialization
 	void Start () {
+        clearAllTime = 1f;
         col = GetComponent<BoxCollider>();
         Utils.Assert(col != null);
-		DisplayLives ();
-	}
-
-	void DisplayLives(){
-        /*
-		lifeSymbols = new GameObject[lives];
-		for(int i = 0; i < lifeSymbols.Length; i++){
-			Vector2 pos = leftMostLifeIndicatorPos;
-			pos.x += i * lifeSymbolOffset;
-			lifeSymbols[i] = Instantiate(lifeIndicator, pos, Quaternion.identity ) as GameObject;
-		}*/
-
 	}
 	
 	// Update is called once per frame
@@ -43,6 +38,10 @@ public class TreeGrowth : _Mono {
 		if(invincibleTimer > 0f){
 			invincibleTimer -= Time.deltaTime;
 		}
+
+        if(clearAllTimer > 0f){
+            clearAllTimer -= Time.deltaTime;
+        }
 
 		UpdateLives ();
         UpdateCollisionBox();
@@ -56,27 +55,36 @@ public class TreeGrowth : _Mono {
     }
 
 	void UpdateLives(){
-        /*
-		int lastLifeIndex = lives - 1;
-		for(int i = 0; i < lifeSymbols.Length; i++){
-			if(i > lastLifeIndex){
-				lifeSymbols[i].gameObject.SetActive(false);
-			}
-		}
-        */
-        //Debug.Log
-        //Debug.Log(Globals.stateManager.leafLifeIndicator.xys);
         if(lives<0){lives = 0f;}
-        Globals.stateManager.leafLifeIndicator.xys = new Vector2(lives, lives);
-        //Globals.stateManager.leafLifeIndicator.xs = lives;
-        //Globals.stateManager.leafLifeIndicator.ys = lives;
 	}
 
 
 	void OnTriggerEnter(Collider col){
-        Debug.Log("Trigger");
+        //Debug.Log("Trigger");
+        
+        if (col.gameObject.tag == "StreamBugHazard") {
+            StreamBugHazard sbh = col.gameObject.GetComponent<StreamBugHazard> ();
+            if(sbh.harmful)
+            {
+                float damage = sbh.damage;
+                if(invincibleTimer <= 0f){
+                    if (damage > lives) {
+                        lives = 0;
+                    } 
+                    else {
+                        lives -= damage;
+                        invincibleTimer = invincibleOnHitTime;
+                    }
 
-		if (col.gameObject.tag == "RedHazard") {
+                    Globals.treeManager.mainTree.GlowRed();
+                    //Debug.Log("glowing red called");
+                    //Globals.treeManager.mainTree.startShake();
+                }
+                sbh.harmful = false;
+            }
+        }
+
+		else if (col.gameObject.tag == "RedHazard") {
 			float damage = col.gameObject.GetComponent<RedHazard> ().damage;
 			if(invincibleTimer <= 0f){
 				if (damage > lives) {
@@ -87,7 +95,7 @@ public class TreeGrowth : _Mono {
 					invincibleTimer = invincibleOnHitTime;
 				}
 
-                Globals.treeManager.mainTree.startShake();
+                //Globals.treeManager.mainTree.startShake();
 			}
 		}
 
@@ -96,7 +104,7 @@ public class TreeGrowth : _Mono {
 				lives -= 0.3f;
 				invincibleTimer = invincibleOnHitTime;
                 
-                Globals.treeManager.mainTree.startShake();
+                //Globals.treeManager.mainTree.startShake();
 			}
 			//Logic for freezing goes here
 		}
@@ -106,9 +114,27 @@ public class TreeGrowth : _Mono {
                 lives -= 0.3f;
 				invincibleTimer = invincibleOnHitTime;
                 
-                Globals.treeManager.mainTree.startShake();
+                //Globals.treeManager.mainTree.startShake();
 			}
 			//Logic for slowing goes here
 		}
+
+        if(col.gameObject.tag == "HealPowerup"){
+            //Debug.LogError("HEALPOWERUP");
+            Instantiate(healRing, col.transform.position - new Vector3(0f, 0f, 1f), Quaternion.identity);
+
+            lives = Mathf.Clamp(lives + 0.1f, 0f, 1f);
+            GameObject leafFlash;
+            leafFlash = Instantiate(healLeaf, Globals.stateManager.leafLifeIndicator.gameObject.transform.position, 
+                                    Quaternion.identity) as GameObject;
+            leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys;
+            clearAllTimer = clearAllTime;
+        }
+
+        
+        if(col.gameObject.tag == "GrowPowerup"){
+            Instantiate(growRing, col.transform.position, Quaternion.identity);
+            clearAllTimer = clearAllTime;
+        }
 	}
 }

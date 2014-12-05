@@ -8,6 +8,11 @@ TagManager:
   - RedHazard
   - BlueHazard
   - OrangeHazard
+  - StreamBugHazard
+  - HealPowerup
+  - GrowPowerup
+  - 
+  - Heal
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -17,7 +22,7 @@ TagManager:
   Builtin Layer 5: UI
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: 
+  User Layer 8: ShieldLeaf
   User Layer 9: 
   User Layer 10: 
   User Layer 11: 
@@ -58,6 +63,10 @@ TagManager:
     userID: 4
     uniqueID: 2639931899
     locked: 0
+  - name: TreeGlow
+    userID: 7
+    uniqueID: 1627556143
+    locked: 0
   - name: Grass
     userID: 5
     uniqueID: 1743783457
@@ -69,4 +78,8 @@ TagManager:
   - name: Cursor
     userID: 6
     uniqueID: 2380806643
+    locked: 0
+  - name: Foreground
+    userID: 8
+    uniqueID: 1581261457
     locked: 0

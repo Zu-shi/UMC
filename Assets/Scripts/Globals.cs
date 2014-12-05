@@ -10,6 +10,7 @@ public static class Globals {
 	public const int STAGE_ONE = 1;
     public const int STAGE_TWO = 2;
     public const int STAGE_THREE = 3;
+    public const float INITIAL_HEIGHT = 140;
     public static GameObject treePrefab;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
 
@@ -83,6 +84,15 @@ public static class Globals {
 			return _hazardManager;
 		}
 	}
+
+    private static TreeGrowth _treeGrowthManager;
+    public static TreeGrowth treeGrowthManager {
+        get{
+            if(_treeGrowthManager == null)
+                _treeGrowthManager = GameObject.Find("TreeManager").GetComponent<TreeGrowth>();
+            return _treeGrowthManager;
+        }
+    }
 
     public static void SaveTree (GameObject tree) {
         treePrefab = tree;

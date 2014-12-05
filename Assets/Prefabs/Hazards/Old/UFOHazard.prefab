@@ -12,8 +12,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 65: {fileID: 6500000}
   m_Layer: 0
-  m_Name: LightingStormHazard
-  m_TagString: BlueHazard
+  m_Name: UFOHazard
+  m_TagString: RedHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .800000012, y: 1, z: 1}
+  m_LocalScale: {x: .800000012, y: .800000012, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,7 +40,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 300, y: 300, z: 1}
+  m_Size: {x: 400, y: 300, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -50,16 +50,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 615e89096df4ed64c9e62c953dc4428b, type: 3}
+  m_Script: {fileID: 11500000, guid: 77a001769158cad4c91497e5bff2189a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
+  speed: 1
   time: 3
   startingAngle:
-  - -50
-  - 50
-  fadeOutTime: 1
-  freezeTime: 3
+  - -90
+  - 90
+  damage: .899999976
+  radius: 0
+  rotationSpeed: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2261379553
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bb8b46e2612a9b458734107750f2d75, type: 3}
+  m_Sprite: {fileID: 21300000, guid: da6911ce1532a934da3b47b1eb9c36e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

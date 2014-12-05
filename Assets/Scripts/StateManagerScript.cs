@@ -26,7 +26,7 @@ public class StateManagerScript : MonoBehaviour {
 	public void Start(){
         secondsForFirtstPart = 30;
         secondsForSecondPart = 30;
-        secondsForThirdPart = 120;
+        secondsForThirdPart = 150;
 
         currentStage = Globals.STAGE_STARTING;
 		guiTimerManager = Globals.guiTimerManager;
@@ -39,7 +39,6 @@ public class StateManagerScript : MonoBehaviour {
 		guiTimerManager.SetTotalSeconds (totalSeconds);
 
         lives = 1f;
-        leafLifeIndicator = transform.GetChild(1).GetComponent<_Mono>();
 		GameStart ();
 	}
 
@@ -48,6 +47,9 @@ public class StateManagerScript : MonoBehaviour {
         if(lives <= 0 && !isGameOver){
             GameOver();
         }
+
+        leafLifeIndicator.xy = Globals.inputManager.normToScreenPoint(0.06f, 0.9f);
+        leafLifeIndicator.xys = new Vector2(lives, lives) * Globals.cameraManager.cameraRatio;
 	}
 
 	private void UpdateTime(){
@@ -127,4 +129,8 @@ public class StateManagerScript : MonoBehaviour {
 		}
 
 	}
+
+    void OnDestory(){
+        Destroy(leafLifeIndicator.gameObject);
+    }
 }

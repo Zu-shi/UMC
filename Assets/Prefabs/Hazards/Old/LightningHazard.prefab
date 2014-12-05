@@ -12,8 +12,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 65: {fileID: 6500000}
   m_Layer: 0
-  m_Name: TrampleHazard
-  m_TagString: OrangeHazard
+  m_Name: LightningHazard
+  m_TagString: BlueHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .200000003, y: .200000003, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,7 +40,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 300, y: 300, z: .200000003}
+  m_Size: {x: 300, y: 360, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -50,16 +50,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d10f3fe66b5e0a48934d38b9d771611, type: 3}
+  m_Script: {fileID: 11500000, guid: 615e89096df4ed64c9e62c953dc4428b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
   time: 3
   startingAngle:
-  - -120
-  - 120
-  fadeOutTime: 1
-  slowFactor: .5
+  - -20
+  - 20
+  freezeTime: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -80,7 +79,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2261379553
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 53ec158152892434395d8356e0f34814, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3727d6e237dbe54e83ad3ca9bc614e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

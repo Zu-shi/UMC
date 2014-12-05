@@ -28,6 +28,10 @@ public class CameraManagerScript : _Mono {
     private Sequence cutscene;
     private float durationCache;
 
+    public float cameraRatio{
+        get {return Camera.main.orthographicSize / startGameEndHeight;}
+    }
+
 	void Start () {
 
 	}

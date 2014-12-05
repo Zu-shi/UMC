@@ -6,8 +6,8 @@ public class ShieldScriptRounded : _Mono {
 
     public GameObject shieldLeafPrefab;
     public _Mono goldenShieldLeafPrefab;
-    private int numLeaves = 7;
-    private int angleSpread = 30;
+    private int numLeaves = 3;
+    private int angleSpread = 12;
     
     private float parabolaWidth = 0.6f;
     private float parabolaHeight = 0.6f;
@@ -39,9 +39,11 @@ public class ShieldScriptRounded : _Mono {
             GameObject leaf = Object.Instantiate(shieldLeafPrefab, Vector3.zero, Quaternion.identity) as GameObject;
             _Mono leafMono = leaf.GetComponent<_Mono>();
             leaves.Add(leafMono);
+
             if(isBigLeaf(i)){
                 leafMono.gameObject.AddComponent<CenterLeafScript>().goldenLeaf = goldenShieldLeafPrefab;
             }
+
         }
 	}
 
@@ -84,16 +86,19 @@ public class ShieldScriptRounded : _Mono {
             width = Mathf.Cos(Mathf.Deg2Rad * angle) * parabolaWidth/2f + 0.5f;
             height = Mathf.Sin(Mathf.Deg2Rad * angle) * parabolaHeight;
         }else{
-            width = Mathf.Cos(Mathf.Deg2Rad * angle) * ( parabolaWidth/2f + (Globals.inputManager.inputNormY - 0.5f) * 2 * parabolaWidthRange) + 0.5f;
-            height = Mathf.Sin(Mathf.Deg2Rad * angle) * ( parabolaHeight  + (Globals.inputManager.inputNormY - 0.5f) * 2 * parabolaHeightRange);
+            float yval = Globals.inputManager.inputNormY - 0.5f;
+            yval = Mathf.Clamp(yval, -0.5f, 0.5f);
+            width = Mathf.Cos(Mathf.Deg2Rad * angle) * ( parabolaWidth/2f + yval * 2 * parabolaWidthRange) + 0.5f;
+            height = Mathf.Sin(Mathf.Deg2Rad * angle) * ( parabolaHeight  + yval * 2 * parabolaHeightRange);
         }
         //Debug.Log("width" + width + "height" + height);
         return new Vector2(width, height);
     }
 
     void OnDestroy(){
-        //foreach(_Mono l in leaves) {
-        //    Destroy(l.gameObject);
-        //}
+        foreach(_Mono l in leaves) {
+            if(l != null)
+                Destroy(l.gameObject);
+        }
     }
 }

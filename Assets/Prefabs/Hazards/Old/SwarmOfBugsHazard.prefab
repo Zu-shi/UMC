@@ -445,7 +445,6 @@ MonoBehaviour:
   startingAngle:
   - -30
   - 40
-  fadeOutTime: 1
   damage: .699999988
   radius: 10
   rotationSpeed: 10

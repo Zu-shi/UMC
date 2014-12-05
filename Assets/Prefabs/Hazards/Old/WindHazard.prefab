@@ -12,8 +12,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 65: {fileID: 6500000}
   m_Layer: 0
-  m_Name: SwarmHazard_NotUsed
-  m_TagString: RedHazard
+  m_Name: WindHazard
+  m_TagString: OrangeHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .5, y: .5, z: 1}
+  m_LocalScale: {x: .200000003, y: .200000003, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,7 +40,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 400, y: 400, z: .200000003}
+  m_Size: {x: 400, y: 200, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -50,18 +50,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77a001769158cad4c91497e5bff2189a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d10f3fe66b5e0a48934d38b9d771611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
+  speed: 1
   time: 3
   startingAngle:
-  - 70
-  - -70
-  fadeOutTime: 1
-  damage: .699999988
-  radius: 0
-  rotationSpeed: 0
+  - 90
+  - -90
+  slowFactor: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -82,7 +79,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2261379553
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d120a2c0cfb930a4da5e8cf151f68d87, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 233764399a719fb46aed0254455fae4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

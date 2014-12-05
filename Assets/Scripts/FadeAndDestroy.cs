@@ -9,7 +9,7 @@ public class FadeAndDestroy : _Mono {
 	public void Update () {
         alpha -= rate;
         if(alpha <= 0){
-            GameObject.Destroy(this.gameObject);
+            GameObject.Destroy(gameObject);
         }
 	}
 }

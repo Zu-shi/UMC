@@ -8,9 +8,12 @@ public class TreeModel : _Mono {
 	protected const float SPRITE_WIDTH = 16f / scale;
 	protected const float SPRITE_HEIGHT = 64f / scale;
 	public Sprite foilageSprite;
-	public Sprite angledSprite;
+    public Sprite angledSprite;
+    public Sprite foilageSpriteRed;
+    public Sprite angledSpriteRed;
 	public Sprite nonangledSprite;
     public FruitScript fruitPrefab;
+    public GameObject blankGameObject;
 
 	public Vector2 relativeRoot; //Relative placement of branches in normalized x and y scale.
 	public int seed = 1;
@@ -400,6 +403,39 @@ public class TreeModel : _Mono {
         
         foreach (TreeModel branch in branches) {
             branch.startShake();
+        }
+    }
+    
+    public void GlowRed(){
+        //Debug.Log("glowing red");
+        _Mono branchMono = GetComponent<_Mono> ();
+        GameObject branchGlow = Instantiate(blankGameObject, this.transform.position, this.transform.rotation) as GameObject;
+        _Mono bm = branchGlow.AddComponent<_Mono> ();
+        branchGlow.AddComponent<SpriteRenderer> ();
+        bm.spriteRenderer.sortingLayerName = "TreeGlow";
+        bm.spriteRenderer.sprite = angledSpriteRed;
+        bm.xys = GetComponent<_Mono>().xys * 1f;
+        //bm.angle = GetComponent<_Mono>().angle;
+        FadeAndDestroy fd = branchGlow.AddComponent<FadeAndDestroy>();
+        fd.alpha = 0.1f;
+        fd.rate = 0.005f;
+
+        if(foilage != null){
+            _Mono foilMono = foilage.GetComponent<_Mono> ();
+            GameObject foilGlow = Instantiate(blankGameObject, foilage.transform.position, foilage.transform.rotation) as GameObject;
+            _Mono fgm = foilGlow.AddComponent<_Mono> ();
+            foilGlow.AddComponent<SpriteRenderer> ();
+            fgm.spriteRenderer.sortingLayerName = "TreeGlow";
+            fgm.spriteRenderer.sprite = foilageSpriteRed;
+            fgm.xys = foilage.GetComponent<_Mono>().xys * 1f;
+            //fgm.angle = foilGlow.GetComponent<_Mono>().angle;
+            FadeAndDestroy fd2 = foilGlow.AddComponent<FadeAndDestroy>();
+            fd2.alpha = 0.1f;
+            fd2.rate = 0.005f;
+        }
+                
+        foreach (TreeModel branch in branches) {
+            branch.GlowRed();
         }
     }
 

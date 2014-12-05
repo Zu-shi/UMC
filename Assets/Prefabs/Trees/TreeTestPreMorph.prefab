@@ -42,8 +42,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foilageSprite: {fileID: 21300000, guid: 16a0d2666e94d4b96b146a3e61b4f955, type: 3}
   angledSprite: {fileID: 21300000, guid: 33421421733a4413a99bfce573e0eb2c, type: 3}
+  foilageSpriteRed: {fileID: 21300000, guid: 9e8191bb0ef204caaacf1b94d684a59c, type: 3}
+  angledSpriteRed: {fileID: 21300000, guid: 1a11f21c051934c639d137ed434f4459, type: 3}
   nonangledSprite: {fileID: 21300000, guid: bd733bf048466468991bf54057b63dd8, type: 3}
   fruitPrefab: {fileID: 11400000, guid: a770eaff817b7414fb9e43b8111e44e1, type: 2}
+  blankGameObject: {fileID: 100000, guid: 7af789193cbb64545a413583288add3d, type: 2}
   relativeRoot: {x: 0, y: 0}
   seed: 7
   targetAge: 0

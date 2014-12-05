@@ -42,13 +42,4 @@ public class RedHazard : Hazard {
 		//Debug.Log ("x: " + (x - center.x) + " y: " + (y - center.y));
 
 	}
-	
-	public override void Stop(){
-		base.Stop ();
-	}
-	
-	public override void Finish(){
-		base.Finish ();
-	}
-	
 }
