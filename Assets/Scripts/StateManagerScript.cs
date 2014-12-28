@@ -107,6 +107,7 @@ public class StateManagerScript : MonoBehaviour {
 			}
 			else{
 				using(StreamWriter sw = File.AppendText(logFilePath)){
+					sw.WriteLine("Final Time: " + time);
 					sw.WriteLine(ts);
 				}
 			}
