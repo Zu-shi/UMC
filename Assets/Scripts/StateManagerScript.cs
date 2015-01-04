@@ -101,13 +101,15 @@ public class StateManagerScript : MonoBehaviour {
 			
 			if (!File.Exists (logFilePath)) {
 				using (StreamWriter sw = File.CreateText(logFilePath)){
-					sw.WriteLine("Final Time: " + time);
+					sw.WriteLine("Final Time: " + totalSeconds);
+					sw.WriteLine("Final Stage: " + currentStage);
 					sw.WriteLine(ts);
 				}
 			}
 			else{
 				using(StreamWriter sw = File.AppendText(logFilePath)){
-					sw.WriteLine("Final Time: " + time);
+					sw.WriteLine("Final Time: " + totalSeconds);
+					sw.WriteLine("Final Stage: " + currentStage);
 					sw.WriteLine(ts);
 				}
 			}
