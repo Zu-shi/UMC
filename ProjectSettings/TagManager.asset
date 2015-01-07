@@ -13,6 +13,7 @@ TagManager:
   - GrowPowerup
   - 
   - Heal
+  - Reward
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

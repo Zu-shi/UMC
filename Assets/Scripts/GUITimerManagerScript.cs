@@ -27,6 +27,7 @@ public class GUITimerManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        /*
         if(!isGameOver && !inCutscene){
     		//Calculate string to show.
     		int minutes = totalSeconds / 60;
@@ -57,7 +58,8 @@ public class GUITimerManagerScript : MonoBehaviour {
     		}else{
     			guiText.color = nonFlashingColor;
     		}
-        }
+        }*/
+
 	}
 	
     public void GameOver(){

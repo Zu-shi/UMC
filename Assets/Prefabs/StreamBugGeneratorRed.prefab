@@ -39,15 +39,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e440561704d942578a3688a901e8c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalBugs: 25
   angleRange: 55
-  speed: 1.5
-  totalLifetime: 2
-  bugsPerSecond: 13
+  speed: 1.60000002
+  arrivalTime: 2
+  totalDuration: 2
+  bugPrefab: {fileID: 100000, guid: 6b5eb3e0f231045d59bbc41240dc907b, type: 2}
+  blinkerPrefab: {fileID: 11400000, guid: 00b66c0dc11444b36a4b0f90b322e368, type: 2}
+  blinkerSprite: {fileID: 21300000, guid: f53913a83d36f4588867c4852a67996c, type: 3}
   sinOscillateAmpRange: 20
   sinOscillateSpeedPerSecond: 60
   totalAngleChangeRangeMin: 25
   totalAngleChangeRangeMax: 55
-  bugPrefab: {fileID: 100000, guid: 6b5eb3e0f231045d59bbc41240dc907b, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

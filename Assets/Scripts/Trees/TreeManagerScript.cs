@@ -18,14 +18,16 @@ public class TreeManagerScript : _Mono {
     public int secondsForSecondPart{get; set;}
     public int secondsForThirdPart{get; set;}
     public List<TreeModel> morphingStages { get; set; }
-    
+
     private float stage1performance = 1f;
     private float stage2performance = 1f;
     private bool isGameOver = false;
-    private float targetGrowthPercentage = 1.6f/7f;
+    //private float targetGrowthPercentage = 1.4f/7f;
+    private float targetGrowthPercentage = 1.4f/7f;
     private float secondsSurvivedInStage3 = 0f;
     private float secondsSurvivedInStage2 = 0f;
     private float secondsSurvivedInStage1 = 0f;
+    private float secondsSurvived = 0f;
     private int stage2HazardCount;
     private int stage1HazardCount;
     private bool inCutscene = true;
@@ -46,7 +48,7 @@ public class TreeManagerScript : _Mono {
 
 		if (!Globals.fixedHeightMode) {
 
-			maxAge = 400f;
+			maxAge = 500f;
 			stage1Range = new Vector2 (3/7f, 4/7f);
 			stage2Range = new Vector2 (4/7f, 7/7f);
 			stage1Evaluation = 0f;
@@ -59,6 +61,7 @@ public class TreeManagerScript : _Mono {
 
                 mainTree = Instantiate(morphingStagesPrefab[0], treePos, Quaternion.identity) as TreeModel;
 				mainTree.seed = seed;
+                mainTree.growFoilage = false;
 
 				TreeModel treeInstance = null;
 				TreeModel previousTreeInstance = null;
@@ -116,7 +119,11 @@ public class TreeManagerScript : _Mono {
                 for(int i = 0; i < 1; i++){mainTree.GrowFruit();}
             }
         }
-
+        
+        if(!isGameOver && !inCutscene){
+            secondsSurvived += Time.deltaTime;
+        }
+        /*
         if(!isGameOver && !inCutscene){
             if(!inCutscene && Globals.stateManager.currentStage == Globals.STAGE_TWO){
                 secondsSurvivedInStage2 += Time.deltaTime;
@@ -126,6 +133,7 @@ public class TreeManagerScript : _Mono {
                 secondsSurvivedInStage3 += Time.deltaTime;
             }
         }
+        */
 	}
 
 	private bool DoneGrowing () {
@@ -153,6 +161,7 @@ public class TreeManagerScript : _Mono {
         Debug.Log ("TreeManager.StartCutscene");
         inCutscene = true;
 
+        /*
         switch (Globals.stateManager.currentStage) {
             case Globals.STAGE_ONE: {
                 stage1Evaluation = currentEvaluation; 
@@ -168,6 +177,7 @@ public class TreeManagerScript : _Mono {
                 break;
             }
         }
+        */
 
         //This code is not necessary for part 3.
         seq = DOTween.Sequence();
@@ -186,8 +196,11 @@ public class TreeManagerScript : _Mono {
     }
 
     public void GameOver(float duration){
+        mainTree.growFoilage = true;
         isGameOver = true;
+        /*
         switch (Globals.stateManager.currentStage) {
+
             case Globals.STAGE_ONE: {
                 stage1Evaluation = secondsSurvivedInStage1/Globals.stateManager.secondsForFirtstPart; 
                 targetGrowthPercentage = (stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x) * stage1performance;
@@ -203,9 +216,11 @@ public class TreeManagerScript : _Mono {
                 StartGrowFruitsSequence();
                 break;
             }
-        }
 
+        }*/
+        //targetGrowthPercentage = ;
         //Not use in stage 3
+        targetGrowthPercentage = secondsSurvived / 105f;
         Debug.Log("TGP = " + targetGrowthPercentage);
         targetGrowthPercentage = Mathf.Clamp(targetGrowthPercentage, 0f, 1f);
         seq = DOTween.Sequence();
