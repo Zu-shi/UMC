@@ -7,8 +7,13 @@ public abstract class Hazard : _Mono {
 	protected bool hasStarted;
 	protected bool isStopped;
 	protected bool hasFinished;
-    protected bool isHarmful;
     protected bool isFading;
+    protected bool isBlockable;
+    
+    public bool isHarmful;
+    public int streamMember;
+    public int streamTotal;
+    public Globals.HazardColors color;
 
     [Tooltip("Speed in terms of half-cameras per second")]
     public float speed = 1f;
@@ -22,11 +27,13 @@ public abstract class Hazard : _Mono {
 	private float fadeOutTime = 0.5f;
 
     public virtual void Start(){
+        /*
         hasStarted = true;
         isStopped = false;
         hasFinished = false;
         isHarmful = true;
         isFading = false;
+        isBlockable = true;
 
         float angle = Utils.RandomFromArray<float>(startingAngle);
 
@@ -39,6 +46,7 @@ public abstract class Hazard : _Mono {
 
         //Horizontal mirroring.
         if(angle < 0){xs = -xs;}
+        */
     }
 
     public virtual void Update(){
@@ -57,8 +65,16 @@ public abstract class Hazard : _Mono {
         }
 
         //Debug.Log(Globals.treeGrowthManager.clearAllTimer);
-        if( (Globals.stateManager.inCutscene || Globals.stateManager.isGameOver || Globals.treeGrowthManager.clearAllTimer > 0f) && !isFading){
+        if( (Globals.stateManager.inCutscene || Globals.stateManager.isGameOver) && !isFading){
             FadeOut();
+        }
+
+        if (Globals.treeGrowthManager.clearAllTimer > 0f && !isFading){
+            if(x < Utils.cameraPos.x + Utils.halfScreenWidth && 
+               x > Utils.cameraPos.x - Utils.halfScreenWidth &&
+               y < Utils.cameraPos.y + Utils.halfScreenHeight && 
+               y > Utils.cameraPos.y - Utils.halfScreenHeight)
+                FadeOut();
         }
     }
 
@@ -89,14 +105,17 @@ public abstract class Hazard : _Mono {
 	}
     
     void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Tree" || other.gameObject.tag == "Shield")
+        if (other.gameObject.tag == "Shield")
         {
-            if(!isFading){
-                if(other.gameObject.GetComponent<CenterLeafScript>()!=null){
-                    other.gameObject.GetComponent<CenterLeafScript>().MakeSpecialEffect();
-                }
+            if(!isFading && isBlockable){
+                Globals.comboManager.ProcessCombo(streamMember, streamTotal, color, other.gameObject.GetComponent<CenterLeafScript>());
+
+                FadeOut();
             }
-            
+
+        }
+
+        if (other.gameObject.tag == "Tree"){
             FadeOut();
         }
     }

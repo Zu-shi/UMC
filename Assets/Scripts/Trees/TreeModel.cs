@@ -18,7 +18,14 @@ public class TreeModel : _Mono {
 	public Vector2 relativeRoot; //Relative placement of branches in normalized x and y scale.
 	public int seed = 1;
 	//public bool stopGrowingAfterBranching = true;
-	
+    
+    //Root only
+    public List<Globals.HazardColors> foilageColorPool { get; set; }
+    public Sprite foilageRed;
+    public Sprite foilageYellow;
+    public Sprite foilageBlue;
+    public Sprite foilagePurple;
+
 	public List<TreeModel> branches{ get; set; }
 	public List<TreeModel> allBranches{ get; set; }
 	public int generation{ get; set; }
@@ -44,6 +51,7 @@ public class TreeModel : _Mono {
     public float height;
     public List<FruitScript> fruits;
     public int numFruits { get; set; }
+    public bool growFoilage{ get; set; }
 
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
@@ -55,7 +63,6 @@ public class TreeModel : _Mono {
 	protected float actualAge{ get; set; }
 	protected float heightVariation{ get; set; }
 	protected bool fastGrowth{ get; set; }
-	protected bool growFoilage{ get; set; }
 	protected int foilGen{ get; set; }
 	protected float angleSway { get; set; }
 	public float rotationTracker { get; set; }
@@ -64,7 +71,7 @@ public class TreeModel : _Mono {
 
 	// Use this for initialization
 	protected virtual void Awake () {
-		
+        foilageColorPool = new List<Globals.HazardColors>();
 		growFoilage = true;
 		fastGrowth = false;
 
@@ -113,6 +120,12 @@ public class TreeModel : _Mono {
 		foreach (float p in branchingProbability) {result += p;}
 		Utils.Assert (result >= 1f, "checking probability adds to 1");
 	}
+
+    public void AddToColorPool(Globals.HazardColors color){
+        foilageColorPool.Add(color);
+        foilageColorPool.Add(color);
+        foilageColorPool.Add(color);
+    }
 
 	public Vector2 absoluteRoot{
 		get{return xy;}
@@ -199,12 +212,27 @@ public class TreeModel : _Mono {
 	protected virtual void CreateFoilage(){
 
 		if (generation >= foilGen && foilage == null) {
+
+            Globals.HazardColors color = Globals.HazardColors.NONE;
+            if(root.foilageColorPool.Count > 0){
+                color = root.foilageColorPool[0];
+                root.foilageColorPool.RemoveAt(0);
+            }
+            Sprite spr = foilageSprite;
+            switch (color){
+                case(Globals.HazardColors.RED):{spr = foilageRed; break;}
+                case(Globals.HazardColors.BLUE):{spr = foilageBlue; break;}
+                case(Globals.HazardColors.YELLOW):{spr = foilageYellow; break;}
+                case(Globals.HazardColors.PURPLE1):{spr = foilagePurple; break;}
+            }
+
 			foilage = new GameObject ();
 			SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
             sr.sortingLayerName = "Foilage";
 			foilage.AddComponent<_Mono> ();
-			sr.sprite = foilageSprite;
+			sr.sprite = spr;
 			sr.sortingOrder = 1;
+             
 		}
 
 		foreach (TreeModel branch in branches) {
@@ -408,6 +436,7 @@ public class TreeModel : _Mono {
     
     public void GlowRed(){
         //Debug.Log("glowing red");
+        /*
         _Mono branchMono = GetComponent<_Mono> ();
         GameObject branchGlow = Instantiate(blankGameObject, this.transform.position, this.transform.rotation) as GameObject;
         _Mono bm = branchGlow.AddComponent<_Mono> ();
@@ -437,6 +466,7 @@ public class TreeModel : _Mono {
         foreach (TreeModel branch in branches) {
             branch.GlowRed();
         }
+        */
     }
 
     public void setAlphaRecursive(float a){

@@ -39,16 +39,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08e411b4459604ca0b95d808b10cced6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrivalTime: 2
+  totalDuration: 2
   angleRange: 0
   speed: 0
-  totalLifetime: 0
-  bugsPerSecond: 0
+  totalBugs: 20
   sinOscillateAmpRange: 0
   sinOscillateSpeedPerSecond: 0
   totalAngleChangeRangeMin: 0
   totalAngleChangeRangeMax: 0
-  bugPrefab: {fileID: 0}
-  angleSeperationMangnitude: 15
+  bugPrefab: {fileID: 100000, guid: 6b5eb3e0f231045d59bbc41240dc907b, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -11,8 +11,28 @@ public static class Globals {
     public const int STAGE_TWO = 2;
     public const int STAGE_THREE = 3;
     public const float INITIAL_HEIGHT = 140;
-    public static GameObject treePrefab;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
+    private static GameObject treePrefab;
+
+    
+    public static Vector2 mainTreePos{
+        get{
+            return new Vector2(Globals.treeManager.treePos.x, Globals.treeManager.treePos.y);
+        }
+    }
+
+    public static Vector2 target{
+        get{
+            Vector3 cameraPos = Camera.main.transform.position;
+            float y = cameraPos.y - Camera.main.orthographicSize / 4f;
+            float x = Globals.treeManager.treePos.x;
+            return new Vector2(x, y);
+        }
+    }
+
+    public enum HazardColors{
+        NONE, RED, YELLOW, BLUE, PURPLE1, PURPLE2
+    }
 
 	public static InputManagerScript inputManager {
 		get{
@@ -28,6 +48,15 @@ public static class Globals {
             if(_stateManager == null)
                 _stateManager = GameObject.Find("StateManager").GetComponent<StateManagerScript>();
             return _stateManager;
+        }
+    }
+    
+    private static ComboManagerScript _comboManager;
+    public static ComboManagerScript comboManager {
+        get{
+            if(_comboManager == null)
+                _comboManager = GameObject.Find("ComboManager").GetComponent<ComboManagerScript>();
+            return _comboManager;
         }
     }
 
@@ -85,11 +114,11 @@ public static class Globals {
 		}
 	}
 
-    private static TreeGrowth _treeGrowthManager;
-    public static TreeGrowth treeGrowthManager {
+    private static TreeGrowthManager _treeGrowthManager;
+    public static TreeGrowthManager treeGrowthManager {
         get{
             if(_treeGrowthManager == null)
-                _treeGrowthManager = GameObject.Find("TreeManager").GetComponent<TreeGrowth>();
+                _treeGrowthManager = GameObject.Find("TreeManager").GetComponent<TreeGrowthManager>();
             return _treeGrowthManager;
         }
     }
