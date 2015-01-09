@@ -1,20 +1,4 @@
-Game Start: 1/4/2015 4:03:17 PM
-Final Time: 23
-Final Stage: 1
-Game End: 1/4/2015 4:03:26 PM
-Game Start: 1/4/2015 4:03:56 PM
-Final Time: 23
-Final Stage: 1
-Game End: 1/4/2015 4:04:05 PM
-Game Start: 1/4/2015 4:04:17 PM
-Final Time: 21
-Final Stage: 1
-Game End: 1/4/2015 4:04:27 PM
-Game Start: 1/4/2015 4:34:10 PM
-Game Start: 01/07/2015 20:33:26
-Game Start: 01/07/2015 20:34:07
-Game Start: 01/07/2015 20:34:14
-Game Start: 01/07/2015 20:35:10
-Game Start: 01/07/2015 20:35:56
-Game Start: 01/07/2015 20:35:56
-Game Start: 01/07/2015 20:36:09
+Game Start: 1/8/2015 6:23:20 PM
+Combo Count: 0
+Reward Count: 0
+Game End: 1/8/2015 6:23:22 PM

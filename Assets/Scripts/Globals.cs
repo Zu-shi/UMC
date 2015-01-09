@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+
 public static class Globals {
 
 	public static bool fixedHeightMode = false;
@@ -13,8 +15,7 @@ public static class Globals {
     public const float INITIAL_HEIGHT = 140;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
     private static GameObject treePrefab;
-
-    
+ 
     public static Vector2 mainTreePos{
         get{
             return new Vector2(Globals.treeManager.treePos.x, Globals.treeManager.treePos.y);

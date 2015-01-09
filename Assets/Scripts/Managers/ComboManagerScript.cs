@@ -4,7 +4,7 @@ using System.Collections;
 public class ComboManagerScript : _Mono {
 
     int comboCount = 0;
-    int totalComboCount = 0;
+    public int totalComboCount = 0;
     private GUIText guiText;
     private float flashyTextTimer;
 

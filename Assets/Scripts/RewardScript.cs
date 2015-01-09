@@ -90,6 +90,8 @@ public class RewardScript : _Mono {
                 lifeTime = fadeoutStartTime;
                 Globals.treeGrowthManager.ClaimReward();
                 Globals.treeManager.mainTree.AddToColorPool(color);
+
+				LoggingManager.reward();
             }
             
         }

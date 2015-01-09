@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
-using System.IO;
+
 
 public class StateManagerScript : MonoBehaviour {
 
@@ -27,25 +26,10 @@ public class StateManagerScript : MonoBehaviour {
 	//private ShieldScript shieldManager;
 	private HazardManagerScript hazardManager;
 
-	private string logFilePath;
 
 	public void Start(){
 
-		//Start writing to log file. Current Directory is used because of issues with permissions.
-		logFilePath = Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + "TreeGameLogFile.txt";
-
-		String ts = "Game Start: " + TimeStamp ();
-
-		if (!File.Exists (logFilePath)) {
-			using (StreamWriter sw = File.CreateText(logFilePath)){
-				sw.WriteLine(ts);
-			}
-		}
-		else{
-			using(StreamWriter sw = File.AppendText(logFilePath)){
-				sw.WriteLine(ts);
-			}
-		}
+		LoggingManager.startLogging ();
 
         secondsForFirtstPart = 3000;
         secondsForSecondPart = 3000;
@@ -99,24 +83,6 @@ public class StateManagerScript : MonoBehaviour {
         if(!isGameOver){
             float time = (currentStage == Globals.STAGE_THREE) ? Globals.treeManager.GetCutsceneTime() : secondsPerCutscene;
 
-			//Write the end of this game's log entry
-			String ts = "Game End: " + TimeStamp ();
-			
-			if (!File.Exists (logFilePath)) {
-				using (StreamWriter sw = File.CreateText(logFilePath)){
-					sw.WriteLine("Final Time: " + totalSeconds);
-					sw.WriteLine("Final Stage: " + currentStage);
-					sw.WriteLine(ts);
-				}
-			}
-			else{
-				using(StreamWriter sw = File.AppendText(logFilePath)){
-					sw.WriteLine("Final Time: " + totalSeconds);
-					sw.WriteLine("Final Stage: " + currentStage);
-					sw.WriteLine(ts);
-				}
-			}
-
             isGameOver = true;
             guiTimerManager.GameOver ();
             hazardManager.GameOver ();
@@ -154,6 +120,11 @@ public class StateManagerScript : MonoBehaviour {
 	}
 	
 	private void EndCutscene(){
+
+		LoggingManager.recordComboCount ();
+		LoggingManager.recordRewards ();
+		LoggingManager.endLogging ();
+
 		if (!inCutscene) {
 			Debug.LogWarning( "Call to endCutscene when cutscene is still active." );
 		}
@@ -177,7 +148,5 @@ public class StateManagerScript : MonoBehaviour {
         Destroy(leafLifeIndicator.gameObject);
     }
 
-	String TimeStamp(){
-		return DateTime.Now.ToString ("G");
-	}
+
 }
