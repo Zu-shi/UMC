@@ -1,4 +1,9 @@
-Game Start: 1/8/2015 6:23:20 PM
+Game Start: 1/8/2015 6:45:19 PM
 Combo Count: 0
 Reward Count: 0
-Game End: 1/8/2015 6:23:22 PM
+Game End: 1/8/2015 6:45:21 PM
+Game Start: 1/8/2015 6:47:02 PM
+Game Start: 1/8/2015 6:47:06 PM
+Combo Count: 1
+Reward Count: 1
+Game End: 1/8/2015 6:47:44 PM

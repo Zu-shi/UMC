@@ -28,7 +28,8 @@ public class LoggingManager : MonoBehaviour {
 	}
 
 	public static void recordComboCount(){
-		int comboNum = Globals.comboManager.totalComboCount;
+		int comboNum = Globals.comboManager.comboTally;
+		Debug.Log ("Combo count is " + comboNum);
 
 		using(StreamWriter sw = File.AppendText(logFilePath)){
 			sw.WriteLine("Combo Count: " + comboNum);

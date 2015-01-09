@@ -95,6 +95,10 @@ public class StateManagerScript : MonoBehaviour {
     }
 
     private void ShowGameOverGUI(){
+		LoggingManager.recordComboCount ();
+		LoggingManager.recordRewards ();
+		LoggingManager.endLogging ();
+
         Globals.gameOverGUIScript.Show();
     }
 
@@ -121,9 +125,7 @@ public class StateManagerScript : MonoBehaviour {
 	
 	private void EndCutscene(){
 
-		LoggingManager.recordComboCount ();
-		LoggingManager.recordRewards ();
-		LoggingManager.endLogging ();
+
 
 		if (!inCutscene) {
 			Debug.LogWarning( "Call to endCutscene when cutscene is still active." );
