@@ -44,6 +44,8 @@ public class HazardManagerScript : MonoBehaviour {
     private const float timePerNewHazard = 7f;
     public const int lookForwardSeconds = 10;
 	private List< HazardEntry > hazardEntries = new List< HazardEntry >();
+    private float damage;
+    private Tween damageTween;
 
 	// Use this for initialization
 	void Start () {
@@ -51,8 +53,15 @@ public class HazardManagerScript : MonoBehaviour {
         float initialPeaceDuration = 1.2f;
         float finalPeaceDuration = 0.1f;
         peaceDuration = initialPeaceDuration;
-        float totalTimeToWeen = 80f; //In Game Seconds
-        peaceDurationTween = DOTween.To(() => peaceDuration, x => peaceDuration = x, finalPeaceDuration, totalTimeToWeen);
+        float totalTimeToWeenPeaceDurtion = 80f; //In Game Seconds
+        peaceDurationTween = DOTween.To(() => peaceDuration, x => peaceDuration = x, finalPeaceDuration, totalTimeToWeenPeaceDurtion);
+
+        
+        float initialDamage = 0.02f;
+        float finalDamage = 0.08f;
+        damage = initialDamage;
+        float totalTimeToWeenDamage = 120f; //In Game Seconds
+        peaceDurationTween = DOTween.To(() => damage, x => damage = x, finalDamage, initialDamage);
         //peaceDurationTween.Pause();
 
 	}
@@ -72,6 +81,7 @@ public class HazardManagerScript : MonoBehaviour {
 			if (toCall != null) {
                 hazardEntries.Remove(toCall);
                 GameObject gen = Instantiate(generators[toCall.hazard], Vector3.zero, Quaternion.identity) as GameObject;
+                gen.GetComponent<StreamBugGeneratorScriptParent>().damage = damage;
 			}
 
             if (timeElapsed + lookForwardSeconds >= endMark) {

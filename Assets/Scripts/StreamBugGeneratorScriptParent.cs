@@ -12,6 +12,7 @@ public class StreamBugGeneratorScriptParent : _Mono {
     public GameObject bugPrefab;
     public _Mono blinkerPrefab;
     public Sprite blinkerSprite;
+    public float damage{get; set;}
 
     protected float bugTimer;
     protected int bugCounter = 1;
@@ -54,6 +55,7 @@ public class StreamBugGeneratorScriptParent : _Mono {
         bugTimer -= totalDuration/totalBugs;
         sbh.streamMember = bugCounter;
         sbh.streamTotal = totalBugs;
+        sbh.damage = damage;
         bugCounter++;
     }
 

@@ -135,7 +135,7 @@ public static class Globals {
                 t.setAlphaRecursive(t.alpha * 0.3f);
             }
             
-            Object.DestroyImmediate(treeScene, true);
+            GameObject.DestroyImmediate(treeScene, true);
             Debug.Log("treeScene destoryed ");
         }
         

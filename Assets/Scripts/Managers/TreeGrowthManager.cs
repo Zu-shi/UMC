@@ -82,6 +82,7 @@ public class TreeGrowthManager : _Mono {
             if(sbh.isHarmful)
             {
                 float damage = sbh.damage;
+                //damage = 0;
                 if(invincibleTimer <= 0f){
                     if (damage > lives) {
                         lives = 0;

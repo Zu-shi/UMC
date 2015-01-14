@@ -3,13 +3,13 @@ using System.Collections;
 
 //Red Hazards do extra damage
 public class StreamBugHazardScript : Hazard {
-    
-    public float damage;
+
     public Sprite redSprite;
     public Sprite blueSprite;
     public Sprite yellowSprite;
     public Sprite purple1Sprite;
     public Sprite purple2Sprite;
+    public float damage;
 
     public Sprite sprite{
         get{return spriteRenderer.sprite;}
