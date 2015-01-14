@@ -107,6 +107,9 @@ public class TreeManagerScript : _Mono {
     }
 
     protected virtual void Update () {
+        targetGrowthPercentage = secondsSurvived / 105f;
+        currentGrowthPercentage = targetGrowthPercentage;
+
         mainTree.targetAge = maxAge * currentGrowthPercentage;
         foreach(TreeModel tree in morphingStages){
             tree.targetAge = mainTree.targetAge;
