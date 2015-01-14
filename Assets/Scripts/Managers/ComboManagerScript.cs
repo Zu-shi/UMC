@@ -4,7 +4,7 @@ using System.Collections;
 public class ComboManagerScript : _Mono {
 
     int comboCount = 0;
-    int totalComboCount = 0;
+    public int totalComboCount = 0;
     private GUIText guiText;
     private float flashyTextTimer;
 
@@ -14,6 +14,8 @@ public class ComboManagerScript : _Mono {
     public AudioClip notComboSound;
     public AudioClip comboSound;
     public AudioClip rewardAppearsSound;
+
+	public int comboTally = 0;
 
     void Start () {
         guiText = gameObject.GetComponent<GUIText> ();
@@ -59,6 +61,9 @@ public class ComboManagerScript : _Mono {
     }
 
     void CreateReward(Globals.HazardColors color){
+		comboTally++;
+		Debug.Log ("comboTally is now " + comboTally);
+
         Globals.stateManager.audioSource.PlayOneShot(rewardAppearsSound);
         rewardObj2 = Utils.InstanceCreate<RewardScript>(Vector2.zero, rewardObj);
         rewardObj2.color = color;
