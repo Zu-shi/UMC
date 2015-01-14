@@ -37,7 +37,6 @@ public class CameraManagerScript : _Mono {
 	}
 
 	void Update () {
-		
 		if (Globals.fixedHeightMode) {
 			if (height < maxHeight) {
 				height += 2f;

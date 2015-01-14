@@ -19,11 +19,11 @@ public class StreamBugHazardScript : Hazard {
 
     // Use this for initialization
     public override void  Start () {
+        base.Start();
         hasStarted = true;
         isStopped = false;
         hasFinished = false;
         isHarmful = true;
-        isBlockable = true;
         center = transform.position;
         switch (color){
             case(Globals.HazardColors.RED):{sprite = redSprite; break;}

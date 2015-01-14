@@ -25,8 +25,9 @@ public class CursorScript : _Mono {
         alphaAngle += Mathf.PI / flashesPerSecond * Time.deltaTime;
         alpha = 0.55f + 0.2f * Mathf.Sin(alphaAngle);
 
-        xs = Camera.main.orthographicSize / 480f * originalXs;
-        ys = Camera.main.orthographicSize / 480f * originalYs;
+        float sizeRatio = Utils.halfScreenHeight / Utils.resolutionWidth;
+        xs = sizeRatio * originalXs;
+        ys = sizeRatio * originalYs;
 
         if(x - xprev > Camera.main.orthographicSize/300f){
             switchCounter++;

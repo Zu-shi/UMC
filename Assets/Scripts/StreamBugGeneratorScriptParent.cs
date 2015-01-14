@@ -49,8 +49,8 @@ public class StreamBugGeneratorScriptParent : _Mono {
         sbh.speed= speed;
         sbh.angle = aimedAngle - 180f;
         
-        Vector2 scale = go.GetComponent<_Mono>().xys;
-        go.GetComponent<_Mono>().xys = Camera.main.orthographicSize / initialCameraSize * scale;
+        //Vector2 scale = go.GetComponent<_Mono>().xys;
+        //go.GetComponent<_Mono>().xys = Camera.main.orthographicSize / initialCameraSize * scale;
         
         bugTimer -= totalDuration/totalBugs;
         sbh.streamMember = bugCounter;

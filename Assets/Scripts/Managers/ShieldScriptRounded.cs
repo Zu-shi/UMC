@@ -38,6 +38,8 @@ public class ShieldScriptRounded : _Mono {
     private float innerParabolaWidth = 0.5f;
     private float innerParabolaHeight = 0.5f;
 
+    public bool outerShield{get{return orbitalLerp > 0.7f;}}
+    public bool innerShield{get{return orbitalLerp < 0.3f;}}
 	// Use this for initialization
     void Start () {
         //cameraHeight = Camera.main.orthographicSize;

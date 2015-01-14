@@ -3,10 +3,23 @@ using System.Collections;
 
 public class HidingBugHazardScript : StreamBugHazardScript {
 
-    private float startHidingDistance = 170f;
-    private float endHidingDistance = 90f;
+    private float startHidingDistance = 225f;
+    private float endHidingDistance = 150f;
+    private float startingStartHidingDistance;
+    private float startingEndHidingDistance;
+
+    public override void Start () {
+        base.Start();
+        startingStartHidingDistance = startHidingDistance;
+        startingEndHidingDistance = endHidingDistance;
+        isBlockableByOuterShield = false;
+    }
 
     public override void Update () {
+        float sizeRatio = Utils.halfScreenHeight / Globals.INITIAL_HEIGHT;
+        startHidingDistance = sizeRatio * startingStartHidingDistance;
+        endHidingDistance = sizeRatio * startingEndHidingDistance;
+
         base.Update();
 
         float dist = Utils.PointDistance(xy, Globals.treeManager.treePos);
@@ -17,9 +30,6 @@ public class HidingBugHazardScript : StreamBugHazardScript {
             }else{
                 alpha = Mathf.Lerp(1, 0, (dist - endHidingDistance) / (midDist - endHidingDistance) );
             }
-            isBlockable = false;
-        }else{
-            isBlockable = true;
         }
 	}
 }

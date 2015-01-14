@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generators:
-  - {fileID: 11400000, guid: 599b87c6c85da4307857ea8505a64a5a, type: 2}
+  - {fileID: 11400000, guid: 0b51f61cad7774690b13d4e60ed28eee, type: 2}
   - {fileID: 11400000, guid: 16bd87b5afb344c28b461d35a872f3a4, type: 2}
   - {fileID: 11400000, guid: 33d22ca4be73649a994434d5d08c8c8f, type: 2}
   - {fileID: 11400000, guid: 0b51f61cad7774690b13d4e60ed28eee, type: 2}
@@ -762,11 +762,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ba2cabfb7444a7099669ab2370ee83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalComboCount: 0
   flashyColor: {r: .932555854, g: 1, b: .301470578, a: 1}
   rewardObj: {fileID: 11400000, guid: 0d84ece6fbc3b4ab5ac16d07b12a0881, type: 2}
   notComboSound: {fileID: 8300000, guid: 58cd7b641103e49bd8e0925bfe799a02, type: 3}
   comboSound: {fileID: 8300000, guid: 2ebdc54ac731a44e7b4d89e7c912f7bc, type: 3}
   rewardAppearsSound: {fileID: 8300000, guid: 5937f47e216064bd793bf836cfc1ebfd, type: 3}
+  comboTally: 0
 --- !u!131 &13100000
 GUITexture:
   m_ObjectHideFlags: 1

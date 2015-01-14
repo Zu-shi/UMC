@@ -22,7 +22,7 @@ using DG.Tweening;
  * beginning to kick-start the cycle. arrivalTime is manupulated to shorten wait time.
  * -----------------------------
  * 
- * HELPFUL GRAPHICS:
+ * HELPFUL GRAPH:
  *         .-----------------------arrivalTime-------------------------.
  *         |                                                           |
  * ---...--|------------------------------|-------peaceDuration--------|----------totalDuration---------|
@@ -61,7 +61,7 @@ public class HazardManagerScript : MonoBehaviour {
         float finalDamage = 0.08f;
         damage = initialDamage;
         float totalTimeToWeenDamage = 120f; //In Game Seconds
-        peaceDurationTween = DOTween.To(() => damage, x => damage = x, finalDamage, initialDamage);
+        peaceDurationTween = DOTween.To(() => damage, x => damage = x, finalDamage, totalTimeToWeenDamage);
         //peaceDurationTween.Pause();
 
 	}
@@ -80,8 +80,11 @@ public class HazardManagerScript : MonoBehaviour {
 
 			if (toCall != null) {
                 hazardEntries.Remove(toCall);
-                GameObject gen = Instantiate(generators[toCall.hazard], Vector3.zero, Quaternion.identity) as GameObject;
-                gen.GetComponent<StreamBugGeneratorScriptParent>().damage = damage;
+                StreamBugGeneratorScriptParent gen = Instantiate(generators[toCall.hazard], Vector3.zero, Quaternion.identity) as StreamBugGeneratorScriptParent;
+                Debug.Log(gen);
+                //AssignDamage(gen, damage);
+                //This code will be ugly when I implement it.
+                gen.damage = damage;
 			}
 
             if (timeElapsed + lookForwardSeconds >= endMark) {
@@ -94,6 +97,19 @@ public class HazardManagerScript : MonoBehaviour {
             }
 		}
 	}
+
+    void AssignDamage(GameObject go, float d){
+        StreamBugGeneratorScriptParent sbg;
+        if((sbg = go.GetComponent<StreamBugGeneratorScriptDoubleFile>()) != null) {
+            sbg.damage = d;
+        }else if((sbg = go.GetComponent<StreamBugGeneratorScriptHiding>()) != null) {
+            sbg.damage = d;
+        }else if((sbg = go.GetComponent<StreamBugGeneratorScriptRound>()) != null) {
+            sbg.damage = d;
+        }else if((sbg = go.GetComponent<StreamBugGeneratorScriptWave>()) != null) {
+            sbg.damage = d;
+        }
+    }
 
     public void GameOver(){
         isGameOver = true;

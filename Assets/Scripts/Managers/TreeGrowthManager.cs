@@ -49,9 +49,16 @@ public class TreeGrowthManager : _Mono {
 	}
 
     void UpdateCollisionBox(){
+        float csize = Globals.target.y;
+        col.center =  new Vector3(Globals.treeManager.treePos.x,  Globals.target.y / 2, 0f);
+        col.size = new Vector3(csize / 6, Globals.target.y, 1000f);
+
+        //Old approach is based upon tree height, which may not be suitable for game style where the camera moves
+        /*
         float csize = Globals.treeManager.mainTree.totalHeight;
         col.center =  new Vector3(Globals.treeManager.treePos.x,  csize / 2, 0f);
         col.size = new Vector3(csize / 6, csize, 1000f);
+        */
     }
 
 	void UpdateLives(){
@@ -99,41 +106,6 @@ public class TreeGrowthManager : _Mono {
                 sbh.isHarmful = false;
             }
         }
-
-		else if (col.gameObject.tag == "RedHazard") {
-			float damage = col.gameObject.GetComponent<RedHazard> ().damage;
-			if(invincibleTimer <= 0f){
-				if (damage > lives) {
-					lives = 0;
-				} 
-				else {
-					lives -= damage;
-					invincibleTimer = invincibleOnHitTime;
-				}
-
-                //Globals.treeManager.mainTree.startShake();
-			}
-		}
-
-		else if(col.gameObject.tag == "BlueHazard"){
-			if(lives > 0 && invincibleTimer <= 0f){
-				lives -= 0.3f;
-				invincibleTimer = invincibleOnHitTime;
-                
-                //Globals.treeManager.mainTree.startShake();
-			}
-			//Logic for freezing goes here
-		}
-
-		else if(col.gameObject.tag == "OrangeHazard"){
-            if(lives > 0 && invincibleTimer <= 0f){
-                lives -= 0.3f;
-				invincibleTimer = invincibleOnHitTime;
-                
-                //Globals.treeManager.mainTree.startShake();
-			}
-			//Logic for slowing goes here
-		}
 
         if(col.gameObject.tag == "HealPowerup"){
             //Debug.LogError("HEALPOWERUP");

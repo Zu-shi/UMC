@@ -14,8 +14,11 @@ public class RewardScript : _Mono {
     private float totalLifeTime = 3f;
     public AudioClip rewardSound;
 
-    private float bigRadius = 0.75f;
+    private float bigRadius = 0.8f;
     private float smallRadius = 20f;
+    private Vector2 startingXys;
+    private float startingBigRadius;
+    private float startingSmallRadius;
     private float bigAngle;
     private float smallAngle = 0f;
     private float direction;
@@ -38,6 +41,9 @@ public class RewardScript : _Mono {
     
     // Use this for initialization
     public void  Start () {
+        startingBigRadius = bigRadius;
+        startingSmallRadius = smallRadius;
+
         center = transform.position;
         direction = Utils.RandomSign();
         switch (color){
@@ -51,9 +57,15 @@ public class RewardScript : _Mono {
         bigAngle = Random.Range(-60f, 60f);
         //spriteRenderer.color = new Color(0.5f, 0.8f, 0.5f, 1f);
         xys = Camera.main.orthographicSize / Globals.INITIAL_HEIGHT * xys * 1.5f;
+        startingXys = xys;
     }
 
     public void Update () {
+        float sizeRatio = Utils.halfScreenHeight / Globals.INITIAL_HEIGHT;
+        //bigRadius = startingBigRadius * sizeRatio;
+        smallRadius = startingSmallRadius * sizeRatio;
+        //xys = startingXys * sizeRatio;
+
         fadein();
         fadeout();
         smallAngle += 0.05f * direction;

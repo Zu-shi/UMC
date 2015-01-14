@@ -88,11 +88,11 @@ public static class Globals {
 		}
 	}
 
-	private static ShieldScript _shieldManager;
-	public static ShieldScript shieldManager {
+	private static ShieldScriptRounded _shieldManager;
+    public static ShieldScriptRounded shieldManager {
 		get{
 			if(_shieldManager == null)
-				_shieldManager = GameObject.Find("ShieldManager").GetComponent<ShieldScript>();
+                _shieldManager = GameObject.Find("ShieldManager").GetComponent<ShieldScriptRounded>();
 			return _shieldManager;
 		}
 	}
@@ -145,7 +145,7 @@ public static class Globals {
         treeSceneNew.name = "TreeScene";
 
         _hazardManager = GameObject.Find("HazardManager").GetComponent<HazardManagerScript>();
-        _shieldManager = GameObject.Find("ShieldManager").GetComponent<ShieldScript>();
+        _shieldManager = GameObject.Find("ShieldManager").GetComponent<ShieldScriptRounded>();
         _cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManagerScript>();
         _guiTimerManager = GameObject.Find("GUITimerManager").GetComponent<GUITimerManagerScript>();
         _stateManager = GameObject.Find("StateManager").GetComponent<StateManagerScript>();

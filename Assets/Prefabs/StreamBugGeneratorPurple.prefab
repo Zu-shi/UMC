@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalBugs: 15
-  angleRange: 55
+  angleRange: 50
   speed: .800000012
   arrivalTime: 2.5
   totalDuration: 2
@@ -49,8 +49,8 @@ MonoBehaviour:
   blinkerSprite: {fileID: 21300000, guid: 08f1809baae22434286deca84e19c2aa, type: 3}
   sinOscillateAmpRange: 10
   sinOscillateSpeedPerSecond: 30
-  totalAngleChangeRangeMin: 40
-  totalAngleChangeRangeMax: 60
+  totalAngleChangeRangeMin: 30
+  totalAngleChangeRangeMax: 50
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

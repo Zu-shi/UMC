@@ -8,7 +8,8 @@ public abstract class Hazard : _Mono {
 	protected bool isStopped;
 	protected bool hasFinished;
     protected bool isFading;
-    protected bool isBlockable;
+    protected bool isBlockableByOuterShield = true;
+    protected bool isBlockableByInnerShield = true;
     
     public bool isHarmful;
     public int streamMember;
@@ -25,31 +26,19 @@ public abstract class Hazard : _Mono {
     public float[] startingAngle;
 
 	private float fadeOutTime = 0.5f;
+    private float originalXs, originalYs;
 
     public virtual void Start(){
-        /*
-        hasStarted = true;
-        isStopped = false;
-        hasFinished = false;
-        isHarmful = true;
-        isFading = false;
-        isBlockable = true;
-
-        float angle = Utils.RandomFromArray<float>(startingAngle);
-
-        Vector3 cameraPos = Camera.main.transform.position;
-        y = cameraPos.y - Camera.main.orthographicSize / 4;
-        x = Globals.treeManager.treePos.x;
-
-        x = ( x + Mathf.Cos( Mathf.Deg2Rad * (90f + angle)) * speed * Camera.main.orthographicSize * time);
-        y = ( y + Mathf.Sin( Mathf.Deg2Rad * (90f + angle)) * speed * Camera.main.orthographicSize * time);
-
-        //Horizontal mirroring.
-        if(angle < 0){xs = -xs;}
-        */
+        originalXs = xs;
+        originalYs = ys;
     }
 
-    public virtual void Update(){
+    public virtual void Update(){        
+
+        float sizeRatio = Utils.halfScreenHeight / Globals.INITIAL_HEIGHT;
+        xs = sizeRatio * originalXs;
+        ys = sizeRatio * originalYs;
+
         if(!isStopped && !hasFinished){
             float step = speed * Time.deltaTime * Camera.main.orthographicSize;
             Vector3 cameraPos = Camera.main.transform.position;
@@ -104,13 +93,16 @@ public abstract class Hazard : _Mono {
 		isStopped = true;
 	}
     
-    void OnTriggerEnter(Collider other) {
+    public virtual void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Shield")
         {
-            if(!isFading && isBlockable){
-                Globals.comboManager.ProcessCombo(streamMember, streamTotal, color, other.gameObject.GetComponent<CenterLeafScript>());
-
-                FadeOut();
+            if(!isFading){
+                if(Globals.shieldManager.outerShield && !isBlockableByOuterShield){
+                }else if(Globals.shieldManager.innerShield && !isBlockableByInnerShield){
+                }else{
+                    Globals.comboManager.ProcessCombo(streamMember, streamTotal, color, other.gameObject.GetComponent<CenterLeafScript>());
+                    FadeOut();
+                }
             }
 
         }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -9,14 +9,18 @@ public static class Utils {
     public const float leafRadius = 0.6f;
     public static float distanceScale { get{return leafRadius * Camera.main.orthographicSize * Camera.main.aspect;} }
     public static float warningBufferSize = 20f;
+    public static float resolutionWidth = 480f;
+
     public static float halfScreenWidth 
     {
         get{ return Camera.main.orthographicSize * Camera.main.aspect; }
     }
+
     public static float halfScreenHeight
     {
         get{ return Camera.main.orthographicSize; }
     }
+
     public static Vector2 cameraPos
     {
         get{ return new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y); }
