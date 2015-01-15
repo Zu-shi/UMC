@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generators:
-  - {fileID: 11400000, guid: 0b51f61cad7774690b13d4e60ed28eee, type: 2}
+  - {fileID: 11400000, guid: 599b87c6c85da4307857ea8505a64a5a, type: 2}
   - {fileID: 11400000, guid: 16bd87b5afb344c28b461d35a872f3a4, type: 2}
   - {fileID: 11400000, guid: 33d22ca4be73649a994434d5d08c8c8f, type: 2}
   - {fileID: 11400000, guid: 0b51f61cad7774690b13d4e60ed28eee, type: 2}
@@ -611,10 +611,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac6b5d0b2acd34e02b2663118c5f4d11, type: 3}
+  m_Script: {fileID: 11500000, guid: 808f552e07a474039abe1bb4a11c41b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGrowthPercentage: 0
+  currentGrowthPercentage: .140000001
   seed: 7
   morphingStagesPrefab:
   - {fileID: 11400000, guid: fcdaee41abceb42138ab8a15531e6097, type: 2}
@@ -691,7 +691,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healRing: {fileID: 100000, guid: a4cbfb13f4c3d481d98045398e7ddea7, type: 2}
-  growRing: {fileID: 100000, guid: 448e64491d3dc4f82a70572a6df35b39, type: 2}
   healLeaf: {fileID: 100000, guid: 9622f7b99bd034bed925f5aefa6cef27, type: 2}
   leftMostLifeIndicatorPos: {x: .0799999982, y: .899999976}
   initialSize: {x: 0, y: 0}
