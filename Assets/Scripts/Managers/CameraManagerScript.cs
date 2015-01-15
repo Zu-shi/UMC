@@ -51,6 +51,15 @@ public class CameraManagerScript : _Mono {
 		                                             Camera.main.transform.position.z);
 	}
 	
+    public void SetHeight (float h) {
+        height = h;
+        float actualHeight = Mathf.Max (minimumCameraSize, height);
+        Camera.main.orthographicSize = actualHeight;
+        Camera.main.transform.position = new Vector3(Globals.treeManager.treePos.x, 
+                                                     actualHeight,
+                                                     Camera.main.transform.position.z);
+
+    }
     /*
 	void SetCutScene(bool v, DG.Tweening.Core.TweenCallback cb) {
 		if(pan.IsPlaying()){

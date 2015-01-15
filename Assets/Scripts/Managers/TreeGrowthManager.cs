@@ -9,7 +9,6 @@ public class TreeGrowthManager : _Mono {
     }
 
     public GameObject healRing;
-    public GameObject growRing;
     public GameObject healLeaf;
     
     public Vector2 leftMostLifeIndicatorPos;
@@ -73,17 +72,12 @@ public class TreeGrowthManager : _Mono {
         GameObject leafFlash;
         leafFlash = Instantiate(healLeaf, Globals.stateManager.leafLifeIndicator.gameObject.transform.position, 
                                 Quaternion.identity) as GameObject;
-        leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys;
+        leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys * 1.1f;
+        Globals.treeManager.GrowthSpurt();
         clearAllTimer = clearAllTime;
     }
 
 	void OnTriggerEnter(Collider col){
-        //Debug.Log("Trigger");
-        
-        if (col.gameObject.tag == "Reward") {
-
-        }
-
         if (col.gameObject.tag == "StreamBugHazard") {
             StreamBugHazardScript sbh = col.gameObject.GetComponent<StreamBugHazardScript> ();
             if(sbh.isHarmful)
@@ -105,24 +99,6 @@ public class TreeGrowthManager : _Mono {
                 }
                 sbh.isHarmful = false;
             }
-        }
-
-        if(col.gameObject.tag == "HealPowerup"){
-            //Debug.LogError("HEALPOWERUP");
-            Instantiate(healRing, col.transform.position - new Vector3(0f, 0f, 1f), Quaternion.identity);
-
-            lives = Mathf.Clamp(lives + 0.05f, 0f, 1f);
-            GameObject leafFlash;
-            leafFlash = Instantiate(healLeaf, Globals.stateManager.leafLifeIndicator.gameObject.transform.position, 
-                                    Quaternion.identity) as GameObject;
-            leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys;
-            clearAllTimer = clearAllTime;
-        }
-
-        
-        if(col.gameObject.tag == "GrowPowerup"){
-            Instantiate(growRing, col.transform.position, Quaternion.identity);
-            clearAllTimer = clearAllTime;
         }
 	}
 }

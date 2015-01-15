@@ -14,7 +14,7 @@ public class RewardScript : _Mono {
     private float totalLifeTime = 3f;
     public AudioClip rewardSound;
 
-    private float bigRadius = 0.8f;
+    private float bigRadius = 0.95f;
     private float smallRadius = 20f;
     private Vector2 startingXys;
     private float startingBigRadius;

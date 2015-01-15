@@ -61,7 +61,7 @@ public class TreeManagerScript : _Mono {
 
                 mainTree = Instantiate(morphingStagesPrefab[0], treePos, Quaternion.identity) as TreeModel;
 				mainTree.seed = seed;
-                mainTree.growFoilage = false;
+                //mainTree.growFoilage = false;
 
 				TreeModel treeInstance = null;
 				TreeModel previousTreeInstance = null;
@@ -106,9 +106,15 @@ public class TreeManagerScript : _Mono {
 
     }
 
+    public void GrowthSpurt () {
+        targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
+        Debug.Log("Growing to " + targetGrowthPercentage);
+        Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 0.5f);
+        //currentGrowthPercentage = targetGrowthPercentage;
+    }
+
     protected virtual void Update () {
-        targetGrowthPercentage = secondsSurvived / 105f;
-        currentGrowthPercentage = targetGrowthPercentage;
+        Globals.cameraManager.SetHeight(mainTree.totalHeight * 4 / 3);
 
         mainTree.targetAge = maxAge * currentGrowthPercentage;
         foreach(TreeModel tree in morphingStages){
@@ -164,24 +170,6 @@ public class TreeManagerScript : _Mono {
         Debug.Log ("TreeManager.StartCutscene");
         inCutscene = true;
 
-        /*
-        switch (Globals.stateManager.currentStage) {
-            case Globals.STAGE_ONE: {
-                stage1Evaluation = currentEvaluation; 
-                targetGrowthPercentage = (stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x) * stage1performance;
-                break;
-            }
-            case Globals.STAGE_TWO: {
-                EvaluateStage2(); 
-                targetGrowthPercentage = stage2Evaluation;
-                break;
-            }
-            case Globals.STAGE_THREE: {
-                break;
-            }
-        }
-        */
-
         //This code is not necessary for part 3.
         seq = DOTween.Sequence();
         seq.Append(DOTween.To( ()=>currentGrowthPercentage, x=> currentGrowthPercentage = x, targetGrowthPercentage, duration/2));
@@ -199,31 +187,9 @@ public class TreeManagerScript : _Mono {
     }
 
     public void GameOver(float duration){
-        mainTree.growFoilage = true;
+        //mainTree.growFoilage = true;
         isGameOver = true;
-        /*
-        switch (Globals.stateManager.currentStage) {
-
-            case Globals.STAGE_ONE: {
-                stage1Evaluation = secondsSurvivedInStage1/Globals.stateManager.secondsForFirtstPart; 
-                targetGrowthPercentage = (stage1Evaluation * (stage1Range.y - stage1Range.x) + stage1Range.x) * stage1performance;
-                break;
-            }
-            case Globals.STAGE_TWO: {
-                currentEvaluation = secondsSurvivedInStage2/Globals.stateManager.secondsForSecondPart;
-                EvaluateStage2(); 
-                targetGrowthPercentage = stage2Evaluation;
-                break;
-            }
-            case Globals.STAGE_THREE: {
-                StartGrowFruitsSequence();
-                break;
-            }
-
-        }*/
-        //targetGrowthPercentage = ;
-        //Not use in stage 3
-        targetGrowthPercentage = secondsSurvived / 105f;
+        targetGrowthPercentage = Mathf.Min(secondsSurvived / 100f + 0.14f, 1f);
         Debug.Log("TGP = " + targetGrowthPercentage);
         targetGrowthPercentage = Mathf.Clamp(targetGrowthPercentage, 0f, 1f);
         seq = DOTween.Sequence();

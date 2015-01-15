@@ -33,10 +33,12 @@ public class ComboManagerScript : _Mono {
         guiText.color = flashyTextTimer > 0 ? flashyColor : Color.white; 
         guiText.fontSize = flashyTextTimer > 0 ? (int)(30 + flashyTextTimer * 10 + (float)(comboCount) / totalComboCount * 10 ) : 30;
         guiText.fontStyle = flashyTextTimer > 0 ? FontStyle.Bold : FontStyle.Normal;
+        
+        guiText.text = "";
 	}
 
     public bool ProcessCombo (int id, int total, Globals.HazardColors color, CenterLeafScript cls){
-        Debug.Log("id: " + id);
+        //Debug.Log("id: " + id);
 
         bool result = false;
         if(cls != null){

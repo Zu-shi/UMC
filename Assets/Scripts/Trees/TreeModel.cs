@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class TreeModel : _Mono {
 
-	protected const float scale = 1f;
+	protected const float scale = 0.5f;
 	protected const float SPRITE_WIDTH = 16f / scale;
 	protected const float SPRITE_HEIGHT = 64f / scale;
 	public Sprite foilageSprite;
@@ -49,10 +49,11 @@ public class TreeModel : _Mono {
     public float age;
     public float totalHeight;
     public float height;
+    public int foilAccessCounter = 0;
     public List<FruitScript> fruits;
     public int numFruits { get; set; }
-    public bool growFoilage{ get; set; }
 
+    private bool growFoilage{ get; set; }
 	protected bool symmetricGrowth{ get; set; }
 	protected bool symmetric{ get; set; }
 	protected float _age;
@@ -100,7 +101,7 @@ public class TreeModel : _Mono {
 		age = 0f;
 		foilagePosition = new Vector2 (0.5f, 0.6f);
 		foilGen = 1;
-		givenHeight = 500.0f;
+		givenHeight = 250.0f;
 		root = this;
 		parent = null;
 		foilageXs = 1f;
@@ -195,12 +196,33 @@ public class TreeModel : _Mono {
 	
 	//Recusive
 	protected virtual void PositionFoilage() {
+        if(generation == 0){
+            foilAccessCounter = 0;
+        }
+
 		if (foilage != null) {
 			_Mono foilMono = foilage.GetComponent<_Mono> ();
 			foilMono.xy = GetRootPosition (foilagePosition);
 			foilMono.angle = myAngle - 90;
-			foilMono.xs = ys * 2 * foilageXs;
-			foilMono.ys = ys * foilageYs;
+            foilMono.xs = ys * 2 * foilageXs;
+            foilMono.ys = ys * foilageYs;
+
+            //THIS NEEDS ONE MORE CHECK
+            Globals.HazardColors color = Globals.HazardColors.NONE;
+            if(root.foilageColorPool.Count > 0){
+                if(foilMono.spriteRenderer.sprite == foilageSprite){
+                    Sprite spr = foilageSprite;
+                    color = root.foilageColorPool[0];
+                    switch (color){
+                        case(Globals.HazardColors.RED):{spr = foilageRed; break;}
+                        case(Globals.HazardColors.BLUE):{spr = foilageBlue; break;}
+                        case(Globals.HazardColors.YELLOW):{spr = foilageYellow; break;}
+                        case(Globals.HazardColors.PURPLE1):{spr = foilagePurple; break;}
+                    }
+                    foilMono.spriteRenderer.sprite = spr;
+                    root.foilageColorPool.RemoveAt(0);
+                }
+            }
 		}
 
 		foreach (TreeModel branch in branches) {
@@ -213,25 +235,12 @@ public class TreeModel : _Mono {
 
 		if (generation >= foilGen && foilage == null) {
 
-            Globals.HazardColors color = Globals.HazardColors.NONE;
-            if(root.foilageColorPool.Count > 0){
-                color = root.foilageColorPool[0];
-                root.foilageColorPool.RemoveAt(0);
-            }
-            Sprite spr = foilageSprite;
-            switch (color){
-                case(Globals.HazardColors.RED):{spr = foilageRed; break;}
-                case(Globals.HazardColors.BLUE):{spr = foilageBlue; break;}
-                case(Globals.HazardColors.YELLOW):{spr = foilageYellow; break;}
-                case(Globals.HazardColors.PURPLE1):{spr = foilagePurple; break;}
-            }
-
 			foilage = new GameObject ();
 			SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
             sr.sortingLayerName = "Foilage";
-			foilage.AddComponent<_Mono> ();
-			sr.sprite = spr;
+			_Mono foilMono = foilage.AddComponent<_Mono> ();
 			sr.sortingOrder = 1;
+            foilMono.spriteRenderer.sprite = foilageSprite;
              
 		}
 
@@ -403,14 +412,14 @@ public class TreeModel : _Mono {
 	private void ReportHeight(){
 		if (generation == 0) {
 			float result = maxHeight ();
-			totalHeight = result;
+            totalHeight = result;
 			//Debug.Log (totalHeight);
 		}
 	}
 
 	//Recursive method to calculate height.
-	public float maxHeight(){
-		float highest = height * Mathf.Sin (myAnglePermanant) + y;
+	private float maxHeight(){
+        float highest = height * scale * Mathf.Sin (myAnglePermanant) + y;
 
 		foreach (TreeModel branch in branches) {
 			highest = Mathf.Max(highest, branch.maxHeight());
