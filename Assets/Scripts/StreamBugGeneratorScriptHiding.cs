@@ -21,7 +21,7 @@ public class StreamBugGeneratorScriptHiding : StreamBugGeneratorScriptParent {
     }
     
     // Update is called once per frame
-    public virtual void Update () {
+    public override void Update () {
         base.Update();
         if(bugTimer >= totalDuration/totalBugs){
             aimedAngle =  initialAngle + totalAngleChange * lifetime / totalDuration + sinOscillateAmp * Mathf.Sin(sinOscillateSpeed * lifetime);

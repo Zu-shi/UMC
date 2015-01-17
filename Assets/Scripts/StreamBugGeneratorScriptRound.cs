@@ -13,7 +13,7 @@ public class StreamBugGeneratorScriptRound : StreamBugGeneratorScriptParent {
     }
     
     // Update is called once per frame
-    public virtual void Update () {
+    public override void Update () {
         base.Update();
         
         if(bugTimer >= totalDuration/totalBugs){

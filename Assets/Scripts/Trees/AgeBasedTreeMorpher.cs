@@ -10,7 +10,6 @@ public class AgeBasedTreeMorpher : _Mono {
 	public float startAge;
 	public float endAge;
 	private bool disabled = false;
-	private TreeManagerScript tsc = null;
 
 	// Use this for initialization
 	void Start () {

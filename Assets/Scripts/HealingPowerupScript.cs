@@ -20,13 +20,13 @@ public class HealingPowerupScript : _Mono {
     private float fadeOutTime = 3f;
     private float startSize;
     private float startSpeed;
-    private float startRate;
+   //private float startRate;
 
 	// Use this for initialization
     void Start () {
         ParticleSystem ps = transform.GetChild(0).particleSystem;
         startSize = ps.startSize;
-        startRate = ps.emissionRate;
+        //startRate = ps.emissionRate;
         startSpeed = ps.startSpeed;
 
         float scale = Globals.cameraManager.cameraRatio;

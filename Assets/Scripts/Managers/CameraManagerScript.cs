@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 0168 // variable declared but not used.
+#pragma warning disable 0219 // variable assigned but not used.
+#pragma warning disable 0414 // private field assigned but not used.
+
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
 public class CameraManagerScript : _Mono {
 	
-    private bool isGameOver = false;
+   // private bool isGameOver = false;
     private bool inCutscene = true;
 	private DG.Tweening.Core.TweenCallback cb;
 	private float maxHeight = 840f;
@@ -95,7 +99,7 @@ public class CameraManagerScript : _Mono {
 	}
 	
     public void GameOver(float duration){
-        isGameOver = true;
+        //isGameOver = true;
 
         if(Globals.stateManager.currentStage != Globals.STAGE_THREE){
             durationCache = duration;

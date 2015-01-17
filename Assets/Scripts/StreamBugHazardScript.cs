@@ -15,7 +15,7 @@ public class StreamBugHazardScript : Hazard {
         get{return spriteRenderer.sprite;}
         set{spriteRenderer.sprite = value;}
     }
-    private Vector3 center;
+    //private Vector3 center;
 
     // Use this for initialization
     public override void  Start () {
@@ -24,7 +24,7 @@ public class StreamBugHazardScript : Hazard {
         isStopped = false;
         hasFinished = false;
         isHarmful = true;
-        center = transform.position;
+        //center = transform.position;
         switch (color){
             case(Globals.HazardColors.RED):{sprite = redSprite; break;}
             case(Globals.HazardColors.BLUE):{sprite = blueSprite; break;}

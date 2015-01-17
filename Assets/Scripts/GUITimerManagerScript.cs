@@ -10,14 +10,14 @@ public class GUITimerManagerScript : MonoBehaviour {
 	public Color nonFlashingColor = Color.white;
 	public Color flashingColor = Color.red;
 
-    private bool isGameOver = false;
+    //private bool isGameOver = false;
 	private float flashesTracker; //Keeps track of amount of time passed since last flash.
-	private bool flashing = false;
-	private GUIText guiText;
+	//private bool flashing = false;
+	//private GUIText guiTextInstance;
 
 	// Use this for initialization
 	void Start () {
-		guiText = gameObject.GetComponent<GUIText> ();
+		//guiTextInstance = gameObject.GetComponent<GUIText> ();
 	}
 
 	public void SetTotalSeconds(int s){
@@ -33,14 +33,13 @@ public class GUITimerManagerScript : MonoBehaviour {
     		int minutes = totalSeconds / 60;
     		int seconds = totalSeconds % 60;
     		string result = "Time Left: ";
-    		if(minutes >= 10){
-    			result = result + minutes.ToString();
+    		if(minutes >= 10guiTextInstance			result = result + minutes.ToString();
     		}else{
     			result = result + "0" + minutes.ToString();
     		}
     		result += ":";
     		if(seconds >= 10){
-    			result = result + seconds.ToString();
+  guiTextInstancesult = result + seconds.ToString();
     		}else{
     			result = result + "0" + seconds.ToString();
     		}
@@ -55,7 +54,7 @@ public class GUITimerManagerScript : MonoBehaviour {
     		}
     		if (flashing & (totalSeconds <= secondsToFlash)) {
     			guiText.color = flashingColor;
-    		}else{
+guiTextInstanceelse{
     			guiText.color = nonFlashingColor;
     		}
         }*/
@@ -63,7 +62,7 @@ public class GUITimerManagerScript : MonoBehaviour {
 	}
 	
     public void GameOver(){
-        isGameOver = true;
+        //isGameOver = true;
     }
 
 	public void CutsceneStart(){

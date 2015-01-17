@@ -5,14 +5,14 @@ using DG.Tweening;
 public class GameOverGUIScript : _Mono{
 
     private float targetAlpha = 0.4f;
-    private GUIText guiText;
+    private GUIText guiTextInstance;
     private _Mono guiTextMono;
-    private int score = 0;
+    //private int score = 0;
 
 	// Use this for initialization
 	void Start () {
         guiAlpha = 0;
-        guiText = transform.GetChild(0).GetComponent<GUIText>();
+        guiTextInstance = transform.GetChild(0).GetComponent<GUIText>();
 	}
 
     void ShowGuiText() {
@@ -22,7 +22,7 @@ public class GameOverGUIScript : _Mono{
     public void Show () {
         int h = Mathf.FloorToInt( Globals.treeManager.mainTree.totalHeight );
         Debug.Log(Globals.stateManager.currentStage);
-        guiText.text = (Globals.stateManager.currentStage != Globals.STAGE_THREE) ?
+        guiTextInstance.text = (Globals.stateManager.currentStage != Globals.STAGE_THREE) ?
         "Your tree grew to be " + h + " inches tall! \n Score: " + 
                 h + "\n Press Enter to Restart." :
                 "Your tree grew to be " + h + " inches tall! \n You grew " + Globals.treeManager.mainTree.numFruits + " fruits!\n Score: " + 
@@ -31,7 +31,7 @@ public class GameOverGUIScript : _Mono{
 
         guiTextMono = guiText.gameObject.AddComponent<_Mono>();
         guiTextMono.guiTextAlpha = 0f;
-        Sequence sq = DOTween.Sequence();
+        //Sequence sq = DOTween.Sequence();
         DOTween.To(()=> guiAlpha, x=> guiAlpha = x, targetAlpha, 1f);
         DOTween.To(()=> guiTextMono.guiTextAlpha, x=> guiTextMono.guiTextAlpha = x, 1f, 1f);
         //sq.AppendCallback(ShowGuiText);

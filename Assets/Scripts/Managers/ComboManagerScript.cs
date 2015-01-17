@@ -5,7 +5,7 @@ public class ComboManagerScript : _Mono {
 
     int comboCount = 0;
     public int totalComboCount = 0;
-    private GUIText guiText;
+    private GUIText guiTextInstance;
     private float flashyTextTimer;
 
     public Color flashyColor;
@@ -18,7 +18,7 @@ public class ComboManagerScript : _Mono {
 	public int comboTally = 0;
 
     void Start () {
-        guiText = gameObject.GetComponent<GUIText> ();
+        guiTextInstance = gameObject.GetComponent<GUIText> ();
 	}
 	
 	// Update is called once per frame
@@ -30,11 +30,11 @@ public class ComboManagerScript : _Mono {
         if(flashyTextTimer >= 0f)
             flashyTextTimer -= Time.deltaTime;
 
-        guiText.color = flashyTextTimer > 0 ? flashyColor : Color.white; 
-        guiText.fontSize = flashyTextTimer > 0 ? (int)(30 + flashyTextTimer * 10 + (float)(comboCount) / totalComboCount * 10 ) : 30;
-        guiText.fontStyle = flashyTextTimer > 0 ? FontStyle.Bold : FontStyle.Normal;
+        guiTextInstance.color = flashyTextTimer > 0 ? flashyColor : Color.white; 
+        guiTextInstance.fontSize = flashyTextTimer > 0 ? (int)(30 + flashyTextTimer * 10 + (float)(comboCount) / totalComboCount * 10 ) : 30;
+        guiTextInstance.fontStyle = flashyTextTimer > 0 ? FontStyle.Bold : FontStyle.Normal;
         
-        guiText.text = "";
+        guiTextInstance.text = "";
 	}
 
     public bool ProcessCombo (int id, int total, Globals.HazardColors color, CenterLeafScript cls){

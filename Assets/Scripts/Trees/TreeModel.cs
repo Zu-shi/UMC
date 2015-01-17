@@ -350,13 +350,12 @@ public class TreeModel : _Mono {
 			int i = 0 ;
 			float accumulater = 0f;
 			float decider = Random.Range(0f, 1f);
-			int decidedNumbers = 0;
 			seed += 1;
 			while( i < branchingOptions.Length && !decidedBranchNumbers ){
 				accumulater += branchingProbability[i];
 				if( accumulater >= decider ){
 					decidedBranchNumbers = true;
-					decidedNumbers = branchingOptions[i];
+					//decidedNumbers = branchingOptions[i];
 					break;
 				}
 				i++;

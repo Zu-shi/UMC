@@ -49,7 +49,6 @@ public class ParticleRings : MonoBehaviour {
     
     // Count of rings spawned so far.
     private int spawnCount = 0;
-    private bool isSpawned = false;
 
     void Start () {
         SpawnRing ();

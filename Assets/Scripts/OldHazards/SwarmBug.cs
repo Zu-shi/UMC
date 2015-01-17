@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 0168 // variable declared but not used.
+#pragma warning disable 0219 // variable assigned but not used.
+#pragma warning disable 0414 // private field assigned but not used.
+
+using UnityEngine;
 using System.Collections;
 
 public class SwarmBug : _Mono {
@@ -15,8 +19,8 @@ public class SwarmBug : _Mono {
 	
 	// Update is called once per frame
 	void Update () {
-        float x = transform.parent.position.x + Mathf.Sin (Time.time * rotationSpeed) * radius;
-        float y = transform.parent.position.y + Mathf.Cos (Time.time * rotationSpeed) * radius;
+        //x = transform.parent.position.x + Mathf.Sin (Time.time * rotationSpeed) * radius;
+        //y = transform.parent.position.y + Mathf.Cos (Time.time * rotationSpeed) * radius;
         alpha = transform.parent.gameObject.GetComponent<_Mono>().alpha;
 	}
 }

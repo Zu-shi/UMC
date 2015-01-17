@@ -7,8 +7,8 @@ public class CursorScript : _Mono {
     float originalYs = 0f;
     float flashesPerSecond = 1f;
     float alphaAngle = 0f;
-    float xprev = 0f;
-    float yprev = 0f;
+    float xprev;
+    //float yprev;
     int switchCounter = 0;
 
 	// Use this for initialization
@@ -45,6 +45,6 @@ public class CursorScript : _Mono {
         }
 
         xprev = x;
-        yprev = y;
+        //yprev = y;
 	}
 }

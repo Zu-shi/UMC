@@ -25,8 +25,8 @@ public class TreeManagerScript : _Mono {
     //private float targetGrowthPercentage = 1.4f/7f;
     private float targetGrowthPercentage = 1.4f/7f;
     private float secondsSurvivedInStage3 = 0f;
-    private float secondsSurvivedInStage2 = 0f;
-    private float secondsSurvivedInStage1 = 0f;
+    //private float secondsSurvivedInStage2 = 0f;
+    //private float secondsSurvivedInStage1 = 0f;
     private float secondsSurvived = 0f;
     private int stage2HazardCount;
     private int stage1HazardCount;
@@ -109,7 +109,7 @@ public class TreeManagerScript : _Mono {
     public void GrowthSpurt () {
         targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
         Debug.Log("Growing to " + targetGrowthPercentage);
-        Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 0.5f);
+        DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 0.5f);
         //currentGrowthPercentage = targetGrowthPercentage;
     }
 

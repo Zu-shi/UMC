@@ -168,3 +168,28 @@ Game Start: 01/15/2015 07:09:11
 Game Start: 01/15/2015 07:11:39
 Game Start: 01/15/2015 07:12:10
 Game Start: 01/15/2015 07:15:57
+Game Start: 01/15/2015 15:43:10
+Combo Count: 1
+Reward Count: 1
+Game End: 01/15/2015 15:44:12
+Game Start: 01/15/2015 15:44:21
+Combo Count: 9
+Reward Count: 6
+Game End: 01/15/2015 15:46:18
+Game Start: 01/15/2015 15:46:21
+Game Start: 01/15/2015 15:46:25
+Combo Count: 16
+Reward Count: 16
+Game End: 01/15/2015 15:48:06
+Game Start: 01/15/2015 15:48:14
+Combo Count: 37
+Reward Count: 35
+Game End: 01/15/2015 15:52:18
+Game Start: 01/15/2015 15:52:40
+Game Start: 01/15/2015 15:55:15
+Game Start: 01/15/2015 15:58:11
+Game Start: 01/15/2015 16:06:44
+Game Start: 01/17/2015 15:25:01
+Combo Count: 10
+Reward Count: 10
+Game End: 01/17/2015 15:26:25

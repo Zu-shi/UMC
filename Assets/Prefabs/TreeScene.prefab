@@ -245,7 +245,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400028}
-  - 114: {fileID: 11400024}
   m_Layer: 0
   m_Name: SunlightManager
   m_TagString: Untagged
@@ -735,21 +734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36bfaec77daa842aa9e5fe90042f2bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11400024
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4308137f2196649ff8f1d9c1bb3ef6ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rayPrefab: {fileID: 100000, guid: 01ddb089318b845688a1d41103a922c4, type: 2}
-  numRays: 8
-  range: .150000006
-  rays: []
 --- !u!114 &11400026
 MonoBehaviour:
   m_ObjectHideFlags: 1

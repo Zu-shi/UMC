@@ -35,7 +35,6 @@ public class HazardManagerScript : MonoBehaviour {
 
     private bool isGameOver = false;
 	private bool inCutscene = true;
-	private bool test = false;
 
 	private float timeElapsed = 0f;
     private float peaceDuration;
