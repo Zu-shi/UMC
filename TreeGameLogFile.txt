@@ -193,3 +193,8 @@ Game Start: 01/17/2015 15:25:01
 Combo Count: 10
 Reward Count: 10
 Game End: 01/17/2015 15:26:25
+Game Start: 01/17/2015 17:11:20
+Combo Count: 1
+Reward Count: 0
+Game End: 01/17/2015 17:11:40
+Game Start: 01/17/2015 17:11:46

@@ -16,13 +16,13 @@ public abstract class Hazard : _Mono {
     public int streamTotal;
     public Globals.HazardColors color;
 
-    [Tooltip("Speed in terms of half-cameras per second")]
+    //[Tooltip("Speed in terms of half-cameras per second")]
     public float speed = 1f;
     
-    [Tooltip("Time it takes to reach the player at the starting point")]
+    //[Tooltip("Time it takes to reach the player at the starting point")]
     public float time = 3f;
 
-    [Tooltip("Starting angle from vertically up.")]
+    //[Tooltip("Starting angle from vertically up.")]
     public float[] startingAngle;
 
 	private float fadeOutTime = 0.5f;
