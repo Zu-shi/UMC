@@ -72,6 +72,10 @@ TagManager:
     userID: 5
     uniqueID: 1743783457
     locked: 0
+  - name: Hazards Aura
+    userID: 9
+    uniqueID: 2179540911
+    locked: 0
   - name: Hazards
     userID: 1
     uniqueID: 2261379553

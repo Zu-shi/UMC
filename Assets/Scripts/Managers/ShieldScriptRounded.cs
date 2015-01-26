@@ -13,7 +13,7 @@ public class ShieldScriptRounded : _Mono {
     public Sprite centerLeafSprite;
 
     private int numLeaves = 3;
-    private int angleSpread = 12;
+    private int angleSpread = 15;
     
     private float parabolaWidth = 0.64f;
     private float parabolaHeight = 0.64f;

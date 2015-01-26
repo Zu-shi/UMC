@@ -7,13 +7,14 @@ public abstract class Hazard : _Mono {
 	protected bool hasStarted;
 	protected bool isStopped;
 	protected bool hasFinished;
-    protected bool isFading;
+    public bool isFading {get; set;}
     protected bool isBlockableByOuterShield = true;
     protected bool isBlockableByInnerShield = true;
     
     public bool isHarmful;
     public int streamMember;
     public int streamTotal;
+    public ComboCounterScript ccs {get; set;}
     public Globals.HazardColors color;
 
     //[Tooltip("Speed in terms of half-cameras per second")]
@@ -64,14 +65,16 @@ public abstract class Hazard : _Mono {
                y < Utils.cameraPos.y + Utils.halfScreenHeight && 
                y > Utils.cameraPos.y - Utils.halfScreenHeight)
                 FadeOut();
+            ccs.StopCombo();
         }
     }
 
-	public void FadeOut(){
+	private void FadeOut(){
         //Debug.Log("Call to fadeout");
         if (!isFading)
         {
             isFading = true;
+            ccs.SeekNext();
             Stop();
 
             Sequence sq = DOTween.Sequence();
@@ -100,7 +103,11 @@ public abstract class Hazard : _Mono {
                 if(Globals.shieldManager.outerShield && !isBlockableByOuterShield){
                 }else if(Globals.shieldManager.innerShield && !isBlockableByInnerShield){
                 }else{
-                    Globals.comboManager.ProcessCombo(streamMember, streamTotal, color, other.gameObject.GetComponent<CenterLeafScript>());
+                    if(ccs != null && !ccs.Equals(null)){
+                        ccs.ProcessCombo(streamMember, color, other.gameObject.GetComponent<CenterLeafScript>());
+                    }else{
+                        Debug.Log("cannot find CCS");
+                    }
                     FadeOut();
                 }
             }

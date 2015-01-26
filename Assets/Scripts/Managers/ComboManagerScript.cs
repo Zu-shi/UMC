@@ -10,7 +10,6 @@ public class ComboManagerScript : _Mono {
 
     public Color flashyColor;
     public RewardScript rewardObj;
-    RewardScript rewardObj2;
     public AudioClip notComboSound;
     public AudioClip comboSound;
     public AudioClip rewardAppearsSound;
@@ -66,8 +65,9 @@ public class ComboManagerScript : _Mono {
 		comboTally++;
 		Debug.Log ("comboTally is now " + comboTally);
 
+        RewardScript rewardObjTemp;
         Globals.stateManager.audioSource.PlayOneShot(rewardAppearsSound);
-        rewardObj2 = Utils.InstanceCreate<RewardScript>(Vector2.zero, rewardObj);
-        rewardObj2.color = color;
+        rewardObjTemp = Utils.InstanceCreate<RewardScript>(Vector2.zero, rewardObj);
+        rewardObjTemp.color = color;
     }
 }

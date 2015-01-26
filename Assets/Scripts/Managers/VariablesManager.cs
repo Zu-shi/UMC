@@ -9,5 +9,5 @@ public class VariablesManager : MonoBehaviour {
     public static float RoundSpeed = 1f;
     public static int RoundTotalBugs = 15;
     public static float RoundAngleRange = 85f;
-
+    
 }

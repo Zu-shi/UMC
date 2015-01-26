@@ -12,25 +12,24 @@ public class StreamBugGeneratorScriptDoubleFile : StreamBugGeneratorScriptParent
     protected float centerAngle;
 
     // Use this for initialization
-    public virtual void Start () {
+    public override void Start () {
         initialAngle = Random.Range(-angleRange, angleRange);
         angleSeperation = Random.Range(angleSeperationRangeMin, angleSeperationRangeMax);
         angleSeperation = Mathf.FloorToInt(Random.Range(0f, 2f)) == 1 ? angleSeperation : -angleSeperation;
         centerAngle = initialAngle;
         initialAngle = initialAngle + angleSeperation / 2f;
+        aimedAngle =  centerAngle + angleSeperation / 2f;
+        bugSwitchCounter++;
+        base.Start();
     }
-    
-    // Update is called once per frame
-    public override void Update () {
-        base.Update();
-        if(bugTimer >= totalDuration/totalBugs){
-            aimedAngle =  centerAngle + angleSeperation / 2f;
-            MakeBug(Globals.HazardColors.YELLOW);
-            bugSwitchCounter++;
-            if(bugSwitchCounter >= bugsPerSwitch){
-                bugSwitchCounter = 0;
-                angleSeperation *= -1;
-            }
+
+    protected override void AngleChange() {
+        bugCounter++;
+        aimedAngle =  centerAngle + angleSeperation / 2f;
+        bugSwitchCounter++;
+        if(bugSwitchCounter >= bugsPerSwitch){
+            bugSwitchCounter = 0;
+            angleSeperation *= -1;
         }
     }
 }

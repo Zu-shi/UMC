@@ -11,21 +11,20 @@ public class StreamBugGeneratorScriptWave : StreamBugGeneratorScriptParent {
     protected float sinOscillateAmp;
     protected float sinOscillateSpeed;
 
-	// Use this for initialization
-    public virtual void Start () {
+    public override void Start () {
         initialAngle = Random.Range(-angleRange, angleRange);
         totalAngleChange = Random.Range(totalAngleChangeRangeMin, totalAngleChangeRangeMax);
         totalAngleChange = Mathf.FloorToInt(Random.Range(0f, 2f)) == 1 ? totalAngleChange : -totalAngleChange;
         sinOscillateAmp = Random.Range(0f, sinOscillateAmpRange);
         sinOscillateSpeed = Random.Range(0f, sinOscillateSpeedPerSecond) / 2f / Mathf.PI;
+        float lt = totalDuration/totalBugs * (bugCounter - 1);
+        aimedAngle =  initialAngle + totalAngleChange * lt / totalDuration + sinOscillateAmp * Mathf.Sin(sinOscillateSpeed * lt);
+        base.Start();
 	}
-	
-	// Update is called once per frame
-    public override void Update () {
-        base.Update();
-        if(bugTimer >= totalDuration/totalBugs){
-            aimedAngle =  initialAngle + totalAngleChange * lifetime / totalDuration + sinOscillateAmp * Mathf.Sin(sinOscillateSpeed * lifetime);
-            MakeBug(Globals.HazardColors.RED);
-        }
-	}
+
+    protected override void AngleChange() {
+        bugCounter++;
+        float lt = totalDuration/totalBugs * (bugCounter - 1);
+        aimedAngle =  initialAngle + totalAngleChange * lt / totalDuration + sinOscillateAmp * Mathf.Sin(sinOscillateSpeed * lt);
+    }
 }

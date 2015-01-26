@@ -34,7 +34,7 @@ public class RedHazard : Hazard {
 		}
 		
 		if( (Globals.stateManager.inCutscene || Globals.stateManager.isGameOver) && !isFading){
-			FadeOut();
+			//FadeOut();
 		}
 		float x = center.x + Mathf.Sin (Time.time * rotationSpeed) * radius;
 		float y = center.y + Mathf.Cos (Time.time * rotationSpeed) * radius;

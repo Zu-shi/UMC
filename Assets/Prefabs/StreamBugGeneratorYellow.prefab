@@ -47,6 +47,8 @@ MonoBehaviour:
   bugPrefab: {fileID: 100000, guid: 6b5eb3e0f231045d59bbc41240dc907b, type: 2}
   blinkerPrefab: {fileID: 11400000, guid: 00b66c0dc11444b36a4b0f90b322e368, type: 2}
   blinkerSprite: {fileID: 21300000, guid: 4ad4e7a6c754b41708cca596d70f688b, type: 3}
+  ccsPrefab: {fileID: 11455154, guid: 9dc6a1fe5cf3a49d29c1a23346db45f9, type: 2}
+  color: 2
   angleSeperationRangeMin: 20
   angleSeperationRangeMax: 37
 --- !u!1001 &100100000

@@ -51,7 +51,8 @@ public static class Globals {
             return _stateManager;
         }
     }
-    
+
+    /*
     private static ComboManagerScript _comboManager;
     public static ComboManagerScript comboManager {
         get{
@@ -60,6 +61,7 @@ public static class Globals {
             return _comboManager;
         }
     }
+    */
 
 	private static TreeManagerScript _treeManager;
 	public static TreeManagerScript treeManager {

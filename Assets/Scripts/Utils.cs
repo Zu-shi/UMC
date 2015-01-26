@@ -10,6 +10,7 @@ public static class Utils {
     public static float distanceScale { get{return leafRadius * Camera.main.orthographicSize * Camera.main.aspect;} }
     public static float warningBufferSize = 20f;
     public static float resolutionWidth = 480f;
+    public static Vector2 OUT_OF_SCREEN = new Vector2(-100000f, -100000f);
 
     public static float halfScreenWidth 
     {
@@ -122,5 +123,14 @@ public static class Utils {
 
         }*/
         return polarToCart(theta, 1.5f);
+    }
+
+    public static bool IsDestroyed(_Mono o){
+        return (o == null || o.Equals(null));
+    }
+
+    
+    public static bool IsBugDestroyed(Hazard o){
+        return (o.isFading);
     }
 }

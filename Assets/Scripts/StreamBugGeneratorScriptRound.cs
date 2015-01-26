@@ -7,20 +7,17 @@ public class StreamBugGeneratorScriptRound : StreamBugGeneratorScriptParent {
     protected float angleTracker;
     
     // Use this for initialization
-    public virtual void Start () {
+    public override void Start () {
         angleTracker = initialAngle = Mathf.FloorToInt(Random.Range(0f, 2f)) == 1 ? angleRange : -angleRange;
         angleSeperation = -initialAngle * 2f / (totalBugs + 1);
+        aimedAngle = angleTracker;
+        angleTracker += angleSeperation;
+        base.Start();
     }
-    
-    // Update is called once per frame
-    public override void Update () {
-        base.Update();
-        
-        if(bugTimer >= totalDuration/totalBugs){
-            aimedAngle = angleTracker;
-            angleTracker += angleSeperation;
-            MakeBug(Globals.HazardColors.BLUE);
-        }
+
+    protected override void AngleChange(){
+        bugCounter++;
+        aimedAngle = angleTracker;
+        angleTracker += angleSeperation;
     }
-      
 }
