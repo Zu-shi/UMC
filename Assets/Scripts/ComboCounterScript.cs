@@ -85,6 +85,11 @@ public class ComboCounterScript : _Mono {
             if( comboCount == bugs.Length ){
                 CreateReward(color);
                 comboCount = -1;
+
+                if(color == Globals.HazardColors.WHITE){
+                    CreateReward(color);
+                    CreateReward(color);
+                }
             }
         }
         

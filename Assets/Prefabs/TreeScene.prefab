@@ -509,7 +509,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 5770a1eb157564fb690965264728ba4d, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -585,6 +585,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 16bd87b5afb344c28b461d35a872f3a4, type: 2}
   - {fileID: 11400000, guid: 33d22ca4be73649a994434d5d08c8c8f, type: 2}
   - {fileID: 11400000, guid: 0b51f61cad7774690b13d4e60ed28eee, type: 2}
+  - {fileID: 11465086, guid: 40710e32c92d8498b81c3d81982ab05f, type: 2}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1

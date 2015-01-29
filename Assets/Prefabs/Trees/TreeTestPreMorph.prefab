@@ -53,10 +53,12 @@ MonoBehaviour:
   foilageYellow: {fileID: 21300000, guid: a9f673f859cc14e03904eb2cd125e837, type: 3}
   foilageBlue: {fileID: 21300000, guid: f632f1d2c56b54502a3501d566e63c5e, type: 3}
   foilagePurple: {fileID: 21300000, guid: 0f09b2127a5ac47deb7b5636b16bed58, type: 3}
+  foilageWhite: {fileID: 21300000, guid: 85dc75035f67c499db71b31475fec26f, type: 3}
   targetAge: 0
   age: 0
   totalHeight: 0
   height: 0
+  foilAccessCounter: 0
   fruits: []
 --- !u!212 &21200000
 SpriteRenderer:

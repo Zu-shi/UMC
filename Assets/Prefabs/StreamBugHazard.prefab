@@ -10,10 +10,10 @@ GameObject:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
   - 65: {fileID: 6500000}
-  - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
-  m_Name: Reward
-  m_TagString: Reward
+  m_Name: StreamBugHazard
+  m_TagString: StreamBugHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 20, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11400000
+--- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -50,19 +50,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caffa9150acab43638144a5a04e41be5, type: 3}
+  m_Script: {fileID: 11500000, guid: b0d0b6ae796eb481aa070d3023f402e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: .0199999996
-  harmful: 1
+  isHarmful: 0
+  streamMember: 0
+  streamTotal: 0
+  color: 0
+  speed: .5
+  time: 3
+  startingAngle: []
   redSprite: {fileID: 21300000, guid: 343b89b1501c940a590702e78a12d701, type: 3}
   blueSprite: {fileID: 21300000, guid: 28e5fc01d5d5844a5ac1ae6aacae9382, type: 3}
   yellowSprite: {fileID: 21300000, guid: 0b8f179af257b40c899cdf4f8e76b9fb, type: 3}
   purple1Sprite: {fileID: 21300000, guid: d78cc75c2f50e4c8ab6016b33107cf51, type: 3}
   purple2Sprite: {fileID: 21300000, guid: 10560071757ba42b0ad2391b0319719a, type: 3}
-  whiteSprite: {fileID: 21300000, guid: f061515838e7c47ea9fa67e213885b5b, type: 3}
-  rewardSound: {fileID: 8300000, guid: f800c89830beb4015ae7d88523f615bc, type: 3}
-  color: 0
+  whiteSprite: {fileID: 0}
+  damage: .0199999996
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

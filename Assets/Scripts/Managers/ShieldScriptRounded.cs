@@ -42,6 +42,8 @@ public class ShieldScriptRounded : _Mono {
     private float innerParabolaWidth = 0.5f;
     private float innerParabolaHeight = 0.5f;
 
+    private bool freeMode = true;
+
     public bool outerShield{get{return orbitalLerp > 0.7f;}}
     public bool innerShield{get{return orbitalLerp < 0.3f;}}
 	// Use this for initialization
@@ -78,7 +80,11 @@ public class ShieldScriptRounded : _Mono {
             if(angle > 180f){angle = 180f - (angle - 180f);}
             else if(angle < 0f){angle = -angle;}
 
-            l.xy = Globals.inputManager.normToScreenPoint(getNormedXY(angle));
+            if(!freeMode){
+                l.xy = Globals.inputManager.normToScreenPoint(getNormedXY(angle));
+            }else{
+                l.xy = Globals.inputManager.normToScreenPoint(getNormedXY(angle - centerAngle));
+            }
 
             l.angle = angle;
 
@@ -115,16 +121,50 @@ public class ShieldScriptRounded : _Mono {
                 height = Mathf.Sin(Mathf.Deg2Rad * angle) * interpolatedParabolaHeight;
             }else{
                 //Newer control scheme that takes angle directly into account.
-                float dist = Vector2.Distance(
-                    Globals.inputManager.inputPos,
-                    Globals.mainTreePos);
-                aboveTransitionThreshold = (dist > Utils.distanceScale * 0.8f) ? true : false;
-                orbitalLerp += aboveTransitionThreshold ? 0.05f : -0.05f;
-                orbitalLerp = Mathf.Clamp(orbitalLerp, 0f, 1f);
-                float interpolatedParabolaWidth = Mathf.Lerp( innerParabolaWidth, parabolaWidth, orbitalLerp);
-                float interpolatedParabolaHeight = Mathf.Lerp( innerParabolaHeight, parabolaHeight, orbitalLerp);
-                width = Mathf.Cos(Mathf.Deg2Rad * angle) * interpolatedParabolaWidth/2f + 0.5f;
-                height = Mathf.Sin(Mathf.Deg2Rad * angle) * interpolatedParabolaHeight;
+                if(!freeMode){
+                    float dist = Vector2.Distance(
+                        Globals.inputManager.inputPos,
+                        Globals.mainTreePos);
+                    aboveTransitionThreshold = (dist > Utils.distanceScale * 0.8f) ? true : false;
+                    orbitalLerp += aboveTransitionThreshold ? 0.05f : -0.05f;
+                    orbitalLerp = Mathf.Clamp(orbitalLerp, 0f, 1f);
+                    float interpolatedParabolaWidth = Mathf.Lerp( innerParabolaWidth, parabolaWidth, orbitalLerp);
+                    float interpolatedParabolaHeight = Mathf.Lerp( innerParabolaHeight, parabolaHeight, orbitalLerp);
+                    width = Mathf.Cos(Mathf.Deg2Rad * angle) * interpolatedParabolaWidth/2f + 0.5f;
+                    height = Mathf.Sin(Mathf.Deg2Rad * angle) * interpolatedParabolaHeight;
+                }else{
+                    /*
+                    float sizeRatio = Utils.halfScreenHeight / Globals.INITIAL_HEIGHT;
+                    float dist = Vector2.Distance(
+                        Globals.inputManager.inputPos,
+                        Globals.mainTreePos);
+                    */
+                    /*
+                    width = Mathf.Cos(Mathf.Deg2Rad * angle) * dist/Utils.halfScreenHeight /2f + 0.5f;
+                    height = Mathf.Sin(Mathf.Deg2Rad * angle) * dist;*/
+                    
+                    float dist = Vector2.Distance(
+                        Globals.inputManager.inputPos,
+                        Globals.mainTreePos);
+                    Vector2 dims = Globals.inputManager.inputPos - Globals.mainTreePos;
+
+                    width = Globals.inputManager.inputNormX;
+                    height = Globals.inputManager.inputNormY;
+
+                    if(angle > 3f){
+                        width = width + 0.04f;
+                        height = height - 0.05f;
+                    }
+                    else if(angle < -3f){
+                        width = width - 0.04f;
+                        height = height - 0.05f;
+                    }
+                    /*
+                    float tempAng = Utils.PointAngle(Globals.mainTreePos, Globals.inputManager.inputPos);
+                    width = Mathf.Cos(Mathf.Deg2Rad * (angle + tempAng)) * Mathf.Abs(dims.x / Utils.halfScreenWidth / 2) + 0.5f;
+                    height = Mathf.Sin(Mathf.Deg2Rad * (angle + tempAng)) * dims.y / Utils.halfScreenHeight / 2;
+                    */
+                }
             }
         }
         //Debug.Log("width" + width + "height" + height);

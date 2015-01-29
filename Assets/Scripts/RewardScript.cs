@@ -10,6 +10,7 @@ public class RewardScript : _Mono {
     public Sprite yellowSprite;
     public Sprite purple1Sprite;
     public Sprite purple2Sprite;
+    public Sprite whiteSprite;
     private float lifeTime = 0f;
     //private float totalLifeTime = 3f;
     public AudioClip rewardSound;
@@ -52,6 +53,7 @@ public class RewardScript : _Mono {
             case(Globals.HazardColors.YELLOW):{sprite = yellowSprite; break;}
             case(Globals.HazardColors.PURPLE1):{sprite = purple1Sprite; break;}
             case(Globals.HazardColors.PURPLE2):{sprite = purple2Sprite; break;}
+            case(Globals.HazardColors.WHITE):{sprite = whiteSprite; break;}
         }
 
         bigAngle = Random.Range(-60f, 60f);

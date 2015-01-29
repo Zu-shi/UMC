@@ -41,7 +41,7 @@ public class VariablesManager : MonoBehaviour {
 		System.IO.StreamReader file = new System.IO.StreamReader(configPath);
 
 		string line = "";
-		while ( (line = file.ReadLine) != null ){
+		while ( (line = file.ReadLine()) != null ){
 			String[] pair = line.Split(' ');
 
 			switch(pair[0]){

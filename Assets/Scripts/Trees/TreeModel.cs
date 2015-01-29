@@ -25,6 +25,7 @@ public class TreeModel : _Mono {
     public Sprite foilageYellow;
     public Sprite foilageBlue;
     public Sprite foilagePurple;
+    public Sprite foilageWhite;
 
 	public List<TreeModel> branches{ get; set; }
 	public List<TreeModel> allBranches{ get; set; }
@@ -218,6 +219,7 @@ public class TreeModel : _Mono {
                         case(Globals.HazardColors.BLUE):{spr = foilageBlue; break;}
                         case(Globals.HazardColors.YELLOW):{spr = foilageYellow; break;}
                         case(Globals.HazardColors.PURPLE1):{spr = foilagePurple; break;}
+                        case(Globals.HazardColors.WHITE):{spr = foilageWhite; break;}
                     }
                     foilMono.spriteRenderer.sprite = spr;
                     root.foilageColorPool.RemoveAt(0);

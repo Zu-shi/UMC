@@ -29,7 +29,7 @@ public class GameOverGUIScript : _Mono{
                 (h + Globals.treeManager.mainTree.numFruits * 5) + "\n Press Enter to Restart." ;
         
 
-        guiTextMono = guiText.gameObject.AddComponent<_Mono>();
+        guiTextMono = guiTextInstance.gameObject.AddComponent<_Mono>();
         guiTextMono.guiTextAlpha = 0f;
         //Sequence sq = DOTween.Sequence();
         DOTween.To(()=> guiAlpha, x=> guiAlpha = x, targetAlpha, 1f);

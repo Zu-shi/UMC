@@ -32,7 +32,7 @@ public static class Globals {
     }
 
     public enum HazardColors{
-        NONE, RED, YELLOW, BLUE, PURPLE1, PURPLE2
+        NONE, RED, YELLOW, BLUE, PURPLE1, PURPLE2, WHITE
     }
 
 	public static InputManagerScript inputManager {

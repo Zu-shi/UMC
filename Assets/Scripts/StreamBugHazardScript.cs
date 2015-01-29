@@ -9,6 +9,7 @@ public class StreamBugHazardScript : Hazard {
     public Sprite yellowSprite;
     public Sprite purple1Sprite;
     public Sprite purple2Sprite;
+    public Sprite whiteSprite;
     public float damage;
 
     public Sprite sprite{
@@ -31,6 +32,7 @@ public class StreamBugHazardScript : Hazard {
             case(Globals.HazardColors.YELLOW):{sprite = yellowSprite; break;}
             case(Globals.HazardColors.PURPLE1):{sprite = purple1Sprite; break;}
             case(Globals.HazardColors.PURPLE2):{sprite = purple2Sprite; break;}
+            case(Globals.HazardColors.WHITE):{sprite = whiteSprite; break;}
         }
         //spriteRenderer.color = new Color(0.5f, 0.8f, 0.5f, 1f);
     }

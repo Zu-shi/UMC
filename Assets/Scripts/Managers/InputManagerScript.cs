@@ -70,4 +70,10 @@ public class InputManagerScript : MonoBehaviour {
         //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
         return Camera.main.ScreenToWorldPoint (new Vector2(x * Screen.width, y * Screen.height));
     }
+
+    public Vector2 screenToNormPoint (float x, float y) {
+        //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
+        return new Vector2( (x - Camera.main.transform.position.x) / Utils.halfScreenWidth / 2,
+                           (y - (Camera.main.transform.position.y - Utils.halfScreenHeight)) / Utils.halfScreenWidth / 2);
+    }
 }
