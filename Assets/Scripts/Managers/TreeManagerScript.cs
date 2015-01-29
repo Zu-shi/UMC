@@ -117,6 +117,10 @@ public class TreeManagerScript : _Mono {
         Globals.cameraManager.SetHeight(mainTree.totalHeight * 4 / 3);
 
         mainTree.targetAge = maxAge * currentGrowthPercentage;
+
+        //FOR TESTING NEW GRAPHICSß
+        mainTree.targetAge = Mathf.Min(327, mainTree.targetAge);
+
         foreach(TreeModel tree in morphingStages){
             tree.targetAge = mainTree.targetAge;
         }
