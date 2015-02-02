@@ -22,6 +22,7 @@ public class HidingBugHazardScript : StreamBugHazardScript {
 
         base.Update();
 
+
         float dist = Utils.PointDistance(xy, Globals.treeManager.treePos);
         float midDist = (startHidingDistance + endHidingDistance) / 2;
         if(dist < startHidingDistance && dist > endHidingDistance){
@@ -30,6 +31,15 @@ public class HidingBugHazardScript : StreamBugHazardScript {
             }else{
                 alpha = Mathf.Lerp(1, 0, (dist - endHidingDistance) / (midDist - endHidingDistance) );
             }
+        }
+
+        //Test cde for free input
+        if(alpha < 0.8f){
+            isBlockableByOuterShield = false;
+            isBlockableByInnerShield = false;
+        }else{
+            isBlockableByOuterShield = true;
+            isBlockableByInnerShield = true;
         }
 	}
 }

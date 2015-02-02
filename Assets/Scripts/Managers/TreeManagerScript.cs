@@ -107,7 +107,8 @@ public class TreeManagerScript : _Mono {
     }
 
     public void GrowthSpurt () {
-        targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
+        //targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
+        targetGrowthPercentage = currentGrowthPercentage + 0.025f;
         Debug.Log("Growing to " + targetGrowthPercentage);
         DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 0.5f);
         //currentGrowthPercentage = targetGrowthPercentage;
@@ -193,7 +194,7 @@ public class TreeManagerScript : _Mono {
     public void GameOver(float duration){
         //mainTree.growFoilage = true;
         isGameOver = true;
-        targetGrowthPercentage = Mathf.Min(secondsSurvived / 100f + 0.14f, 1f);
+        //targetGrowthPercentage = Mathf.Min(secondsSurvived / 100f + 0.14f, 1f);
         Debug.Log("TGP = " + targetGrowthPercentage);
         targetGrowthPercentage = Mathf.Clamp(targetGrowthPercentage, 0f, 1f);
         seq = DOTween.Sequence();

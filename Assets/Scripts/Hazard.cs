@@ -18,7 +18,7 @@ public abstract class Hazard : _Mono {
     public Globals.HazardColors color;
 
     //[Tooltip("Speed in terms of half-cameras per second")]
-    public float speed = 1f;
+    public float speed{get;set;}
     
     //[Tooltip("Time it takes to reach the player at the starting point")]
     public float time = 3f;

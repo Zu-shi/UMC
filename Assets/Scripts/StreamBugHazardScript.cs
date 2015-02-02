@@ -36,5 +36,10 @@ public class StreamBugHazardScript : Hazard {
         }
         //spriteRenderer.color = new Color(0.5f, 0.8f, 0.5f, 1f);
     }
+
+    public override void Update()
+    {
+        base.Update();
+    }
   
 }

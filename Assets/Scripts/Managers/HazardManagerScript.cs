@@ -49,17 +49,19 @@ public class HazardManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        float initialPeaceDuration = 1.2f;
-        float finalPeaceDuration = 0.1f;
+        float initialPeaceDuration = 1.0f;
+        float finalPeaceDuration = -0.3f;
+//        float initialPeaceDuration = 1.2f;
+//        float finalPeaceDuration = -0.1f;
         peaceDuration = initialPeaceDuration;
         float totalTimeToWeenPeaceDurtion = 80f; //In Game Seconds
         peaceDurationTween = DOTween.To(() => peaceDuration, x => peaceDuration = x, finalPeaceDuration, totalTimeToWeenPeaceDurtion);
 
         
         float initialDamage = 0.02f;
-        float finalDamage = 0.08f;
+        float finalDamage = 0.8f;
         damage = initialDamage;
-        float totalTimeToWeenDamage = 120f; //In Game Seconds
+        float totalTimeToWeenDamage = 150f; //In Game Seconds
         peaceDurationTween = DOTween.To(() => damage, x => damage = x, finalDamage, totalTimeToWeenDamage);
         //peaceDurationTween.Pause();
 
