@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3942efbc4db5a4c63b9a668cea7444d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smallScreenMode: 1
   mouseMode: 1
   kinectManagerPrefab: {fileID: 11400002, guid: ba66b94669b99594793af4aa85cb2af9,
     type: 2}
@@ -354,6 +355,10 @@ Prefab:
     - target: {fileID: 2000000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
       propertyPath: orthographic size
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
+      propertyPath: smallScreenMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
