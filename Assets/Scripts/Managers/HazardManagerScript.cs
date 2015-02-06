@@ -40,8 +40,8 @@ public class HazardManagerScript : MonoBehaviour {
     private float peaceDuration;
     private Tween peaceDurationTween;
     private float endMark;
-    private const float timePerNewHazard = 7f;
-    public const int lookForwardSeconds = 10;
+    private const float timePerNewHazard = 10f;
+    public const int lookForwardSeconds = 12;
 	private List< HazardEntry > hazardEntries = new List< HazardEntry >();
     private float damage;
     private Tween damageTween;
@@ -49,8 +49,8 @@ public class HazardManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        float initialPeaceDuration = 1.0f;
-        float finalPeaceDuration = -0.3f;
+        float initialPeaceDuration = 2f;
+        float finalPeaceDuration = -0.2f;
 //        float initialPeaceDuration = 1.2f;
 //        float finalPeaceDuration = -0.1f;
         peaceDuration = initialPeaceDuration;
@@ -58,8 +58,8 @@ public class HazardManagerScript : MonoBehaviour {
         peaceDurationTween = DOTween.To(() => peaceDuration, x => peaceDuration = x, finalPeaceDuration, totalTimeToWeenPeaceDurtion);
 
         
-        float initialDamage = 0.02f;
-        float finalDamage = 0.8f;
+        float initialDamage = 0.01f;
+        float finalDamage = 0.09f;
         damage = initialDamage;
         float totalTimeToWeenDamage = 150f; //In Game Seconds
         peaceDurationTween = DOTween.To(() => damage, x => damage = x, finalDamage, totalTimeToWeenDamage);

@@ -108,7 +108,7 @@ public class TreeManagerScript : _Mono {
 
     public void GrowthSpurt () {
         //targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
-        targetGrowthPercentage = currentGrowthPercentage + 0.025f;
+        targetGrowthPercentage = currentGrowthPercentage + 0.02f;
         Debug.Log("Growing to " + targetGrowthPercentage);
         DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 0.5f);
         //currentGrowthPercentage = targetGrowthPercentage;
@@ -119,7 +119,7 @@ public class TreeManagerScript : _Mono {
 
         mainTree.targetAge = maxAge * currentGrowthPercentage;
 
-        //FOR TESTING NEW GRAPHICSß
+        //FOR TESTING NEW GRAPHICS
         mainTree.targetAge = Mathf.Min(327, mainTree.targetAge);
 
         foreach(TreeModel tree in morphingStages){

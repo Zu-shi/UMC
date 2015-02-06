@@ -35,7 +35,7 @@ public class VariablesManager : MonoBehaviour {
 	public static string configPath;
 
 	public static void getConfigValues(){
-
+        /*
 		configPath = Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + "Config.txt";
 
 		System.IO.StreamReader file = new System.IO.StreamReader(configPath);
@@ -130,7 +130,7 @@ public class VariablesManager : MonoBehaviour {
 				break;
 			}
 		}
-
+        */
 	}
 
 }
