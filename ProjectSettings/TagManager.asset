@@ -52,9 +52,13 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
-  - name: Shield
-    userID: 2
-    uniqueID: 706656359
+  - name: Background
+    userID: 10
+    uniqueID: 103292361
+    locked: 0
+  - name: Tree
+    userID: 11
+    uniqueID: 2112637691
     locked: 0
   - name: Foilage
     userID: 3
@@ -71,6 +75,14 @@ TagManager:
   - name: Grass
     userID: 5
     uniqueID: 1743783457
+    locked: 0
+  - name: Shield
+    userID: 2
+    uniqueID: 706656359
+    locked: 0
+  - name: Blinker
+    userID: 12
+    uniqueID: 972554247
     locked: 0
   - name: Hazards Aura
     userID: 9

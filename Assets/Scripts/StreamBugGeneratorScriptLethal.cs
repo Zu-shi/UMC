@@ -27,4 +27,8 @@ public class StreamBugGeneratorScriptLethal : StreamBugGeneratorScriptParent {
         float lt = totalDuration/totalBugs * (bugCounter - 1);
         aimedAngle =  initialAngle + totalAngleChange * lt / totalDuration + sinOscillateAmp * Mathf.Sin(sinOscillateSpeed * lt);
     }
+
+    public override void Update() {
+        damage = 1;
+    }
 }

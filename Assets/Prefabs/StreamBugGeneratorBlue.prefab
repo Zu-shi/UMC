@@ -42,7 +42,7 @@ MonoBehaviour:
   totalBugs: 15
   angleRange: 85
   speed: 1
-  arrivalTime: 4
+  arrivalTime: 3
   totalDuration: 2
   bugPrefab: {fileID: 100000, guid: 6b5eb3e0f231045d59bbc41240dc907b, type: 2}
   blinkerPrefab: {fileID: 11400000, guid: 00b66c0dc11444b36a4b0f90b322e368, type: 2}

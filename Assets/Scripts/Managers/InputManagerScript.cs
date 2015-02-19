@@ -9,6 +9,8 @@ public class InputManagerScript : MonoBehaviour {
     public float inputY{ get; set; }
     public float inputNormX{ get; set; }
     public float inputNormY{ get; set; }
+    [Tooltip("Whether to restrict controls to a smaller box in the center.")]
+    public bool smallScreenMode;
 	public bool mouseMode;
 	public KinectManager kinectManagerPrefab;
     public CursorScript handCursor;
@@ -52,6 +54,9 @@ public class InputManagerScript : MonoBehaviour {
             inputNormY = kinectManager.screenPosY;
 			// Kinect controls to be implemented.
 		}
+
+        inputNormX = (smallScreenMode) ? (inputNormX - 0.5f) / 2f + 0.5f : inputNormX;
+        inputNormY = (smallScreenMode) ? (inputNormY - 0.5f) / 2f + 0.5f : inputNormY;
 
         if (Input.GetKeyDown (KeyCode.Return)) {  
             //Application.LoadLevel (0);

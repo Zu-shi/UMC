@@ -41,7 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalBugs: 15
   angleRange: 50
-  speed: 3
+  speed: 1.79999995
   arrivalTime: 2.5
   totalDuration: 2
   bugPrefab: {fileID: 100924, guid: 4bf4c199948294a978221c2240adf4be, type: 2}

@@ -60,13 +60,13 @@ public class ComboCounterScript : _Mono {
             currentIndex++;
         }
 
-        Debug.Log("Seeknext set currentIndex to " + currentIndex);
+//        Debug.Log("Seeknext set currentIndex to " + currentIndex);
         if(currentIndex == bugs.Length) Destroy();
     }
 
     private void Destroy(){
         Destroy(gameObject);
-        Debug.Log("CCS destroyed");
+//        Debug.Log("CCS destroyed");
     }
 
     public bool ProcessCombo (int id, Globals.HazardColors color, CenterLeafScript cls){

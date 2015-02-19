@@ -11,6 +11,7 @@ public class ShieldScriptRounded : _Mono {
     public GameObject shieldLeafPrefab;
     public _Mono goldenShieldLeafPrefab;
     public Sprite centerLeafSprite;
+    public bool requirePreciseCombo;
 
     private int numLeaves = 3;
     private int angleSpread = 15;
@@ -88,16 +89,24 @@ public class ShieldScriptRounded : _Mono {
 
             l.angle = angle;
 
-            l.xs = isBigLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
-            l.ys = isBigLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+            l.xs = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+            l.ys = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
             l.angle = angle - 90 + swayRange * Mathf.Cos(swayAngle + (float)i/numLeaves * Mathf.PI / 2f);
 
             i++;
         }
 	}
+    
+    bool isCenterLeaf(int i){
+        return i == Mathf.FloorToInt(numLeaves/2f);
+    }
 
     bool isBigLeaf(int i){
-        return i == Mathf.FloorToInt(numLeaves/2f);
+        if(requirePreciseCombo){
+            return i == Mathf.FloorToInt(numLeaves/2f);
+        }else{
+            return true;
+        }
     }
 
     //Angle in degrees.
