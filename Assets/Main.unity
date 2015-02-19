@@ -272,8 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallScreenMode: 1
   mouseMode: 1
-  kinectManagerPrefab: {fileID: 11400002, guid: ba66b94669b99594793af4aa85cb2af9,
-    type: 2}
+  kinectManagerPrefab: {fileID: 0}
   handCursor: {fileID: 0}
   control: 1
 --- !u!1 &629720461
