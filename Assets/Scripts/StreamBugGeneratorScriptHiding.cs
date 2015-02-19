@@ -12,7 +12,11 @@ public class StreamBugGeneratorScriptHiding : StreamBugGeneratorScriptParent {
     protected float sinOscillateSpeed;
 
     public override void Start () {
-        initialAngle = Random.Range(-angleRange, angleRange);
+		totalBugs = VariablesManager.HidingTotalBugs;
+		arrivalTime = VariablesManager.HidingArrivalTime;
+		totalDuration = VariablesManager.HidingDuration;
+		speed = VariablesManager.HidingSpeed;
+		initialAngle = Random.Range(-VariablesManager.HidingAngleRange, VariablesManager.HidingAngleRange);
         totalAngleChange = Random.Range(totalAngleChangeRangeMin, totalAngleChangeRangeMax);
         totalAngleChange = Mathf.FloorToInt(Random.Range(0f, 2f)) == 1 ? totalAngleChange : -totalAngleChange;
         sinOscillateAmp = Random.Range(0f, sinOscillateAmpRange);
@@ -20,6 +24,7 @@ public class StreamBugGeneratorScriptHiding : StreamBugGeneratorScriptParent {
         float lt = totalDuration/totalBugs * (bugCounter - 1);
         aimedAngle =  initialAngle + totalAngleChange * lt / totalDuration + sinOscillateAmp * Mathf.Sin(sinOscillateSpeed * lt);
         base.Start();
+
     }
 
     protected override void AngleChange() {

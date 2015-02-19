@@ -13,7 +13,11 @@ public class StreamBugGeneratorScriptDoubleFile : StreamBugGeneratorScriptParent
 
     // Use this for initialization
     public override void Start () {
-        initialAngle = Random.Range(-angleRange, angleRange);
+		totalBugs = VariablesManager.DoubleFileTotalBugs;
+		arrivalTime = VariablesManager.DoubleFileArrivalTime;
+		speed = VariablesManager.DoubleFileSpeed;
+		totalDuration = VariablesManager.DoubleFileDuration;
+		initialAngle = Random.Range(-VariablesManager.DoubleFileAngleRange, VariablesManager.DoubleFileAngleRange);
         angleSeperation = Random.Range(angleSeperationRangeMin, angleSeperationRangeMax);
         angleSeperation = Mathf.FloorToInt(Random.Range(0f, 2f)) == 1 ? angleSeperation : -angleSeperation;
         centerAngle = initialAngle;
@@ -21,6 +25,7 @@ public class StreamBugGeneratorScriptDoubleFile : StreamBugGeneratorScriptParent
         aimedAngle =  centerAngle + angleSeperation / 2f;
         bugSwitchCounter++;
         base.Start();
+
     }
 
     protected override void AngleChange() {

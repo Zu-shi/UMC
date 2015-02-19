@@ -8,11 +8,16 @@ public class StreamBugGeneratorScriptRound : StreamBugGeneratorScriptParent {
     
     // Use this for initialization
     public override void Start () {
-        angleTracker = initialAngle = Mathf.FloorToInt(Random.Range(0f, 2f)) == 1 ? angleRange : -angleRange;
+		speed = VariablesManager.RoundSpeed;
+		arrivalTime = VariablesManager.RoundArrivalTime;
+		totalDuration = VariablesManager.RoundDuration;
+		totalBugs = VariablesManager.RoundTotalBugs;
+		angleTracker = initialAngle = Mathf.FloorToInt(Random.Range(0f, 2f)) == 1 ? VariablesManager.RoundAngleRange : -VariablesManager.RoundAngleRange;
         angleSeperation = -initialAngle * 2f / (totalBugs + 1);
         aimedAngle = angleTracker;
         angleTracker += angleSeperation;
         base.Start();
+
     }
 
     protected override void AngleChange(){

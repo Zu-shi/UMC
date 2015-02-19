@@ -31,6 +31,11 @@ public class StateManagerScript : MonoBehaviour {
 
 		LoggingManager.startLogging ();
 
+		VariablesManager.getConfigValues ();
+
+		Debug.Log ("HidingDuration = " + VariablesManager.HidingDuration + "\nRoundSpeed = " + VariablesManager.RoundSpeed);
+		Debug.Log ("DoubleFileTotalBugs = " + VariablesManager.DoubleFileTotalBugs);
+
         secondsForFirtstPart = 3000;
         secondsForSecondPart = 3000;
         secondsForThirdPart = 15000;
