@@ -1,3 +1,7 @@
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
 // comment or uncomment the following #define directives
 // depending on whether you use KinectExtras together with KinectManager
 
@@ -1232,3 +1236,4 @@ public class KinectWrapper
 	
 	
 }
+#endif

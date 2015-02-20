@@ -1,4 +1,8 @@
-﻿//------------------------------------------------------------------------------
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
+//------------------------------------------------------------------------------
 // <copyright file="SkeletonJointsPositionDoubleExponentialFilter.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
@@ -233,3 +237,5 @@ public class JointPositionsFilter
         public uint FrameCount;
     }
 }
+
+#endif

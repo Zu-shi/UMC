@@ -1,4 +1,8 @@
-﻿//------------------------------------------------------------------------------
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
+//------------------------------------------------------------------------------
 // <copyright file="TimedLerp.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
@@ -129,3 +133,5 @@ public class TimedLerp
     }
 }
 
+
+#endif

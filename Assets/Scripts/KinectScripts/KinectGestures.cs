@@ -1,3 +1,7 @@
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -1049,3 +1053,5 @@ public class KinectGestures
 	}
 
 }
+
+#endif

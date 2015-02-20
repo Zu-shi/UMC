@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
+using UnityEngine;
 
 using System;
 using System.Collections;
@@ -186,3 +190,5 @@ public class TrackingStateFilter
         public uint FrameCount;
     }
 }
+
+#endif

@@ -1,4 +1,8 @@
-﻿//
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
+//
 // This script can be used to control the system mouse - position of the mouse cursor and clicks
 // Author: Akhmad Makhsadov
 //
@@ -60,3 +64,5 @@ public class MouseControl
 }
 
 
+
+#endif

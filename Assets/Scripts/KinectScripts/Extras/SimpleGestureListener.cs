@@ -1,3 +1,7 @@
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
 using UnityEngine;
 using System.Collections;
 using System;
@@ -98,3 +102,5 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 	}
 	
 }
+
+#endif

@@ -1,4 +1,8 @@
-﻿//------------------------------------------------------------------------------
+#if UNITY_IPHONE
+#elif UNITY_ANDROID
+#else
+
+//------------------------------------------------------------------------------
 // <copyright file="BoneOrientationDoubleExponentialFilter.cs" company="Microsoft">
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
@@ -242,3 +246,5 @@ public class BoneOrientationsFilter
         public uint FrameCount;
     }
 }
+
+#endif
