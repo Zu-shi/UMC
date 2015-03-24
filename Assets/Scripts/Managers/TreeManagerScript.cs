@@ -108,10 +108,15 @@ public class TreeManagerScript : _Mono {
 
     public void GrowthSpurt () {
         //targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
-        targetGrowthPercentage = targetGrowthPercentage + 0.025f;
+        targetGrowthPercentage = targetGrowthPercentage + 0.01f;
         Debug.Log("Growing to " + targetGrowthPercentage);
-        Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 1f);
-        t.SetEase(Ease.OutCubic);
+        Sequence s = DOTween.Sequence();
+        Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, currentGrowthPercentage, EssenceScript.rewardDelay);
+        //rewardDelay
+        Tween t2 = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 0.7f);
+        s.Append(t);
+        s.Append(t2);
+        t.SetEase(Ease.Linear);
         //currentGrowthPercentage = targetGrowthPercentage;
     }
 

@@ -44,7 +44,7 @@ MonoBehaviour:
   speed: .800000012
   arrivalTime: 2.5
   totalDuration: 2
-  bugPrefab: {fileID: 100000, guid: cf09d172e9ab3404194e465c4646e396, type: 2}
+  bugPrefab: {fileID: 144574, guid: 81a8c8ad2e561472682669856a8bab91, type: 2}
   blinkerPrefab: {fileID: 11400000, guid: 00b66c0dc11444b36a4b0f90b322e368, type: 2}
   blinkerSprite: {fileID: 21300000, guid: 08f1809baae22434286deca84e19c2aa, type: 3}
   ccsPrefab: {fileID: 11455154, guid: 9dc6a1fe5cf3a49d29c1a23346db45f9, type: 2}

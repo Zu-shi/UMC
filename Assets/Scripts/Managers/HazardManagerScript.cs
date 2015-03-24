@@ -40,7 +40,7 @@ public class HazardManagerScript : MonoBehaviour {
     private float peaceDuration;
     private Tween peaceDurationTween;
     private float endMark;
-    private const float timePerNewHazard = 10f;
+    private const float timePerNewHazard = 1f;
     public const int lookForwardSeconds = 12;
 	private List< HazardEntry > hazardEntries = new List< HazardEntry >();
     private float damage;

@@ -81,6 +81,12 @@ public static class Utils {
         UnityEngine.Random.seed = (int)Time.realtimeSinceStartup;
         return Mathf.FloorToInt(UnityEngine.Random.Range(0f, max));
     }
+
+    public static Vector2 RandomVectorInRadius(float radius){
+        float r = UnityEngine.Random.Range(0f, radius);
+        float theta = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
+        return new Vector2(r * Mathf.Sin(theta), r * Mathf.Cos(theta));
+    }
     /**
      * Given a coordinate system in polar coordinates, convert it to cartesian coordinates
      * The angles from [90 - angleScale, 90 + angleScale] is mapped to [-1, 1] for angle

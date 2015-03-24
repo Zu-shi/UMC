@@ -509,7 +509,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 5770a1eb157564fb690965264728ba4d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -687,6 +687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healRing: {fileID: 100000, guid: a4cbfb13f4c3d481d98045398e7ddea7, type: 2}
   healLeaf: {fileID: 100000, guid: 9622f7b99bd034bed925f5aefa6cef27, type: 2}
+  hurtLeaf: {fileID: 106664, guid: a4487e5cb713f4b7eb832e1f02793749, type: 2}
   leftMostLifeIndicatorPos: {x: .0799999982, y: .899999976}
   initialSize: {x: 0, y: 0}
   lifeSymbolOffset: .0799999982
@@ -719,6 +720,7 @@ MonoBehaviour:
   goldenShieldLeafPrefab: {fileID: 11400000, guid: fcb3e2c3d9bb64d3394fca41b2a9f5f1,
     type: 2}
   centerLeafSprite: {fileID: 21300000, guid: 4ca8da52b128146b3bb2366b038c849e, type: 3}
+  requirePreciseCombo: 0
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1

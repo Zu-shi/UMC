@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class RewardScript : _Mono {
@@ -32,6 +32,9 @@ public class RewardScript : _Mono {
 
     public Globals.HazardColors color;
     //Set color of particles (White for now?)
+    
+    public GameObject healRing;
+    public GameObject essence;
 
     public Sprite sprite{
         get{return spriteRenderer.sprite;}
@@ -66,7 +69,7 @@ public class RewardScript : _Mono {
         //bigRadius = startingBigRadius * sizeRatio;
         smallRadius = startingSmallRadius * sizeRatio;
         //xys = startingXys * sizeRatio;
-
+        alpha = 1f;
         fadein();
         fadeout();
         smallAngle += 0.05f * direction;
@@ -98,6 +101,13 @@ public class RewardScript : _Mono {
         if (other.gameObject.tag == "Tree" || other.gameObject.tag == "Shield")
         {
             if(!claimed){
+                Instantiate(healRing, xy, Quaternion.identity);
+
+                for(int i = 0; i < 15; i++){
+                    GameObject e = Instantiate(essence, xy + Utils.RandomVectorInRadius(xs * 20f), Quaternion.identity) as GameObject;
+                    e.GetComponent<EssenceScript>().color = color;
+                }
+
                 Globals.stateManager.audioSource.PlayOneShot(rewardSound);
                 claimed = true;
                 lifeTime = fadeoutStartTime;

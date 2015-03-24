@@ -4,7 +4,7 @@ using System.Collections;
 public class HidingBugHazardScript : StreamBugHazardScript {
 
     private float startHidingDistance = 225f;
-    private float endHidingDistance = 150f;
+    private float endHidingDistance = 160f;
     private float startingStartHidingDistance;
     private float startingEndHidingDistance;
 

@@ -10,6 +10,7 @@ public class TreeGrowthManager : _Mono {
 
     public GameObject healRing;
     public GameObject healLeaf;
+    public GameObject hurtLeaf;
     
     public Vector2 leftMostLifeIndicatorPos;
     public Vector2 initialSize;
@@ -66,7 +67,7 @@ public class TreeGrowthManager : _Mono {
 
     public void ClaimReward() {
         //Debug.LogError("HEALPOWERUP");
-        Instantiate(healRing, Globals.target, Quaternion.identity);
+        //Instantiate(healRing, Globals.target, Quaternion.identity);
         
         lives = Mathf.Clamp(lives + 0.1f, 0f, 1f);
         GameObject leafFlash;
@@ -75,6 +76,14 @@ public class TreeGrowthManager : _Mono {
         leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys * 1.1f;
         Globals.treeManager.GrowthSpurt();
         clearAllTimer = clearAllTime;
+    }
+
+    public void FlashHurt(){
+        GameObject leafFlash;
+        leafFlash = Instantiate(hurtLeaf, Globals.stateManager.leafLifeIndicator.gameObject.transform.position, 
+                                Quaternion.identity) as GameObject;
+        leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys * 1f;
+        leafFlash.GetComponent<_Mono>().alpha = 0.5f;
     }
 
 	void OnTriggerEnter(Collider col){

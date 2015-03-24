@@ -64,8 +64,10 @@ public abstract class Hazard : _Mono {
                x > Utils.cameraPos.x - Utils.halfScreenWidth &&
                y < Utils.cameraPos.y + Utils.halfScreenHeight && 
                y > Utils.cameraPos.y - Utils.halfScreenHeight)
+            {
                 FadeOut();
-            ccs.StopCombo();
+                ccs.StopCombo();
+            }
         }
     }
 
@@ -115,6 +117,7 @@ public abstract class Hazard : _Mono {
         }
 
         if (other.gameObject.tag == "Tree"){
+            Globals.treeGrowthManager.FlashHurt();
             FadeOut();
         }
     }
