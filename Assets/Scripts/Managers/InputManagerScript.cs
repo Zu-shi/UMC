@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+//using System.;
 
 public class InputManagerScript : MonoBehaviour {
     
@@ -20,7 +22,7 @@ public class InputManagerScript : MonoBehaviour {
     private KinectManager kinectManager;
     #endif
     
-    public CursorScript handCursor;
+    private CursorScript handCursor;
     public ControlMethod control = ControlMethod.POLAR;
     
     // Use this for initialization
@@ -74,7 +76,24 @@ public class InputManagerScript : MonoBehaviour {
         
         if (Input.GetKeyDown (KeyCode.Return)) {  
             //Application.LoadLevel (0);
-            Globals.RestartTreeScene(false);
+            //Globals.RestartTreeScene(0, -100f + UnityEngine.Random.Range(0f, 200f), false);
+           
+            List<System.Type> typesToDestroy = new List<System.Type>();
+            typesToDestroy.Add(typeof(Hazard));
+            typesToDestroy.Add(typeof(StreamBugGeneratorScriptParent));
+            typesToDestroy.Add(typeof(RewardScript));
+            typesToDestroy.Add(typeof(EssenceScript));
+            typesToDestroy.Add(typeof(ComboCounterScript));
+
+            //GameObject treeScene = GameObject.Find("TreeScene");
+            foreach(System.Type t in typesToDestroy){
+                Object[] gos = GameObject.FindObjectsOfType(t);
+                foreach(Object go in gos){
+                    GameObject.Destroy(((MonoBehaviour)go).gameObject);
+                }
+
+            }
+            Globals.RestartIdleScene();
         }  
         //Debug.Log ("inputX = " + inputX + " inputY = " + inputY);
     }

@@ -87,7 +87,9 @@ public abstract class Hazard : _Mono {
 	}
 
     public virtual void Kill(){
-        Destroy(this.gameObject);
+        if(gameObject!=null){
+            Destroy(this.gameObject);
+        }
     }
 
 	public virtual void Finish(){

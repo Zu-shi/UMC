@@ -27,7 +27,8 @@ public class StateManagerScript : MonoBehaviour {
 	private HazardManagerScript hazardManager;
 
 
-	public void Start(){
+    public void Start(){
+        //Debug.LogError("test");
 
 		LoggingManager.startLogging ();
 

@@ -56,6 +56,9 @@ public class ShieldScriptRounded : _Mono {
             GameObject leaf = Object.Instantiate(shieldLeafPrefab, Vector3.zero, Quaternion.identity) as GameObject;
             _Mono leafMono = leaf.GetComponent<_Mono>();
             leaves.Add(leafMono);
+            //Before the leaves are properly resized, move them away from visible portion of the screen
+            leafMono.x = -10000f;
+            leafMono.y = -10000f;
 
             if(isBigLeaf(i)){
                 leafMono.gameObject.AddComponent<CenterLeafScript>().goldenLeaf = goldenShieldLeafPrefab;

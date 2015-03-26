@@ -2,12 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-
 public static class Globals {
 
 	public static bool fixedHeightMode = false;
-	private static InputManagerScript _inputManager;
 	public const int STAGE_STARTING = 0;
 	public const int STAGE_ONE = 1;
     public const int STAGE_TWO = 2;
@@ -15,7 +12,7 @@ public static class Globals {
     public const float INITIAL_HEIGHT = 140;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
     private static GameObject treePrefab;
- 
+
     public static Vector2 mainTreePos{
         get{
             return new Vector2(Globals.treeManager.treePos.x, Globals.treeManager.treePos.y);
@@ -34,7 +31,17 @@ public static class Globals {
     public enum HazardColors{
         NONE, RED, YELLOW, BLUE, PURPLE1, PURPLE2, WHITE
     }
-
+    
+    private static GlobalManagerScript _globalManager;
+    public static GlobalManagerScript globalManager {
+        get{
+            if(_globalManager == null)
+                _globalManager = GameObject.Find("GlobalManager").GetComponent<GlobalManagerScript>();
+            return _globalManager;
+        }
+    }
+    
+    private static InputManagerScript _inputManager;
 	public static InputManagerScript inputManager {
 		get{
 			if(_inputManager == null)
@@ -130,7 +137,7 @@ public static class Globals {
         treePrefab = tree;
     }
 
-    public static void RestartTreeScene(bool keepTrees = true){
+    public static void RestartTreeScene(float posx, float posy, bool keepTrees){
         GameObject treeScene = GameObject.Find("TreeScene");
         if(treeScene != null){
             mainTrees.Add(treeManager.mainTree);
@@ -155,6 +162,38 @@ public static class Globals {
         _gameOverGUIScript = GameObject.Find("GameOverGUI").GetComponent<GameOverGUIScript>();
 
         //_treeManager.mainTree.x = -100f + Random.Range(0f, 200f);
-        _treeManager.treePos = new Vector2(-100f + Random.Range(0f, 200f), 0);
+        //_treeManager.treePos = new Vector2(-100f + Random.Range(0f, 200f), 0);
+        _treeManager.treePos = new Vector2(posx, posy);
+    }
+
+    public static void RestartIdleScene(){
+        GameObject treeScene = GameObject.Find("TreeScene");
+        if(treeScene != null){
+            mainTrees.Add(treeManager.mainTree);
+            GameObject.DestroyImmediate(treeScene, true);
+            Debug.Log("treeScene destoryed ");
+            globalManager.InitiateIdleScene();
+        }else{
+            Debug.LogError("No TreeScene found in RestartIdleScene");
+        }
+
+
+        /*
+        GameObject treeSceneNew = GameObject.Instantiate(treePrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+        Debug.Log("treeSceneNew made? " + treeSceneNew.name);
+        treeSceneNew.name = "TreeScene";
+        
+        _hazardManager = GameObject.Find("HazardManager").GetComponent<HazardManagerScript>();
+        _shieldManager = GameObject.Find("ShieldManager").GetComponent<ShieldScriptRounded>();
+        _cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManagerScript>();
+        _guiTimerManager = GameObject.Find("GUITimerManager").GetComponent<GUITimerManagerScript>();
+        _stateManager = GameObject.Find("StateManager").GetComponent<StateManagerScript>();
+        _treeManager = GameObject.Find("TreeManager").GetComponent<TreeManagerScript>();
+        _gameOverGUIScript = GameObject.Find("GameOverGUI").GetComponent<GameOverGUIScript>();
+        
+        //_treeManager.mainTree.x = -100f + Random.Range(0f, 200f);
+        //_treeManager.treePos = new Vector2(-100f + Random.Range(0f, 200f), 0);
+        _treeManager.treePos = new Vector2(posx, posy);
+        */
     }
 }

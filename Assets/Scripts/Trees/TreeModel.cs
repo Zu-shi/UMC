@@ -413,7 +413,7 @@ public class TreeModel : _Mono {
 	private void ReportHeight(){
 		if (generation == 0) {
 			float result = maxHeight ();
-            totalHeight = result;
+            totalHeight = result - y;
 			//Debug.Log (totalHeight);
 		}
 	}

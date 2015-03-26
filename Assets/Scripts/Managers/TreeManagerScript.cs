@@ -23,6 +23,7 @@ public class TreeManagerScript : _Mono {
     private float stage2performance = 1f;
     private bool isGameOver = false;
     //private float targetGrowthPercentage = 1.4f/7f;
+    private float START_PERCENTAGE = 1.4f/7f;
     private float targetGrowthPercentage = 1.4f/7f;
     private float secondsSurvivedInStage3 = 0f;
     //private float secondsSurvivedInStage2 = 0f;
@@ -45,10 +46,13 @@ public class TreeManagerScript : _Mono {
 	// Use this for initialization
 	protected virtual void Start () {
 		inCutscene = false;
+        currentGrowthPercentage = 0f;
+        DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 1.5f);
+//        Debug.LogError("test");
 
 		if (!Globals.fixedHeightMode) {
 
-			maxAge = 500f;
+			maxAge = 370f;
 			stage1Range = new Vector2 (3/7f, 4/7f);
 			stage2Range = new Vector2 (4/7f, 7/7f);
 			stage1Evaluation = 0f;
@@ -108,7 +112,8 @@ public class TreeManagerScript : _Mono {
 
     public void GrowthSpurt () {
         //targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
-        targetGrowthPercentage = targetGrowthPercentage + 0.01f;
+        //targetGrowthPercentage = targetGrowthPercentage + 0.01f;
+        targetGrowthPercentage = targetGrowthPercentage + 0.1f;
         Debug.Log("Growing to " + targetGrowthPercentage);
         Sequence s = DOTween.Sequence();
         Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, currentGrowthPercentage, EssenceScript.rewardDelay);
@@ -126,7 +131,7 @@ public class TreeManagerScript : _Mono {
         mainTree.targetAge = maxAge * currentGrowthPercentage;
 
         //FOR TESTING NEW GRAPHICS
-        mainTree.targetAge = Mathf.Min(327, mainTree.targetAge);
+        mainTree.targetAge = Mathf.Min(370, mainTree.targetAge);
 
         foreach(TreeModel tree in morphingStages){
             tree.targetAge = mainTree.targetAge;

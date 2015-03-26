@@ -20,8 +20,8 @@ public class CameraManagerScript : _Mono {
 	private float height;
     private float nextCutsceneHeight;
 	private bool _cutsceneMode = true;
-    private float minimumCameraSize = 10f;
-    private float startGameBeginHeight = 10f;
+    private float minimumCameraSize = 35f;
+    private float startGameBeginHeight = 35f;
     private float startGameEndHeight = 140f;
 
 	private float cutScene1Height = 480f;
@@ -41,7 +41,7 @@ public class CameraManagerScript : _Mono {
 	}
 
 	void Update () {
-		if (Globals.fixedHeightMode) {
+        if (Globals.fixedHeightMode) {
 			if (height < maxHeight) {
 				height += 2f;
 			}
@@ -51,7 +51,7 @@ public class CameraManagerScript : _Mono {
 		float actualHeight = Mathf.Max (minimumCameraSize, height);
 		Camera.main.orthographicSize = actualHeight;
 		Camera.main.transform.position = new Vector3(Globals.treeManager.treePos.x, 
-		                                             actualHeight,
+                                                     Globals.treeManager.treePos.y + actualHeight,
 		                                             Camera.main.transform.position.z);
 	}
 	
@@ -60,7 +60,7 @@ public class CameraManagerScript : _Mono {
         float actualHeight = Mathf.Max (minimumCameraSize, height);
         Camera.main.orthographicSize = actualHeight;
         Camera.main.transform.position = new Vector3(Globals.treeManager.treePos.x, 
-                                                     actualHeight,
+                                                     Globals.treeManager.treePos.y + actualHeight,
                                                      Camera.main.transform.position.z);
 
     }
