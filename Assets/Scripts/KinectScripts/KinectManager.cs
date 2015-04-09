@@ -978,7 +978,7 @@ public class KinectManager : _Mono
 			Debug.LogError(message);
 			Debug.LogError(e.ToString());
 			if(CalibrationText != null)
-				CalibrationText.guiText.text = message;
+				CalibrationText.GetComponent<GUIText>().text = message;
 				
 			return;
 		}
@@ -988,7 +988,7 @@ public class KinectManager : _Mono
 			Debug.LogError(message);
 			Debug.LogError(e.ToString());
 			if(CalibrationText != null)
-				CalibrationText.guiText.text = message;
+				CalibrationText.GetComponent<GUIText>().text = message;
 				
 			return;
 		}
@@ -1081,7 +1081,7 @@ public class KinectManager : _Mono
 		// GUI Text.
 		if(CalibrationText != null)
 		{
-			CalibrationText.guiText.text = "WAITING FOR USERS";
+			CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
 		}
 		
 		Debug.Log("Waiting for users.");
@@ -1522,7 +1522,7 @@ public class KinectManager : _Mono
 			
 			if(CalibrationText != null)
 			{
-				CalibrationText.guiText.text = "";
+				CalibrationText.GetComponent<GUIText>().text = "";
 			}
 		}
     }
@@ -1582,7 +1582,7 @@ public class KinectManager : _Mono
 
 		if(CalibrationText != null)
 		{
-			CalibrationText.guiText.text = "WAITING FOR USERS";
+			CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
 		}
 	}
 	

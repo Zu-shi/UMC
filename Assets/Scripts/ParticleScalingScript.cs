@@ -10,7 +10,7 @@ public class ParticleScalingScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        ps = gameObject.particleSystem;
+        ps = gameObject.GetComponent<ParticleSystem>();
 
         float sizeRatio = Utils.halfScreenHeight / Globals.INITIAL_HEIGHT;
         ps.startSpeed = sizeRatio * ps.startSpeed;

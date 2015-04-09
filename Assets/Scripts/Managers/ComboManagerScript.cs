@@ -23,7 +23,7 @@ public class ComboManagerScript : _Mono {
 	// Update is called once per frame
     void Update () {
         if(totalComboCount!=0){
-            guiText.text = "Combo: " + comboCount + "/" + totalComboCount;
+            GetComponent<GUIText>().text = "Combo: " + comboCount + "/" + totalComboCount;
         }
 
         if(flashyTextTimer >= 0f)

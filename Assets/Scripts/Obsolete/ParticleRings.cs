@@ -69,7 +69,7 @@ public class ParticleRings : MonoBehaviour {
         effectObject.transform.parent = this.gameObject.transform;
         
         // Get the particle emitter from the new effect object.
-        ParticleEmitter emitter = effectObject.particleEmitter;
+        ParticleEmitter emitter = effectObject.GetComponent<ParticleEmitter>();
         
         // Generate the particles.
         emitter.Emit();

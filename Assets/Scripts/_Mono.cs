@@ -133,14 +133,14 @@ public class _Mono : MonoBehaviour {
 
 	public float guiAlpha {
 		set {
-			if(guiTexture != null){
-				Color _color = guiTexture.color;
-				guiTexture.color = new Color(_color.r, _color.g, _color.b, value); 
+			if(GetComponent<GUITexture>() != null){
+				Color _color = GetComponent<GUITexture>().color;
+				GetComponent<GUITexture>().color = new Color(_color.r, _color.g, _color.b, value); 
 			}
 		}
 		get {
-			if(guiTexture != null){
-				return guiTexture.color.a;
+			if(GetComponent<GUITexture>() != null){
+				return GetComponent<GUITexture>().color.a;
 			}
 			else return 0;
 		}
@@ -148,14 +148,14 @@ public class _Mono : MonoBehaviour {
 
     public float guiTextAlpha {
         set {
-            if(guiText != null){
-                Color _color = guiText.material.color;
-                guiText.material.color = new Color(_color.r, _color.g, _color.b, value); 
+            if(GetComponent<GUIText>() != null){
+                Color _color = GetComponent<GUIText>().material.color;
+                GetComponent<GUIText>().material.color = new Color(_color.r, _color.g, _color.b, value); 
             }
         }
         get {
-            if(guiText != null){
-                return guiText.material.color.a;
+            if(GetComponent<GUIText>() != null){
+                return GetComponent<GUIText>().material.color.a;
             }
             else return 0;
         }

@@ -24,7 +24,7 @@ public class HealingPowerupScript : _Mono {
 
 	// Use this for initialization
     void Start () {
-        ParticleSystem ps = transform.GetChild(0).particleSystem;
+        ParticleSystem ps = transform.GetChild(0).GetComponent<ParticleSystem>();
         startSize = ps.startSize;
         //startRate = ps.emissionRate;
         startSpeed = ps.startSpeed;
@@ -64,7 +64,7 @@ public class HealingPowerupScript : _Mono {
             z = 0f;
         }
         
-        ParticleSystem ps = transform.GetChild(0).particleSystem;
+        ParticleSystem ps = transform.GetChild(0).GetComponent<ParticleSystem>();
         ps.startSpeed = startSpeed * Globals.cameraManager.cameraRatio;
         ps.startSize = startSize * Globals.cameraManager.cameraRatio;
         //ps.emissionRate = startRate * Globals.cameraManager.cameraRatio;
@@ -73,7 +73,7 @@ public class HealingPowerupScript : _Mono {
     public void FadeOut(){
         if (!isFading)
         {
-            ParticleSystem ps = transform.GetChild(0).particleSystem;
+            ParticleSystem ps = transform.GetChild(0).GetComponent<ParticleSystem>();
             isFading = true;
             Stop();
             Sequence sq = DOTween.Sequence();

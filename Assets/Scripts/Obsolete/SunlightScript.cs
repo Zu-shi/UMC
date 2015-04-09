@@ -33,7 +33,7 @@ public class SunlightScript : _Mono {
         counter += Time.deltaTime * Mathf.PI * 2 / period;
 
 
-        GetComponent<BoxCollider2D>().center = new Vector2(0, -spriteRenderer.sprite.rect.size.y/2);
+        GetComponent<BoxCollider2D>().offset = new Vector2(0, -spriteRenderer.sprite.rect.size.y/2);
         GetComponent<BoxCollider2D>().size =  
             new Vector2(spriteRenderer.sprite.rect.size.x,
                         spriteRenderer.sprite.rect.size.y);

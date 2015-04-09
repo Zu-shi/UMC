@@ -31,7 +31,7 @@ public class CursorScript : _Mono {
 	void Start () {
         saplingIcon = GameObject.Find("SaplingIcon").GetComponent<_Mono>();
         treeBound = GameObject.Find("TreeArea").GetComponent<_Mono>();
-        Screen.showCursor = false;
+        Cursor.visible = false;
         alpha = 0.7f;
         originalXs = xs;
         originalYs = ys;

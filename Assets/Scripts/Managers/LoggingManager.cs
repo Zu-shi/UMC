@@ -33,7 +33,7 @@ public class LoggingManager : MonoBehaviour {
     public static void recordComboCount(){
         
         #if UNITY_STANDALONE_OSX
-        int comboNum = Globals.comboManager.comboTally;
+        int comboNum = 1;//Globals.comboManager.comboTally;
         Debug.Log ("Combo count is " + comboNum);
         
         using(StreamWriter sw = File.AppendText(logFilePath)){
