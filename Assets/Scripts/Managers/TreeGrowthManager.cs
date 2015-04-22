@@ -81,7 +81,7 @@ public class TreeGrowthManager : _Mono {
 
     public void FlashHurt(){
         //TODO: TESTING PURPOSE ONLY, REMOVE
-        lives = 0;
+        //lives = 0;
         GameObject leafFlash;
         leafFlash = Instantiate(hurtLeaf, Globals.stateManager.leafLifeIndicator.gameObject.transform.position, 
                                 Quaternion.identity) as GameObject;
