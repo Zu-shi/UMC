@@ -18,6 +18,7 @@ public class TreeTester : _Mono {
     public int secondsForSecondPart{get; set;}
     public int secondsForThirdPart{get; set;}
     public List<TreeModel> morphingStages { get; set; }
+    public TreeContainerScript treeContainerPrefab;
     
     private float stage1performance = 1f;
     private float stage2performance = 1f;
@@ -42,6 +43,8 @@ public class TreeTester : _Mono {
     private bool monitorForFruits = false;
     private int fruitCachedNumbers = 0;  //Tracks changes in fruitTweenedNumebers
     private int fruitTweenedNumbers = 0;  //Is tweened to create cool effects in fruit intervals.
+    private TreeContainerScript mainTreeContainer;
+    private List<TreeContainerScript> otherTreeContainers;
     
     // Use this for initialization
     protected virtual void Start () {
@@ -59,13 +62,17 @@ public class TreeTester : _Mono {
         Utils.Assert (morphingStagesPrefab != null, "Check morphingStagesPrefab not null.");
         Utils.Assert (morphingStagesPrefab.Length != 0, "Check morphingStagesPrefab not empty.");
                 
-        Debug.Log("treepos x: " + treePos.x + " treePos y: " + treePos.y);
+        //Debug.Log("treepos x: " + treePos.x + " treePos y: " + treePos.y);
         mainTree = Instantiate(morphingStagesPrefab[0], treePos, Quaternion.identity) as TreeModel;
         mainTree.seed = seed;
-        //mainTree.growFoilage = false;
+        mainTreeContainer = Instantiate(treeContainerPrefab);
+        mainTree.container = mainTreeContainer;
+        mainTree.transform.SetParent(mainTreeContainer.transform);
+        mainTreeContainer.name = name + " Main Tree";
         
         TreeModel treeInstance = null;
         TreeModel previousTreeInstance = null;
+        otherTreeContainers = new List<TreeContainerScript>();
         for(int i = 0; i < morphingStagesPrefab.Length; i++){
             //These trees are instantiated for transitioning use.
             TreeModel prefab = morphingStagesPrefab[i];
@@ -73,6 +80,11 @@ public class TreeTester : _Mono {
             Utils.Assert (treeInstance != null, "Check treeInstance not null.");
             morphingStages.Add( treeInstance );
             treeInstance.seed = mainTree.seed;
+            TreeContainerScript tcs = Instantiate(treeContainerPrefab);
+            otherTreeContainers.Add(tcs);
+            treeInstance.container = tcs;
+            treeInstance.transform.SetParent(tcs.transform);
+            tcs.name = name + " Tree Stage " + (i + 1);
             
             if(previousTreeInstance != null){
                 Utils.Assert (i > 0, "Check index i greater than 0.");

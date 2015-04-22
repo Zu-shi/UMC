@@ -7,7 +7,7 @@ public class TreeModelPreMorph : TreeModel {
         base.Awake ();
         branchingOptions = new int[]{2, 3, 4, 1};
         branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
-        branchingAngles = new float[]{ 27f, 40f, 33f, 18f};
+        branchingAngles = new float[]{ 27f, 40f, 30f, 60f};
         foilagePosition = new Vector2 (0.5f, 0.2f);
         //branchingProbability = new float[]{0.5f, 0.5f};
         //branchingAngles = new float[]{ 10f, 10f};
@@ -45,7 +45,9 @@ public class TreeModelPreMorph : TreeModel {
 				t.parent = this;
 				t.root = this.root;
 				t.foilageXs = foilageXs;
-				t.foilageYs = foilageYs;
+                t.foilageYs = foilageYs;
+                t.transform.SetParent(transform.parent);
+                t.container = container;
 				
 				for( int i2 = 0; i2 < branchingAngles.Length; i2++ ){
 					t.branchingAngles[i2] = branchingAngles[i2]/2;

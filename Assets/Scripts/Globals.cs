@@ -170,7 +170,8 @@ public static class Globals {
         GameObject treeScene = GameObject.Find("TreeScene");
         if(treeScene != null){
             mainTrees.Add(treeManager.mainTree);
-            GameObject.DestroyImmediate(treeScene, true);
+            _treeManager.OnDestory();
+            GameObject.Destroy(treeScene);
             Debug.Log("treeScene destoryed ");
             globalManager.InitiateIdleScene();
         }else{

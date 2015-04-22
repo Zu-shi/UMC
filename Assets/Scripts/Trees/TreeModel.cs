@@ -26,7 +26,8 @@ public class TreeModel : _Mono {
     public Sprite foilageBlue;
     public Sprite foilagePurple;
     public Sprite foilageWhite;
-
+    
+    public TreeContainerScript container{ get; set; }
 	public List<TreeModel> branches{ get; set; }
 	public List<TreeModel> allBranches{ get; set; }
 	public int generation{ get; set; }
@@ -77,7 +78,7 @@ public class TreeModel : _Mono {
 		growFoilage = true;
 		fastGrowth = false;
 
-		angleSway = 10f;
+		angleSway = 11f;
 
 		branches = new List<TreeModel> ();
 		allBranches = new List<TreeModel> ();
@@ -96,7 +97,8 @@ public class TreeModel : _Mono {
         height = 0f;
         branchingOptions = new int[]{2, 3, 4, 1};
         branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
-        branchingAngles = new float[]{ 27f, 40f, 33f, 18f};
+        branchingAngles = new float[]{ 27f, 35f, 40f, 40f};
+        //Older settings
 		//branchingOptions = new int[]{2, 3};
 		//branchingProbability = new float[]{0.5f, 0.5f};
 		//branchingAngles = new float[]{ 27f, 40f};
@@ -182,7 +184,6 @@ public class TreeModel : _Mono {
         PositionBranches ();
 	}
 
-	//Recusive
     //Only called for generation = 0;
 	protected virtual void StartGrowing() {
 		//Debug.Log ("Age = " + age);
@@ -238,15 +239,16 @@ public class TreeModel : _Mono {
 	//Recusive
 	protected virtual void CreateFoilage(){
 
+        //FoilGen is the minimum generation to spawn a foilage
 		if (generation >= foilGen && foilage == null) {
-
 			foilage = new GameObject ();
 			SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
             sr.sortingLayerName = "Foilage";
+            sr.name = "Foilage";
+            foilage.transform.SetParent(container.transform);
 			_Mono foilMono = foilage.AddComponent<_Mono> ();
 			sr.sortingOrder = 1;
             foilMono.spriteRenderer.sprite = foilageSprite;
-             
 		}
 
 		foreach (TreeModel branch in branches) {
@@ -336,6 +338,8 @@ public class TreeModel : _Mono {
 				t.root = this.root;
 				t.foilageXs = foilageXs;
 				t.foilageYs = foilageYs;
+                t.transform.SetParent(transform.parent);
+                t.container = container;
 
 				for( int i2 = 0; i2 < branchingAngles.Length; i2++ ){
 					t.branchingAngles[i2] = branchingAngles[i2]/2;

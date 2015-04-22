@@ -77,7 +77,7 @@ public static class Utils {
     }
 
     public static int RandomToInt(int max){
-        Debug.Log("Max = " + max);
+//        Debug.Log("Max = " + max);
         UnityEngine.Random.seed = (int)Time.realtimeSinceStartup;
         return Mathf.FloorToInt(UnityEngine.Random.Range(0f, max));
     }

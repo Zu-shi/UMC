@@ -18,6 +18,7 @@ public class TreeManagerScript : _Mono {
     public int secondsForSecondPart{get; set;}
     public int secondsForThirdPart{get; set;}
     public List<TreeModel> morphingStages { get; set; }
+    public TreeContainerScript treeContainerPrefab;
 
     private float stage1performance = 1f;
     private float stage2performance = 1f;
@@ -42,6 +43,8 @@ public class TreeManagerScript : _Mono {
     private bool monitorForFruits = false;
     private int fruitCachedNumbers = 0;  //Tracks changes in fruitTweenedNumebers
     private int fruitTweenedNumbers = 0;  //Is tweened to create cool effects in fruit intervals.
+    private TreeContainerScript mainTreeContainer;
+    private List<TreeContainerScript> otherTreeContainers;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -64,18 +67,28 @@ public class TreeManagerScript : _Mono {
 			if (!Globals.fixedHeightMode) {
 
                 mainTree = Instantiate(morphingStagesPrefab[0], treePos, Quaternion.identity) as TreeModel;
-				mainTree.seed = seed;
+                mainTree.seed = seed;
+                mainTreeContainer = Instantiate(treeContainerPrefab);
+                mainTree.container = mainTreeContainer;
+                mainTree.transform.SetParent(mainTreeContainer.transform);
+                mainTreeContainer.name = name + " Main Tree";
                 //mainTree.growFoilage = false;
 
 				TreeModel treeInstance = null;
-				TreeModel previousTreeInstance = null;
+                TreeModel previousTreeInstance = null;
+                otherTreeContainers = new List<TreeContainerScript>();
 				for(int i = 0; i < morphingStagesPrefab.Length; i++){
 					//These trees are instantiated for transitioning use.
 					TreeModel prefab = morphingStagesPrefab[i];
 					treeInstance = Instantiate(prefab, new Vector3(-10000f, -10000f, 0f), Quaternion.identity) as TreeModel;
 					Utils.Assert (treeInstance != null, "Check treeInstance not null.");
 					morphingStages.Add( treeInstance );
-					treeInstance.seed = mainTree.seed;
+                    treeInstance.seed = mainTree.seed;
+                    TreeContainerScript tcs = Instantiate(treeContainerPrefab);
+                    otherTreeContainers.Add(tcs);
+                    treeInstance.container = tcs;
+                    treeInstance.transform.SetParent(tcs.transform);
+                    tcs.name = name + " Tree Stage " + (i + 1);
 
 					if(previousTreeInstance != null){
 						Utils.Assert (i > 0, "Check index i greater than 0.");
@@ -84,7 +97,7 @@ public class TreeManagerScript : _Mono {
 						tm.endAge = maxAge * morphingRanges[i - 1].y;
 						tm.toMorph = mainTree;
 						tm.preMorph = previousTreeInstance;
-						tm.postMorph = treeInstance;
+                        tm.postMorph = treeInstance;
 					}
 
 					previousTreeInstance = treeInstance;
@@ -232,10 +245,18 @@ public class TreeManagerScript : _Mono {
     public void OnDestory() {
         Debug.Log("Treemanager.ondestory()");
 
+        while(otherTreeContainers.Count != 0){
+            TreeContainerScript tcs = otherTreeContainers[0];
+            otherTreeContainers.RemoveAt(0);
+            Destroy(tcs.gameObject);
+        }
+
+        /*
         while(morphingStages.Count != 0){
             TreeModel t = morphingStages[0];
             morphingStages.Remove(t);
             t.DestroyRecursive();
         }
+        */
     }
 }
