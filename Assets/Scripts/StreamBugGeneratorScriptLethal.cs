@@ -29,6 +29,6 @@ public class StreamBugGeneratorScriptLethal : StreamBugGeneratorScriptParent {
     }
 
     public override void Update() {
-        damage = 1;
+        damage = 0.3f;
     }
 }

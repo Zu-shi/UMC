@@ -4,6 +4,7 @@ using DG.Tweening;
 
 public class TreeModel : _Mono {
 
+    private const int DRAWING_ORDER_PER_Y = 2;
 	protected const float scale = 0.6f;
 	protected const float SPRITE_WIDTH = 16f / scale;
 	protected const float SPRITE_HEIGHT = 64f / scale;
@@ -48,6 +49,7 @@ public class TreeModel : _Mono {
 	public TreeModel parent { get; set; }
 	public int highestGrowingSpeed { get; set; }
     public float targetAge;
+    public int drawingOrder; //Should be equal to negative initial Y for all parts of tree for correct drawing?
     public float age;
     public float totalHeight;
     public float recordHeight { get; set; }
@@ -119,6 +121,7 @@ public class TreeModel : _Mono {
 		foilageXs = 1f;
 		foilageYs = 1f;
 		highestGrowingSpeed = 30;
+        drawingOrder = Mathf.FloorToInt(-y) * DRAWING_ORDER_PER_Y;
 
         if (fastGrowth) { age = targetAge;}
         heightVariation = Random.Range (0.6f, 0.8f);
@@ -132,6 +135,14 @@ public class TreeModel : _Mono {
 		float result = 0f;
 		foreach (float p in branchingProbability) {result += p;}
 		Utils.Assert (result >= 1f, "checking probability adds to 1");
+
+        //TODO:Remove
+        /*
+        Globals.HazardColors color = Globals.HazardColors.NONE;
+        for(int i = 0; i < 40; i++){
+            color = Utils.GetRandomEnum<Globals.HazardColors>();
+            AddToColorPool(color);
+        }*/
 	}
 
     public void AddToColorPool(Globals.HazardColors color){
@@ -217,12 +228,15 @@ public class TreeModel : _Mono {
 			foilMono.angle = myAngle - 90;
             foilMono.xs = ys * 2 * foilageXs;
             foilMono.ys = ys * foilageYs;
+            foilMono.spriteRenderer.sortingOrder = root.drawingOrder + DRAWING_ORDER_PER_Y/2;// + Mathf.FloorToInt(foilMono.y - root.y)/10;
+            //Debug.Log(root.drawingOrder);
 
             //THIS NEEDS ONE MORE CHECK
-            Globals.HazardColors color = Globals.HazardColors.NONE;
+            /*
             if(root.foilageColorPool.Count > 0){
                 if(foilMono.spriteRenderer.sprite == foilageSprite){
                     Sprite spr = foilageSprite;
+                    Globals.HazardColors color = Globals.HazardColors.NONE;
                     color = root.foilageColorPool[0];
                     switch (color){
                         case(Globals.HazardColors.RED):{spr = foilageRed; break;}
@@ -235,6 +249,7 @@ public class TreeModel : _Mono {
                     root.foilageColorPool.RemoveAt(0);
                 }
             }
+            */
 		}
 
 		foreach (TreeModel branch in branches) {
@@ -249,7 +264,7 @@ public class TreeModel : _Mono {
 		if (generation >= foilGen && foilage == null && generation <= foilGenMax) {
 			foilage = new GameObject ();
 			SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
-            sr.sortingLayerName = "Foilage";
+            sr.sortingLayerName = "Tree";
             sr.name = "Foilage";
             foilage.transform.SetParent(container.transform);
 			_Mono foilMono = foilage.AddComponent<_Mono> ();
@@ -390,8 +405,9 @@ public class TreeModel : _Mono {
 	//Updates the branch positions based on relative root, and updates absolute root (recursive call)
 	protected virtual void PositionBranches() {
 		foreach (TreeModel branch in branches) {
-			branch.absoluteRoot = branch.parent.GetRootPosition(branch.relativeRoot);
-
+            branch.absoluteRoot = branch.parent.GetRootPosition(branch.relativeRoot);
+            branch.spriteRenderer.sortingOrder = root.drawingOrder;// + Mathf.FloorToInt(branch.y - root.y)/10;
+            //Debug.Log(root.drawingOrder);
 			branch.PositionBranches();
             //Debug.Log("Generation " + generation + " position branches called. Relative root y " + branch.relativeRoot.y);
             //Debug.Log("Generation " + generation + " position branches called. Absolute root y " + branch.absoluteRoot.y);

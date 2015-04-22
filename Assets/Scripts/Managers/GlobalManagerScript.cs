@@ -28,6 +28,7 @@ public class GlobalManagerScript : MonoBehaviour {
 	}
 	
     public void InitiateIdleScene(){
+        Globals.cursorManager.allowClicks = true;
         currentScene = Scene.IDLE;
         _Mono cmono = Camera.main.GetComponent<_Mono>();
         
@@ -49,7 +50,7 @@ public class GlobalManagerScript : MonoBehaviour {
     }
 
     public void InitiateTreeScene(float posx, float posy, bool keepTrees){
-
+        Globals.cursorManager.allowClicks = false;
         currentScene = Scene.TREE;
         _Mono cmono = Camera.main.GetComponent<_Mono>();
         DOTween.To(()=>cmono.y, x=> cmono.y =x, posy + TREE_SCREEN_HALF_HEIGHT, transitionTime);

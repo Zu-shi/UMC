@@ -48,6 +48,10 @@ public class TreeManagerScript : _Mono {
 
 	// Use this for initialization
 	protected virtual void Start () {
+        if(Globals.RANDOM_SEED){
+            seed = UnityEngine.Random.Range(0, 100000);
+        }
+
 		inCutscene = false;
         currentGrowthPercentage = 0f;
         DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, targetGrowthPercentage, 1.5f);
@@ -126,7 +130,8 @@ public class TreeManagerScript : _Mono {
     public void GrowthSpurt () {
         //targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
         //targetGrowthPercentage = targetGrowthPercentage + 0.01f;
-        targetGrowthPercentage = targetGrowthPercentage + 0.1f;
+        //targetGrowthPercentage = targetGrowthPercentage + 0.1f;
+        targetGrowthPercentage = targetGrowthPercentage + 0.04f;
         Debug.Log("Growing to " + targetGrowthPercentage);
         Sequence s = DOTween.Sequence();
         Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, currentGrowthPercentage, EssenceScript.rewardDelay);

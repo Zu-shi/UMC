@@ -49,7 +49,7 @@ public class HazardManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        float initialPeaceDuration = 2f;
+        float initialPeaceDuration = 2.3f;
         float finalPeaceDuration = -0.2f;
 //        float initialPeaceDuration = 1.2f;
 //        float finalPeaceDuration = -0.1f;

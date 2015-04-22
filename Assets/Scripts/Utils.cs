@@ -87,6 +87,13 @@ public static class Utils {
         float theta = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
         return new Vector2(r * Mathf.Sin(theta), r * Mathf.Cos(theta));
     }
+
+    public static T GetRandomEnum<T>()
+    {
+        System.Array A = System.Enum.GetValues(typeof(T));
+        T V = (T)A.GetValue(UnityEngine.Random.Range(0,A.Length));
+        return V;
+    }
     /**
      * Given a coordinate system in polar coordinates, convert it to cartesian coordinates
      * The angles from [90 - angleScale, 90 + angleScale] is mapped to [-1, 1] for angle

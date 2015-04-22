@@ -6,6 +6,9 @@ using System.Collections;
 public class Clickable : _Mono {
 
     //Note: layer of this object must be "Clickable"
-    public string name;
+    public string nickname;
 
+    void Start(){
+        gameObject.layer = LayerMask.NameToLayer("Clickable");
+    }
 }

@@ -11,6 +11,7 @@ public static class Globals {
     public const int STAGE_THREE = 3;
     public const float INITIAL_HEIGHT = 140;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
+    public const bool RANDOM_SEED = true;
     private static GameObject treePrefab;
 
     public static Vector2 mainTreePos{
@@ -41,6 +42,15 @@ public static class Globals {
         }
     }
     
+    private static CursorScript _cursorManager;
+    public static CursorScript cursorManager {
+        get{
+            if(_cursorManager == null)
+                _cursorManager = GameObject.Find("CursorManager").GetComponent<CursorScript>();
+            return _cursorManager;
+        }
+    }
+
     private static InputManagerScript _inputManager;
 	public static InputManagerScript inputManager {
 		get{
@@ -138,6 +148,7 @@ public static class Globals {
     }
 
     public static void RestartTreeScene(float posx, float posy, bool keepTrees){
+        inputManager.smallScreenMode = true;
         GameObject treeScene = GameObject.Find("TreeScene");
         if(treeScene != null){
             mainTrees.Add(treeManager.mainTree);
@@ -167,6 +178,23 @@ public static class Globals {
     }
 
     public static void RestartIdleScene(){
+        inputManager.smallScreenMode = false;
+        List<System.Type> typesToDestroy = new List<System.Type>();
+        typesToDestroy.Add(typeof(Hazard));
+        typesToDestroy.Add(typeof(StreamBugGeneratorScriptParent));
+        typesToDestroy.Add(typeof(RewardScript));
+        typesToDestroy.Add(typeof(EssenceScript));
+        typesToDestroy.Add(typeof(ComboCounterScript));
+        
+        //GameObject treeScene = GameObject.Find("TreeScene");
+        foreach(System.Type t in typesToDestroy){
+            Object[] gos = GameObject.FindObjectsOfType(t);
+            foreach(Object go in gos){
+                GameObject.Destroy(((MonoBehaviour)go).gameObject);
+            }
+            
+        }
+
         GameObject treeScene = GameObject.Find("TreeScene");
         if(treeScene != null){
             mainTrees.Add(treeManager.mainTree);

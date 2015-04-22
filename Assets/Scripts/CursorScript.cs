@@ -8,6 +8,7 @@ public class CursorScript : _Mono {
     public Sprite idleSceneTreeCursor;
     public Sprite idleSceneBadTreeCursor;
     public GameObject clickWave;
+    public bool allowClicks{get; set;}
 
     _Mono leftArrow;
     _Mono rightArrow;
@@ -16,7 +17,8 @@ public class CursorScript : _Mono {
     _Mono treeBound;
     float waitTimeBeforeClick = 1.5f;
     float clickTimer = 1.5f;
-    float detectMoveDistance = 8f;
+    //float detectMoveDistance = 8f; //Old distance for Mouse
+    float detectMoveDistance = 14f;
     bool waitingForClick = true;
     bool hasTree = false;
     bool inValidRegion = false;
@@ -45,19 +47,23 @@ public class CursorScript : _Mono {
 	
     void Update (){
         _Mono cameraMono = Camera.main.GetComponent<_Mono>();
-        leftArrow.alpha = Mathf.Min(1f, 1 + cameraMono.x / cameraxBound);
-        rightArrow.alpha = Mathf.Min(1f, 1 - cameraMono.x / cameraxBound);
+        if(Globals.globalManager.currentScene.Equals(GlobalManagerScript.Scene.IDLE)){
+            leftArrow.alpha = Mathf.Min(1f, 1 + cameraMono.x / cameraxBound);
+            rightArrow.alpha = Mathf.Min(1f, 1 - cameraMono.x / cameraxBound);
+        }else{
+            leftArrow.alpha = rightArrow.alpha = 0f;
+        }
     }
 	// Update is called once per frame
     void LateUpdate () {
         _Mono cameraMono = Camera.main.GetComponent<_Mono>();
         Clickable scrollAreaTest = Scout(x,y);
-        if(scrollAreaTest!=null){
-            if(scrollAreaTest.name == "ScrollAreaLeft"){
+        if(scrollAreaTest!=null && Globals.globalManager.currentScene.Equals(GlobalManagerScript.Scene.IDLE)){
+            if(scrollAreaTest.nickname == "ScrollAreaLeft"){
                 if(cameraMono.x > -cameraxBound){
                     cameraMono.x -= 15f;
                 }
-            }else if(scrollAreaTest.name == "ScrollAreaRight"){
+            }else if(scrollAreaTest.nickname == "ScrollAreaRight"){
                 if(cameraMono.x < cameraxBound){
                     cameraMono.x += 15f;
                 }
@@ -71,7 +77,7 @@ public class CursorScript : _Mono {
                 xys = new Vector2(30, 30);
                 if(hasTree){
                     Clickable validAreaTest = Scout(x,y);
-                    if(validAreaTest!=null && validAreaTest.name=="ValidArea"){
+                    if(validAreaTest!=null && validAreaTest.nickname=="ValidArea"){
                         saplingIcon.spriteRenderer.sprite = idleSceneTreeCursor;
                         saplingIcon.alpha = 0.9f;
                     }else{
@@ -85,7 +91,6 @@ public class CursorScript : _Mono {
                     saplingIcon.xy = treeBound.xy;
                 }
                 treeBound.alpha = 1f;
-                AdministerClicks();
                 break;
             }
             case(GlobalManagerScript.Scene.TREE):{
@@ -98,6 +103,7 @@ public class CursorScript : _Mono {
                 break;
             }
         }
+        AdministerClicks();
 
         alphaAngle += Mathf.PI / flashesPerSecond * Time.deltaTime;
         alpha = 0.55f + 0.2f * Mathf.Sin(alphaAngle);
@@ -120,52 +126,59 @@ public class CursorScript : _Mono {
         xprev = x;
         yprev = y;
         z = 0;
+
 	}
 
     void AdministerClicks(){
-        clickTimer -= Time.deltaTime;
-        
-        if( Utils.PointDistance(new Vector2(x, y), new Vector2(xprev, yprev)) > detectMoveDistance ){
-            clickTimer = waitTimeBeforeClick;
-            waitingForClick = true;
-        }
-        
-        if(hasTree){
-            Clickable clickObj = Scout(x, y);
-            if(clickObj != null){
-                if(clickObj.name == "ValidArea"){
-                    saplingIcon.spriteRenderer.sprite = idleSceneTreeCursor;
+        if(allowClicks){
+            clickTimer -= Time.deltaTime;
+            
+            if( Utils.PointDistance(new Vector2(x, y), new Vector2(xprev, yprev)) > detectMoveDistance ){
+                clickTimer = waitTimeBeforeClick;
+                waitingForClick = true;
+            }
+            
+            if(hasTree){
+                Clickable clickObj = Scout(x, y);
+                if(clickObj != null){
+                    if(clickObj.nickname == "ValidArea"){
+                        saplingIcon.spriteRenderer.sprite = idleSceneTreeCursor;
+                    }else{
+                        saplingIcon.spriteRenderer.sprite = idleSceneBadTreeCursor;
+                    }
                 }else{
                     saplingIcon.spriteRenderer.sprite = idleSceneBadTreeCursor;
                 }
             }else{
-                saplingIcon.spriteRenderer.sprite = idleSceneBadTreeCursor;
+                saplingIcon.spriteRenderer.sprite = idleSceneTreeCursor;
             }
-        }else{
-            saplingIcon.spriteRenderer.sprite = idleSceneTreeCursor;
-        }
-        
-        if(clickTimer < 0f && waitingForClick){
-            waitingForClick = false;
-            Clickable clickObj = Click(x, y);
-            if (clickObj != null){
-                if(clickObj.name == "TreeArea"){
-                    hasTree = !hasTree;
-                }
-                else if(clickObj.name == "ValidArea"){
-                    Globals.globalManager.InitiateTreeScene(x, y, false);
-                    hasTree = false;
+            
+            if(clickTimer < 0f && waitingForClick){
+                waitingForClick = false;
+                Clickable clickObj = Click(x, y);
+                if (clickObj != null){
+                    if(clickObj.nickname == "TreeArea"){
+                        hasTree = !hasTree;
+                    }
+                    else if(clickObj.nickname == "ValidArea" && hasTree){
+                        Globals.globalManager.InitiateTreeScene(x, y, false);
+                        hasTree = false;
+                    }
+                    else if(clickObj.nickname == "GameOver" && Globals.globalManager.currentScene.Equals(GlobalManagerScript.Scene.TREE)){
+                        //Debug.LogWarning("Game Over Clicked");
+                        Globals.RestartIdleScene();
+                    }
                 }
             }
         }
     }
 
     public Clickable Click(float xpos, float ypos){
-        Debug.Log("Click");
+        Debug.Log("Click at " + xy.x + ", " + xy.y);
         Instantiate(clickWave, xy, Quaternion.identity);
         Clickable clickObj = Scout(xpos, ypos);
         if(clickObj != null){
-            Debug.Log("Clicked on "+ clickObj.name);
+            Debug.Log("Clicked on "+ clickObj.nickname);
         }
         return clickObj;
     }
@@ -173,7 +186,7 @@ public class CursorScript : _Mono {
     public Clickable Scout(float xpos, float ypos){
         RaycastHit hitInfo;
         //Debug.Log(transform.position.x + ", " + transform.position.y + ", " + transform.position.z);
-        z = -10; //Changing position for Raycasting
+        z = -100; //Changing position for Raycasting
         Physics.Raycast(transform.position, new Vector3(0,0,1), out hitInfo, Mathf.Infinity, 1 << LayerMask.NameToLayer("Clickable"));
         z = 0;
         if(hitInfo.collider == null){

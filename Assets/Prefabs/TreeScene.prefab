@@ -61,6 +61,8 @@ GameObject:
   - 4: {fileID: 480700}
   - 131: {fileID: 13108162}
   - 114: {fileID: 11407524}
+  - 114: {fileID: 11491954}
+  - 65: {fileID: 6574624}
   m_Layer: 0
   m_Name: GameOverGUI
   m_TagString: Untagged
@@ -413,6 +415,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6574624
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &8229058
 AudioSource:
   m_ObjectHideFlags: 1
@@ -649,6 +663,18 @@ MonoBehaviour:
   shield: {fileID: 0}
   parabolaWidth: .600000024
   parabolaHeight: .600000024
+--- !u!114 &11491954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c873c5a08704fb1b80d614b13200ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nickname: GameOver
 --- !u!114 &11499266
 MonoBehaviour:
   m_ObjectHideFlags: 1
