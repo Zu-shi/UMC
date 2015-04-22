@@ -35,6 +35,10 @@ public class CameraManagerScript : _Mono {
     public float cameraRatio{
         get {return Camera.main.orthographicSize / startGameEndHeight;}
     }
+    
+    public Camera camera{
+        get {return Camera.main;}
+    }
 
 	void Start () {
 //        startGameEndHeight = Globals.INITIAL_HEIGHT;

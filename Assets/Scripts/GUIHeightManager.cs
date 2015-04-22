@@ -12,8 +12,8 @@ public class GUIHeightManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        guiTextInstance.text = "Score: " + Mathf.Round(Globals.stateManager.gameDuration * 10);
+        guiTextInstance.text = "Height: " + Mathf.FloorToInt(Globals.treeManager.mainTree.totalHeight);
 
-        guiTextInstance.text = "";
+        //guiTextInstance.text = "";
     }
 }

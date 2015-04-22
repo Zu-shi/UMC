@@ -11,6 +11,7 @@ public class TreeGrowthManager : _Mono {
     public GameObject healRing;
     public GameObject healLeaf;
     public GameObject hurtLeaf;
+    public GameObject hurtHalo;
     
     public Vector2 leftMostLifeIndicatorPos;
     public Vector2 initialSize;
@@ -84,6 +85,13 @@ public class TreeGrowthManager : _Mono {
                                 Quaternion.identity) as GameObject;
         leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys * 1f;
         leafFlash.GetComponent<_Mono>().alpha = 0.5f;
+        
+        GameObject hurtFlash;
+        leafFlash = Instantiate(hurtHalo, Globals.cameraManager.camera.transform.position, 
+                                Quaternion.identity) as GameObject;
+        leafFlash.GetComponent<_Mono>().z = 0;
+        leafFlash.GetComponent<_Mono>().xys = Globals.cameraManager.cameraRatio * Vector2.one * 0.8f;
+        leafFlash.GetComponent<_Mono>().alpha = 0.3f;
     }
 
 	void OnTriggerEnter(Collider col){

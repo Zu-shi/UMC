@@ -73,7 +73,7 @@ public class RewardScript : _Mono {
         fadein();
         fadeout();
         smallAngle += 0.05f * direction;
-        bigAngle += 0.06f * direction;
+        bigAngle += 0.09f * direction;
         lifeTime += Time.deltaTime;
         Vector2 bigCircleXY = Utils.polarToCart(bigAngle, bigRadius);
         xy = bigCircleXY + new Vector2(Mathf.Cos(smallAngle) * smallRadius, Mathf.Sin(smallAngle) * smallRadius);

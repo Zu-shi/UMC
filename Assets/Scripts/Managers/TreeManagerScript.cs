@@ -219,11 +219,14 @@ public class TreeManagerScript : _Mono {
         //mainTree.growFoilage = true;
         isGameOver = true;
         //targetGrowthPercentage = Mathf.Min(secondsSurvived / 100f + 0.14f, 1f);
+        /*
         Debug.Log("TGP = " + targetGrowthPercentage);
         targetGrowthPercentage = Mathf.Clamp(targetGrowthPercentage, 0f, 1f);
-        seq = DOTween.Sequence();
         seq.Append(DOTween.To( ()=>currentGrowthPercentage, x=> currentGrowthPercentage = x, targetGrowthPercentage, duration/2));
+        */
+        seq = DOTween.Sequence();
         seq.AppendCallback(AppendCameraSequence);
+
     }
 
     private void AppendCameraSequence() {

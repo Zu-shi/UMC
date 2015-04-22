@@ -62,7 +62,7 @@ public class StateManagerScript : MonoBehaviour {
         }
 
         leafLifeIndicator.xy = Globals.inputManager.normToScreenPoint(0.06f, 0.9f);
-        leafLifeIndicator.xys = isGameOver ? Vector2.zero : new Vector2(lives, lives) * Globals.cameraManager.cameraRatio;
+        leafLifeIndicator.xys = isGameOver ? Vector2.zero : new Vector2(lives, lives) * Globals.cameraManager.cameraRatio * 0.8f;
 	}
 
 	private void UpdateTime(){

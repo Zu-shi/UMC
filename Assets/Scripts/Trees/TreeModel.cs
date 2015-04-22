@@ -111,7 +111,7 @@ public class TreeModel : _Mono {
 		age = 0f;
 		foilagePosition = new Vector2 (0.5f, 0.6f);
         foilGen = 1;
-        foilGenMax = 2;
+        foilGenMax = 3;
 		givenHeight = 800.0f; //Not Useful
 		root = this;
 		parent = null;
