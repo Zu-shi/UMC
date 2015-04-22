@@ -9,6 +9,7 @@ public class CursorScript : _Mono {
     public Sprite idleSceneBadTreeCursor;
     public GameObject clickWave;
 
+
     _Mono saplingIcon;
     _Mono treeBound;
     float waitTimeBeforeClick = 1.5f;
@@ -17,7 +18,8 @@ public class CursorScript : _Mono {
     bool waitingForClick = true;
     bool hasTree = false;
     bool inValidRegion = false;
-    
+    float cameraxBound = 1730f;
+
     float originalXs = 0f;
     float originalYs = 0f;
     float flashesPerSecond = 1f;
@@ -38,7 +40,21 @@ public class CursorScript : _Mono {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    void LateUpdate () {
+        _Mono cameraMono = Camera.main.GetComponent<_Mono>();
+        Clickable scrollAreaTest = Scout(x,y);
+        if(scrollAreaTest!=null){
+            if(scrollAreaTest.name == "ScrollAreaLeft"){
+                if(cameraMono.x > -cameraxBound){
+                    cameraMono.x -= 15f;
+                }
+            }else if(scrollAreaTest.name == "ScrollAreaRight"){
+                if(cameraMono.x < cameraxBound){
+                    cameraMono.x += 15f;
+                }
+            }
+        }
+
         switch(Globals.globalManager.currentScene){
             case(GlobalManagerScript.Scene.IDLE):{
                 treeBound.alpha = 1;
@@ -51,11 +67,12 @@ public class CursorScript : _Mono {
                         saplingIcon.alpha = 0.9f;
                     }else{
                         saplingIcon.spriteRenderer.sprite = idleSceneBadTreeCursor;
-                        saplingIcon.alpha = 0.5f;
+                        saplingIcon.alpha = 0.25f;
                     }
                     saplingIcon.x = x;
                     saplingIcon.y = y + saplingIcon.spriteRenderer.sprite.rect.height/2;
                 }else{
+                    treeBound.GetComponent<Clickable>().LateUpdate();
                     saplingIcon.xy = treeBound.xy;
                 }
                 treeBound.alpha = 1f;

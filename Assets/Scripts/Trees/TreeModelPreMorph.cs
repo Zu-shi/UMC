@@ -5,10 +5,13 @@ public class TreeModelPreMorph : TreeModel {
 	
 	protected override void Awake () {
         base.Awake ();
-        branchingOptions = new int[]{2, 3, 4, 1};
-        branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
-        branchingAngles = new float[]{ 27f, 40f, 30f, 60f};
-        foilagePosition = new Vector2 (0.5f, 0.2f);
+        branchingOptions = new int[]{1, 2, 3};
+        branchingProbability = new float[]{0.3f, 0.36f, 0.34f};
+        branchingAngles = new float[]{ 10f, 30f, 20f};
+        //branchingOptions = new int[]{2, 3, 4, 1};
+        //branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
+        //branchingAngles = new float[]{ 27f, 40f, 30f, 60f};
+        //foilagePosition = new Vector2 (0.5f, 0.2f);
         //branchingProbability = new float[]{0.5f, 0.5f};
         //branchingAngles = new float[]{ 10f, 10f};
         //foilagePosition = new Vector2 (0.5f, 0.2f);

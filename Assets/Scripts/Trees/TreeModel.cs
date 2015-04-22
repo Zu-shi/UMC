@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class TreeModel : _Mono {
 
-	protected const float scale = 0.5f;
+	protected const float scale = 0.6f;
 	protected const float SPRITE_WIDTH = 16f / scale;
 	protected const float SPRITE_HEIGHT = 64f / scale;
 	public Sprite foilageSprite;
@@ -66,7 +66,8 @@ public class TreeModel : _Mono {
 	protected float actualAge{ get; set; }
 	protected float heightVariation{ get; set; }
 	protected bool fastGrowth{ get; set; }
-	protected int foilGen{ get; set; }
+    protected int foilGen{ get; set; }
+    protected int foilGenMax{ get; set; }
 	protected float angleSway { get; set; }
 	public float rotationTracker { get; set; }
 	protected bool bloomed = false;
@@ -95,9 +96,12 @@ public class TreeModel : _Mono {
 		stopGrowingAfterBranching = true;
 		maxGenerations = 3;
         height = 0f;
-        branchingOptions = new int[]{2, 3, 4, 1};
-        branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
-        branchingAngles = new float[]{ 27f, 35f, 40f, 40f};
+        branchingOptions = new int[]{1, 2, 3};
+        branchingProbability = new float[]{0.3f, 0.36f, 0.34f};
+        branchingAngles = new float[]{ 10f, 30f, 45f};
+        //branchingOptions = new int[]{2, 3, 4, 1};
+        //branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
+        //branchingAngles = new float[]{ 27f, 35f, 40f, 40f};
         //Older settings
 		//branchingOptions = new int[]{2, 3};
 		//branchingProbability = new float[]{0.5f, 0.5f};
@@ -106,8 +110,9 @@ public class TreeModel : _Mono {
 		doneGrowing = false;
 		age = 0f;
 		foilagePosition = new Vector2 (0.5f, 0.6f);
-		foilGen = 1;
-		givenHeight = 250.0f;
+        foilGen = 1;
+        foilGenMax = 2;
+		givenHeight = 800.0f; //Not Useful
 		root = this;
 		parent = null;
 		foilageXs = 1f;
@@ -130,8 +135,8 @@ public class TreeModel : _Mono {
 
     public void AddToColorPool(Globals.HazardColors color){
         foilageColorPool.Add(color);
-        foilageColorPool.Add(color);
-        foilageColorPool.Add(color);
+        //foilageColorPool.Add(color);
+        //foilageColorPool.Add(color);
     }
 
 	public Vector2 absoluteRoot{
@@ -240,7 +245,7 @@ public class TreeModel : _Mono {
 	protected virtual void CreateFoilage(){
 
         //FoilGen is the minimum generation to spawn a foilage
-		if (generation >= foilGen && foilage == null) {
+		if (generation >= foilGen && foilage == null && generation <= foilGenMax) {
 			foilage = new GameObject ();
 			SpriteRenderer sr = foilage.AddComponent<SpriteRenderer> ();
             sr.sortingLayerName = "Foilage";
