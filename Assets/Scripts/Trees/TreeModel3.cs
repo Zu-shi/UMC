@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+//NOT USED
 public class TreeModel3 : TreeModel {
 	
 	// Takes care of new branch generation, including setting a unique seed for the child based on this seed.

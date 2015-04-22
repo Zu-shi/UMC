@@ -11,14 +11,12 @@ public class AgeBasedTreeMorpher : _Mono {
 	public float endAge;
 	private bool disabled = false;
 
-	// Use this for initialization
 	void Start () {
 		Utils.Assert (preMorph.seed == postMorph.seed, "Check random seed equality.");
 		Utils.Assert (Enumerable.SequenceEqual(preMorph.branchingOptions, postMorph.branchingOptions), "check growth options equality.");
 		
 	}
 	
-	// Update is called once per frame
 	void LateUpdate () {
 
 		if(!disabled){

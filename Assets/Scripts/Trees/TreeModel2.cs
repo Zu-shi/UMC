@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//NOT USED
 public class TreeModel2 : TreeModel {
 
 	private int blooms = 0;

@@ -4,11 +4,14 @@ using System.Collections;
 public class TreeModelPreMorph : TreeModel {
 	
 	protected override void Awake () {
-		base.Awake ();
-		branchingOptions = new int[]{2, 3};
-		branchingProbability = new float[]{0.5f, 0.5f};
-		branchingAngles = new float[]{ 10f, 10f};
-		foilagePosition = new Vector2 (0.5f, 0.2f);
+        base.Awake ();
+        branchingOptions = new int[]{2, 3, 4, 1};
+        branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
+        branchingAngles = new float[]{ 27f, 40f, 33f, 18f};
+        foilagePosition = new Vector2 (0.5f, 0.2f);
+        //branchingProbability = new float[]{0.5f, 0.5f};
+        //branchingAngles = new float[]{ 10f, 10f};
+        //foilagePosition = new Vector2 (0.5f, 0.2f);
 		foilageXs = 0.1f;
 		foilageYs = 0.1f;
 	}

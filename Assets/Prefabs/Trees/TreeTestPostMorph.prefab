@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234d7e58b411e4e58a0895d3b7a147ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foilageSprite: {fileID: 21300000, guid: 16a0d2666e94d4b96b146a3e61b4f955, type: 3}
+  foilageSprite: {fileID: 21300000, guid: d5f2e1e34ffed4c29964c0fd8893b726, type: 3}
   angledSprite: {fileID: 21300000, guid: 33421421733a4413a99bfce573e0eb2c, type: 3}
   foilageSpriteRed: {fileID: 21300000, guid: 9e8191bb0ef204caaacf1b94d684a59c, type: 3}
   angledSpriteRed: {fileID: 21300000, guid: 1a11f21c051934c639d137ed434f4459, type: 3}
@@ -69,15 +69,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2112637691
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
@@ -93,4 +97,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

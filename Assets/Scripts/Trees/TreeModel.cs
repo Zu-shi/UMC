@@ -92,11 +92,14 @@ public class TreeModel : _Mono {
 		proportion = 0.125f;
 		targetAge = 0f;
 		stopGrowingAfterBranching = true;
-		maxGenerations = 4;
-		height = 0f;
-		branchingOptions = new int[]{2, 3};
-		branchingProbability = new float[]{0.5f, 0.5f};
-		branchingAngles = new float[]{ 27f, 40f};
+		maxGenerations = 3;
+        height = 0f;
+        branchingOptions = new int[]{2, 3, 4, 1};
+        branchingProbability = new float[]{0.25f, 0.25f, 0.25f, 0.25f};
+        branchingAngles = new float[]{ 27f, 40f, 33f, 18f};
+		//branchingOptions = new int[]{2, 3};
+		//branchingProbability = new float[]{0.5f, 0.5f};
+		//branchingAngles = new float[]{ 27f, 40f};
 		actualAge = 0f;
 		doneGrowing = false;
 		age = 0f;
@@ -445,38 +448,7 @@ public class TreeModel : _Mono {
     }
     
     public void GlowRed(){
-        //Debug.Log("glowing red");
-        /*
-        _Mono branchMono = GetComponent<_Mono> ();
-        GameObject branchGlow = Instantiate(blankGameObject, this.transform.position, this.transform.rotation) as GameObject;
-        _Mono bm = branchGlow.AddComponent<_Mono> ();
-        branchGlow.AddComponent<SpriteRenderer> ();
-        bm.spriteRenderer.sortingLayerName = "TreeGlow";
-        bm.spriteRenderer.sprite = angledSpriteRed;
-        bm.xys = GetComponent<_Mono>().xys * 1f;
-        //bm.angle = GetComponent<_Mono>().angle;
-        FadeAndDestroy fd = branchGlow.AddComponent<FadeAndDestroy>();
-        fd.alpha = 0.1f;
-        fd.rate = 0.005f;
-
-        if(foilage != null){
-            _Mono foilMono = foilage.GetComponent<_Mono> ();
-            GameObject foilGlow = Instantiate(blankGameObject, foilage.transform.position, foilage.transform.rotation) as GameObject;
-            _Mono fgm = foilGlow.AddComponent<_Mono> ();
-            foilGlow.AddComponent<SpriteRenderer> ();
-            fgm.spriteRenderer.sortingLayerName = "TreeGlow";
-            fgm.spriteRenderer.sprite = foilageSpriteRed;
-            fgm.xys = foilage.GetComponent<_Mono>().xys * 1f;
-            //fgm.angle = foilGlow.GetComponent<_Mono>().angle;
-            FadeAndDestroy fd2 = foilGlow.AddComponent<FadeAndDestroy>();
-            fd2.alpha = 0.1f;
-            fd2.rate = 0.005f;
-        }
-                
-        foreach (TreeModel branch in branches) {
-            branch.GlowRed();
-        }
-        */
+        //Can try to have screen glow red insted
     }
 
     public void setAlphaRecursive(float a){
