@@ -2,6 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
+  serializedVersion: 2
   tags:
   - Tree
   - Shield
@@ -11,92 +12,79 @@ TagManager:
   - StreamBugHazard
   - HealPowerup
   - GrowPowerup
-  - 
   - Heal
   - Reward
+  - Container
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
   - 
-  Builtin Layer 0: Default
-  Builtin Layer 1: TransparentFX
-  Builtin Layer 2: Ignore Raycast
-  Builtin Layer 3: 
-  Builtin Layer 4: Water
-  Builtin Layer 5: UI
-  Builtin Layer 6: 
-  Builtin Layer 7: 
-  User Layer 8: ShieldLeaf
-  User Layer 9: Clickable
-  User Layer 10: 
-  User Layer 11: 
-  User Layer 12: 
-  User Layer 13: 
-  User Layer 14: 
-  User Layer 15: 
-  User Layer 16: 
-  User Layer 17: 
-  User Layer 18: 
-  User Layer 19: 
-  User Layer 20: 
-  User Layer 21: 
-  User Layer 22: 
-  User Layer 23: 
-  User Layer 24: 
-  User Layer 25: 
-  User Layer 26: 
-  User Layer 27: 
-  User Layer 28: 
-  User Layer 29: 
-  User Layer 30: 
-  User Layer 31: 
+  - Water
+  - UI
+  - 
+  - 
+  - ShieldLeaf
+  - Clickable
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
-    userID: 0
     uniqueID: 0
     locked: 0
   - name: Background
-    userID: 10
     uniqueID: 103292361
     locked: 0
   - name: Tree
-    userID: 11
     uniqueID: 2112637691
     locked: 0
   - name: Foilage
-    userID: 3
     uniqueID: 4026578653
     locked: 0
   - name: Fruit
-    userID: 4
     uniqueID: 2639931899
     locked: 0
   - name: TreeGlow
-    userID: 7
     uniqueID: 1627556143
     locked: 0
   - name: Grass
-    userID: 5
     uniqueID: 1743783457
     locked: 0
   - name: Shield
-    userID: 2
     uniqueID: 706656359
     locked: 0
   - name: Blinker
-    userID: 12
     uniqueID: 972554247
     locked: 0
   - name: Hazards Aura
-    userID: 9
     uniqueID: 2179540911
     locked: 0
   - name: Hazards
-    userID: 1
     uniqueID: 2261379553
     locked: 0
   - name: Cursor
-    userID: 6
     uniqueID: 2380806643
     locked: 0
   - name: Foreground
-    userID: 8
     uniqueID: 1581261457
     locked: 0

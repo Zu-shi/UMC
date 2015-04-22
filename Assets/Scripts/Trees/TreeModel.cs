@@ -50,6 +50,7 @@ public class TreeModel : _Mono {
     public float targetAge;
     public float age;
     public float totalHeight;
+    public float recordHeight { get; set; }
     public float height;
     public int foilAccessCounter = 0;
     public List<FruitScript> fruits;
@@ -426,6 +427,7 @@ public class TreeModel : _Mono {
 		if (generation == 0) {
 			float result = maxHeight ();
             totalHeight = result - y;
+            recordHeight = Mathf.Max(totalHeight, recordHeight);
 			//Debug.Log (totalHeight);
 		}
 	}
@@ -461,11 +463,12 @@ public class TreeModel : _Mono {
     }
 
     public void setAlphaRecursive(float a){
-        alpha = a;
+        Tween t = DOTween.To(() => alpha, x => alpha = x, a, 0.7f);
 
         if(foilage != null){
             _Mono foilMono = foilage.GetComponent<_Mono> ();
-            foilMono.alpha = a * 1.5f;
+            //foilMono.alpha = a * 1.5f;
+            Tween t2 = DOTween.To(() => foilMono.alpha, x => foilMono.alpha = x, a, 0.7f);
         }
 
         

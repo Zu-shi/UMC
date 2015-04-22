@@ -9,10 +9,11 @@ public class FlashingScript : _Mono {
     public float alphaMultiplierPeriod = 1f;
     bool paused = false;
     Sequence s;
-    float a = 0.4f;
+    float a;
 
 	// Use this for initialization
 	void Start () {
+        a = alphaMultiplierMin;
         s = DOTween.Sequence();
         Tween t1 = DOTween.To(() => a, x => a = x, alphaMultiplierMax, alphaMultiplierPeriod/2);
         t1.SetEase(Ease.InOutSine);
@@ -20,7 +21,7 @@ public class FlashingScript : _Mono {
         //t2.SetEase(Ease.InOutSine);
         s.Append(t1);
         //s.Append(t2);
-        s.SetLoops(100, LoopType.Yoyo);
+        s.SetLoops(10000000, LoopType.Yoyo);
         s.Play();
 	}
 	

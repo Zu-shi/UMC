@@ -9,6 +9,8 @@ public class CursorScript : _Mono {
     public Sprite idleSceneBadTreeCursor;
     public GameObject clickWave;
 
+    _Mono leftArrow;
+    _Mono rightArrow;
 
     _Mono saplingIcon;
     _Mono treeBound;
@@ -33,12 +35,19 @@ public class CursorScript : _Mono {
 	void Start () {
         saplingIcon = GameObject.Find("SaplingIcon").GetComponent<_Mono>();
         treeBound = GameObject.Find("TreeArea").GetComponent<_Mono>();
+        leftArrow = GameObject.Find("LeftArrow").GetComponent<_Mono>();
+        rightArrow = GameObject.Find("RightArrow").GetComponent<_Mono>();
         Cursor.visible = false;
         alpha = 0.7f;
         originalXs = xs;
         originalYs = ys;
 	}
 	
+    void Update (){
+        _Mono cameraMono = Camera.main.GetComponent<_Mono>();
+        leftArrow.alpha = Mathf.Min(1f, 1 + cameraMono.x / cameraxBound);
+        rightArrow.alpha = Mathf.Min(1f, 1 - cameraMono.x / cameraxBound);
+    }
 	// Update is called once per frame
     void LateUpdate () {
         _Mono cameraMono = Camera.main.GetComponent<_Mono>();
@@ -72,7 +81,7 @@ public class CursorScript : _Mono {
                     saplingIcon.x = x;
                     saplingIcon.y = y + saplingIcon.spriteRenderer.sprite.rect.height/2;
                 }else{
-                    treeBound.GetComponent<Clickable>().LateUpdate();
+                    treeBound.GetComponent<CameraFollowingScript>().LateUpdate();
                     saplingIcon.xy = treeBound.xy;
                 }
                 treeBound.alpha = 1f;

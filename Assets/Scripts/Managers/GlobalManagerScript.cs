@@ -36,13 +36,20 @@ public class GlobalManagerScript : MonoBehaviour {
         DOTween.To(()=>cmono.x, x=> cmono.x =x, 0, transitionTime);
         DOTween.To(()=>cmono.y, x=> cmono.y =x, IDLE_SCREEN_HALF_HEIGHT, transitionTime);
         DOTween.To(()=>Camera.main.orthographicSize, x=> Camera.main.orthographicSize =x, IDLE_SCREEN_HALF_HEIGHT, transitionTime);
-        
+
+        GameObject[] tcss = GameObject.FindGameObjectsWithTag("Container");
+        foreach(GameObject go in tcss){
+            TreeContainerScript tcs = go.GetComponent<TreeContainerScript>();
+            tcs.setAlpha(1f);
+        }
+        /*
         foreach(TreeModel t2 in Globals.mainTrees){
             t2.setAlphaRecursive(1f);
-        }
+        }*/
     }
 
     public void InitiateTreeScene(float posx, float posy, bool keepTrees){
+
         currentScene = Scene.TREE;
         _Mono cmono = Camera.main.GetComponent<_Mono>();
         DOTween.To(()=>cmono.y, x=> cmono.y =x, posy + TREE_SCREEN_HALF_HEIGHT, transitionTime);
@@ -54,9 +61,15 @@ public class GlobalManagerScript : MonoBehaviour {
         s.AppendCallback(()=>InitiateTreeSceneCallBack(posx, posy, keepTrees));
         s.Play();
 
-        foreach(TreeModel t2 in Globals.mainTrees){
-            t2.setAlphaRecursive(0.6f);
+        GameObject[] tcss = GameObject.FindGameObjectsWithTag("Container");
+        foreach(GameObject go in tcss){
+            TreeContainerScript tcs = go.GetComponent<TreeContainerScript>();
+            tcs.setAlpha(0f);
         }
+        /*
+        foreach(TreeModel t2 in Globals.mainTrees){
+            t2.setAlphaRecursive(0.1f);
+        }*/
     }
 
     void InitiateTreeSceneCallBack(float posx, float posy, bool keepTrees){

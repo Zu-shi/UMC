@@ -20,7 +20,7 @@ public class GameOverGUIScript : _Mono{
 
 	// Update is called once per frame
     public void Show () {
-        int h = Mathf.FloorToInt( Globals.treeManager.mainTree.totalHeight );
+        int h = Mathf.FloorToInt( Globals.treeManager.mainTree.recordHeight );
         Debug.Log(Globals.stateManager.currentStage);
         guiTextInstance.text = (Globals.stateManager.currentStage != Globals.STAGE_THREE) ?
         "Your tree grew to be " + h + " inches tall! \n Score: " + 
