@@ -11,13 +11,13 @@ public class VariablesManager : MonoBehaviour {
     public static float RoundArrivalTime = 4f;
     public static float RoundSpeed = 1f;
     public static int RoundTotalBugs = 15;
-    public static float RoundAngleRange = 85f;
+    public static float RoundAngleRange = 105f;
 
 	public static float HidingDuration = 2f;
 	public static float HidingArrivalTime = 2.5f;
 	public static float HidingSpeed = .8f;
 	public static int HidingTotalBugs = 15;
-	public static float HidingAngleRange = 50f;
+	public static float HidingAngleRange = 60f;
 
 	public static float WaveDuration = 2f;
 	public static float WaveArrivalTime = 2f;
@@ -29,7 +29,7 @@ public class VariablesManager : MonoBehaviour {
 	public static float DoubleFileArrivalTime = 3f;
 	public static float DoubleFileSpeed = 1.3f;
 	public static int DoubleFileTotalBugs = 20;
-	public static float DoubleFileAngleRange = 40f;
+	public static float DoubleFileAngleRange = 50f;
 
 
 	public static string configPath;

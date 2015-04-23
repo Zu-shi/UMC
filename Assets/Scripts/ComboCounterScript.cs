@@ -88,7 +88,7 @@ public class ComboCounterScript : _Mono {
 
                 if(color == Globals.HazardColors.WHITE){
                     CreateReward(color);
-                    CreateReward(color);
+                    //CreateReward(color);
                 }
             }
         }

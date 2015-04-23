@@ -3,7 +3,9 @@ using System.Collections;
 
 
 public class StateManagerScript : MonoBehaviour {
-
+    
+    public float leafLifex = 0.075f;
+    public float leafLifey = 0.83f;
 	public int currentStage { get; set; }
 	public const float secondsPerCutscene = 4f;
 	public bool inCutscene = true;
@@ -42,14 +44,14 @@ public class StateManagerScript : MonoBehaviour {
         secondsForThirdPart = 15000;
 
         currentStage = Globals.STAGE_STARTING;
-		guiTimerManager = Globals.guiTimerManager;
+		//guiTimerManager = Globals.guiTimerManager;
 		treeManager = Globals.treeManager;
 		cameraManager = Globals.cameraManager;
 		//shieldManager = Globals.shieldManager;
 		hazardManager = Globals.hazardManager;
 
 		totalSeconds = secondsForFirtstPart;
-		guiTimerManager.SetTotalSeconds (totalSeconds);
+		//guiTimerManager.SetTotalSeconds (totalSeconds);
 
         lives = 1f;
 		GameStart ();
@@ -61,7 +63,7 @@ public class StateManagerScript : MonoBehaviour {
             GameOver();
         }
 
-        leafLifeIndicator.xy = Globals.inputManager.normToScreenPoint(0.06f, 0.9f);
+        leafLifeIndicator.xy = Globals.inputManager.normToScreenPoint(leafLifex, leafLifey);
         leafLifeIndicator.xys = isGameOver ? Vector2.zero : new Vector2(lives, lives) * Globals.cameraManager.cameraRatio * 0.8f;
 	}
 
@@ -81,7 +83,7 @@ public class StateManagerScript : MonoBehaviour {
     			StartCutscene();
     		}
 
-    		guiTimerManager.SetTotalSeconds (totalSeconds);
+//    		guiTimerManager.SetTotalSeconds (totalSeconds);
         }
 	}
 
@@ -90,7 +92,7 @@ public class StateManagerScript : MonoBehaviour {
             float time = (currentStage == Globals.STAGE_THREE) ? Globals.treeManager.GetCutsceneTime() : secondsPerCutscene;
 
             isGameOver = true;
-            guiTimerManager.GameOver ();
+            //guiTimerManager.GameOver ();
             hazardManager.GameOver ();
             cameraManager.GameOver (time);
             treeManager.GameOver(time);
@@ -122,7 +124,7 @@ public class StateManagerScript : MonoBehaviour {
 		}
 		inCutscene = true;
         
-        guiTimerManager.CutsceneStart ();
+        //guiTimerManager.CutsceneStart ();
         cameraManager.CutsceneStart (secondsPerCutscene);
         hazardManager.CutsceneStart ();
         treeManager.CutsceneStart(secondsPerCutscene);
@@ -138,7 +140,7 @@ public class StateManagerScript : MonoBehaviour {
 		}
 		inCutscene = false;
 
-		guiTimerManager.CutsceneEnd ();
+//		guiTimerManager.CutsceneEnd ();
 		cameraManager.CutsceneEnd ();
 		hazardManager.CutsceneEnd ();
         treeManager.CutsceneEnd();

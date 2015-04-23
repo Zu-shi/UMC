@@ -13,7 +13,6 @@ public class GUIHeightManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         guiTextInstance.text = "Height: " + Mathf.FloorToInt(Globals.treeManager.mainTree.recordHeight);
-
         //guiTextInstance.text = "";
     }
 }

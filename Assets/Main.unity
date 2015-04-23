@@ -1134,7 +1134,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9200000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
+    - {fileID: 12400000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
+    - {fileID: 8100000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1369388279
@@ -1195,6 +1198,13 @@ SpriteRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
   m_PrefabInternal: {fileID: 1343595805}
+--- !u!81 &1378631862
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378631860}
+  m_Enabled: 1
 --- !u!20 &1378631865
 Camera:
   m_PrefabParentObject: {fileID: 2000000, guid: 3ecbe7228a35943c89648978b2fa6a84,

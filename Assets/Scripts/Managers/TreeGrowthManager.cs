@@ -72,9 +72,9 @@ public class TreeGrowthManager : _Mono {
         
         lives = Mathf.Clamp(lives + 0.1f, 0f, 1f);
         GameObject leafFlash;
-        leafFlash = Instantiate(healLeaf, Globals.stateManager.leafLifeIndicator.gameObject.transform.position, 
-                                Quaternion.identity) as GameObject;
+        leafFlash = Instantiate(healLeaf) as GameObject;
         leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys * 1.1f;
+        leafFlash.GetComponent<_Mono>().xy = Globals.stateManager.leafLifeIndicator.xy;
         Globals.treeManager.GrowthSpurt();
         clearAllTimer = clearAllTime;
     }
@@ -83,9 +83,9 @@ public class TreeGrowthManager : _Mono {
         //TODO: TESTING PURPOSE ONLY, REMOVE
         //lives = 0;
         GameObject leafFlash;
-        leafFlash = Instantiate(hurtLeaf, Globals.stateManager.leafLifeIndicator.gameObject.transform.position, 
-                                Quaternion.identity) as GameObject;
+        leafFlash = Instantiate(hurtLeaf) as GameObject;
         leafFlash.GetComponent<_Mono>().xys = Globals.stateManager.leafLifeIndicator.xys * 1f;
+        leafFlash.GetComponent<_Mono>().xy = Globals.stateManager.leafLifeIndicator.xy;
         leafFlash.GetComponent<_Mono>().alpha = 0.5f;
         
         GameObject hurtFlash;

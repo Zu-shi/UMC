@@ -1178,8 +1178,8 @@ public class KinectManager : _Mono
 								//Debug.Log (gestureData.screenPos.ToString());
 								//kinectPos = new Vector2(gestureData.screenPos.x * rmwidth(), HandCursor1, gestureData.screenPos.y * rmheight());
 								//Range 0 to 1 for both x and y
-								HandCursor1.x = (gestureData.screenPos.x - 0.5f) * Camera.main.orthographicSize * Camera.main.aspect * 2;
-								HandCursor1.y = gestureData.screenPos.y * Camera.main.orthographicSize * 2;
+                                HandCursor1.x = (gestureData.screenPos.x - 0.5f) * Camera.main.orthographicSize * Camera.main.aspect * 2 + Camera.main.transform.position.x;
+								HandCursor1.y = gestureData.screenPos.y * Camera.main.orthographicSize * 2 + Camera.main.transform.position.y;
                                 screenPosX = gestureData.screenPos.x;
                                 screenPosY = gestureData.screenPos.y;
 

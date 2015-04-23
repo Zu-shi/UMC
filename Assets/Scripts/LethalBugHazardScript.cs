@@ -5,6 +5,6 @@ public class LethalBugHazardScript : StreamBugHazardScript {
 
     public override void Update () {
         base.Update();
-        damage = 1f;
+        damage = 0.2f;
 	}
 }

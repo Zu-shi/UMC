@@ -5,7 +5,7 @@ using DG.Tweening;
 public class TreeModel : _Mono {
 
     private const int DRAWING_ORDER_PER_Y = 2;
-	protected const float scale = 0.6f;
+	protected const float scale = 0.65f;
 	protected const float SPRITE_WIDTH = 16f / scale;
 	protected const float SPRITE_HEIGHT = 64f / scale;
 	public Sprite foilageSprite;

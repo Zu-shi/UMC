@@ -62,7 +62,7 @@ public class ShieldScriptRounded : _Mono {
 
             if(isBigLeaf(i)){
                 leafMono.gameObject.AddComponent<CenterLeafScript>().goldenLeaf = goldenShieldLeafPrefab;
-                leafMono.spriteRenderer.sprite = centerLeafSprite;
+                //leafMono.spriteRenderer.sprite = centerLeafSprite;
             }
 
         }
@@ -83,13 +83,13 @@ public class ShieldScriptRounded : _Mono {
             //script for bouncing leaves near the end.
             if(angle > 180f){angle = 180f - (angle - 180f);}
             else if(angle < 0f){angle = -angle;}
-
+            /*
             if(!freeMode){
                 l.xy = Globals.inputManager.normToScreenPoint(getNormedXY(angle));
             }else{
                 l.xy = Globals.inputManager.normToScreenPoint(getNormedXY(angle - centerAngle));
             }
-
+            */
             l.angle = angle;
 
             l.xs = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
@@ -98,6 +98,28 @@ public class ShieldScriptRounded : _Mono {
 
             i++;
         }
+
+        i = 1;
+        _Mono leaf = leaves[i];
+        leaf.xs = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+        leaf.ys = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+        float lwidth = Globals.inputManager.inputNormX;
+        float lheight = Globals.inputManager.inputNormY;
+        leaf.xy = Globals.inputManager.normToScreenPoint(lwidth, lheight);
+        i = 0;
+        leaf = leaves[i];
+        leaf.xs = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+        leaf.ys = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+        float lwidth2 = lwidth + 0.04f;
+        float lheight2 = lheight - 0.05f;
+        leaf.xy = Globals.inputManager.normToScreenPoint(lwidth2, lheight2);
+        i = 2;
+        leaf = leaves[i];
+        leaf.xs = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+        leaf.ys = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
+        float lwidth3 = lwidth - 0.04f;
+        float lheight3 = lheight - 0.05f;
+        leaf.xy = Globals.inputManager.normToScreenPoint(lwidth3, lheight3);
 	}
     
     bool isCenterLeaf(int i){
