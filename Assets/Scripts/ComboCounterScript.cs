@@ -93,13 +93,13 @@ public class ComboCounterScript : _Mono {
             }
         }
         
-        if(result){Globals.stateManager.audioSource.PlayOneShot(comboSound); return true;}
-        else{Globals.stateManager.audioSource.PlayOneShot(notComboSound); return false;}
+        if(result){gameObject.GetComponent<AudioSource>().PlayOneShot(comboSound); return true;}
+        else{gameObject.GetComponent<AudioSource>().PlayOneShot(notComboSound); return false;}
     }
     
     void CreateReward(Globals.HazardColors color){
         RewardScript rewardObjTemp;
-        Globals.stateManager.audioSource.PlayOneShot(rewardAppearsSound);
+        gameObject.GetComponent<AudioSource>().PlayOneShot(rewardAppearsSound);
         rewardObjTemp = Utils.InstanceCreate<RewardScript>(Utils.OUT_OF_SCREEN, rewardObj);
         rewardObjTemp.color = color;
     }

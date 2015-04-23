@@ -108,7 +108,7 @@ public class RewardScript : _Mono {
                     e.GetComponent<EssenceScript>().color = color;
                 }
 
-                Globals.stateManager.audioSource.PlayOneShot(rewardSound);
+                gameObject.GetComponent<AudioSource>().PlayOneShot(rewardSound);
                 claimed = true;
                 lifeTime = fadeoutStartTime;
                 Globals.treeGrowthManager.ClaimReward();

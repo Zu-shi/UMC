@@ -1205,6 +1205,20 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1378631860}
   m_Enabled: 1
+--- !u!124 &1378631863
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378631860}
+  m_Enabled: 1
+--- !u!92 &1378631864
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378631860}
+  m_Enabled: 1
 --- !u!20 &1378631865
 Camera:
   m_PrefabParentObject: {fileID: 2000000, guid: 3ecbe7228a35943c89648978b2fa6a84,
