@@ -144,7 +144,7 @@ public class TreeManagerScript : _Mono {
     }
 
     protected virtual void Update () {
-        Globals.cameraManager.SetHeight(mainTree.totalHeight * 4 / 3);
+        Globals.cameraManager.SetHeight(mainTree.recordHeight * 4 / 3);
 
         mainTree.targetAge = maxAge * currentGrowthPercentage;
 

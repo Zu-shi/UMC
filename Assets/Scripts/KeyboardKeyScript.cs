@@ -21,7 +21,7 @@ public class KeyboardKeyScript : _Mono {
         message = m;
         guiText.GetComponent<GUIText>().text = message;
         if(message.Length > 1){
-            guiText.GetComponent<GUIText>().fontSize = Mathf.RoundToInt(guiText.GetComponent<GUIText>().fontSize / 1.5f);
+            guiText.GetComponent<GUIText>().fontSize = Mathf.RoundToInt(guiText.GetComponent<GUIText>().fontSize / 1.3f);
         }
         guiText.xy = new Vector2(keyLocation.x, keyLocation.y);
 	}

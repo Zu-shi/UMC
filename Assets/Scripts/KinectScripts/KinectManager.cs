@@ -1179,7 +1179,7 @@ public class KinectManager : _Mono
 								//kinectPos = new Vector2(gestureData.screenPos.x * rmwidth(), HandCursor1, gestureData.screenPos.y * rmheight());
 								//Range 0 to 1 for both x and y
                                 HandCursor1.x = (gestureData.screenPos.x - 0.5f) * Camera.main.orthographicSize * Camera.main.aspect * 2 + Camera.main.transform.position.x;
-								HandCursor1.y = gestureData.screenPos.y * Camera.main.orthographicSize * 2 + Camera.main.transform.position.y;
+                                HandCursor1.y = (gestureData.screenPos.y - 0.5f) * Camera.main.orthographicSize * 2 + Camera.main.transform.position.y;
                                 screenPosX = gestureData.screenPos.x;
                                 screenPosY = gestureData.screenPos.y;
 
@@ -1188,7 +1188,7 @@ public class KinectManager : _Mono
 							
 							if(ControlMouseCursor)
 							{
-								MouseControl.MouseMove(gestureData.screenPos);
+								//MouseControl.MouseMove(gestureData.screenPos);
 							}
 						}
 			

@@ -1088,7 +1088,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
       propertyPath: mouseMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3ecbe7228a35943c89648978b2fa6a84, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1327,7 +1327,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5770a1eb157564fb690965264728ba4d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .479999989
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -28,8 +28,8 @@ public class CursorScript : _Mono {
 
     _Mono saplingIcon;
     _Mono treeBound;
-    float waitTimeBeforeClick = 0.8f;
-    float clickTimer = 0.9f;
+    float waitTimeBeforeClick = 1f;
+    float clickTimer = 1f;
     //float detectMoveDistance = 8f; //Old distance for Mouse
     float detectMoveDistance = 14f / 800f;
     bool waitingForClick = true;
@@ -148,7 +148,7 @@ public class CursorScript : _Mono {
         yprev = y;
         z = 0;
 
-        if(clickTimer < 0.4f && clickTimer > 0f){
+        if(clickTimer < 0.5f && clickTimer > 0f){
             circleHint.xy = xy;
             circleHint.xys = xys * clickTimer / 10f;
         }else{

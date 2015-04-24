@@ -9,6 +9,8 @@ public class VirtualKeyboardManager : _Mono {
     public GameObject plainGuitextChildPrefab;
     public Sprite buttonSprite;
     public int currentNameChar{get; set;}
+    AudioSource audioSource;
+    public AudioClip pressSE;
     int[] rows = {10, 9, 8, 7};
     int maxNameChar = 3;
     KeyboardKeyScript[] keys;
@@ -16,7 +18,7 @@ public class VirtualKeyboardManager : _Mono {
     string name = "";
     int maxNumber = 10;
     int numKeys = 30;
-    float preferredWidth = 0.7f;
+    float preferredWidth = 0.8f;
     float gapToButtonRatio = 0.2f;
     float buttonSize;
     float gap;
@@ -32,6 +34,7 @@ public class VirtualKeyboardManager : _Mono {
     bool showed = false;
 
     public void Start(){
+        audioSource = gameObject.GetComponent<AudioSource>();
         guiTextAlpha = 0f;
     }
 
@@ -44,7 +47,7 @@ public class VirtualKeyboardManager : _Mono {
         gap = buttonSize * gapToButtonRatio;
         height = (buttonSize * rows.Length + (rows.Length - 1) * gap) * Camera.main.aspect;   
         widthStart = (1f - preferredWidth) / 2 + buttonSize / 2;
-        heightEnd = 1f - ((1f - height) / 2) + buttonSize / 2 - 0.1f;
+        heightEnd = 1f - ((1f - height) / 2) + buttonSize / 2 - 0.18f;
         keys = new KeyboardKeyScript[numKeys];
         nameChars = new NameCharScript[maxNameChar];
         for(int i = 0; i < numKeys; i++){ 
@@ -76,6 +79,7 @@ public class VirtualKeyboardManager : _Mono {
 	}
 
     public void ButtonPressed(string message) {
+        audioSource.PlayOneShot(pressSE);
         if(!message.Equals(BACKSPACE_MESSAGE) && !message.Equals(ENTER_MESSAGE)){
             if(name.Length < 3){
                 name = name + message;
@@ -88,7 +92,7 @@ public class VirtualKeyboardManager : _Mono {
             container.creator = name;
             container.height = Mathf.FloorToInt( Globals.treeManager.mainTree.recordHeight );
             BoxCollider box = container.gameObject.AddComponent<BoxCollider>();
-            box.size = new Vector3(20f, 20f, 15f);
+            box.size = new Vector3(28f, 28f, 15f);
             box.center = Globals.treeManager.mainTree.transform.position;
             Clickable click = container.gameObject.AddComponent<Clickable>();
             click.nickname = "Description";
