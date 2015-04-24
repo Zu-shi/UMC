@@ -82,18 +82,32 @@ public class InputManagerScript : MonoBehaviour {
         //Debug.Log ("inputX = " + inputX + " inputY = " + inputY);
     }
     
-    public Vector2 normToScreenPoint (Vector2 v) {
+    public static  Vector2 normToWorldPoint (Vector2 v) {
         //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
-        return Camera.main.ScreenToWorldPoint (new Vector2(v.x * Screen.width, v.y * Screen.height));
+        //return Camera.main.ScreenToWorldPoint (new Vector2(v.x * Screen.width, v.y * Screen.height));
+        return Camera.main.ViewportToWorldPoint(v);
     }
     
-    
-    public Vector2 normToScreenPoint (float x, float y) {
+    public static  Vector2 normToWorldPoint (float x, float y) {
         //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
-        return Camera.main.ScreenToWorldPoint (new Vector2(x * Screen.width, y * Screen.height));
+        //return Camera.main.ScreenToWorldPoint (new Vector2(x * Screen.width, y * Screen.height));
+        return Camera.main.ViewportToWorldPoint(new Vector2(x, y));
+    }
+
+    public static  Vector2 normToWorldScale (Vector2 v) {
+        return new Vector2(v.x * Camera.main.orthographicSize * Camera.main.aspect, v.y * Camera.main.orthographicSize) * 2;
+    }
+
+    public static Vector2 normToWorldScale (float x, float y) {
+        //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
+        return new Vector2(x * Camera.main.orthographicSize * Camera.main.aspect, y * Camera.main.orthographicSize) * 2;
     }
     
-    public Vector2 screenToNormPoint (float x, float y) {
+    public static float normToWorldWidthScale (float x) {
+        return x * Camera.main.orthographicSize * Camera.main.aspect * 2;
+    }
+
+    public Vector2 worldToNormPoint (float x, float y) {
         //Debug.Log("width2:" +v.x * Screen.width + "height2:" +v.y * Screen.height);
         return new Vector2( (x - Camera.main.transform.position.x) / Utils.halfScreenWidth / 2,
                            (y - (Camera.main.transform.position.y - Utils.halfScreenHeight)) / Utils.halfScreenWidth / 2);

@@ -12,6 +12,7 @@ public static class Globals {
     public const float INITIAL_HEIGHT = 140;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
     public const bool RANDOM_SEED = true;
+    public static bool DEADLY_BUG = true;
     private static GameObject treePrefab;
 
     public static Vector2 mainTreePos{
@@ -42,6 +43,15 @@ public static class Globals {
         }
     }
     
+    private static VirtualKeyboardManager _virtualKeyboardManager;
+    public static VirtualKeyboardManager virtualKeyboardManager {
+        get{
+            if(_virtualKeyboardManager == null)
+                _virtualKeyboardManager = GameObject.Find("VirtualKeyboardManager").GetComponent<VirtualKeyboardManager>();
+            return _virtualKeyboardManager;
+        }
+    }
+
     private static CursorScript _cursorManager;
     public static CursorScript cursorManager {
         get{

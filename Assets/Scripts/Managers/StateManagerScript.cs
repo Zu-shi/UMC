@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 
@@ -26,7 +26,8 @@ public class StateManagerScript : MonoBehaviour {
 	private TreeManagerScript treeManager;
 	private CameraManagerScript cameraManager;
 	//private ShieldScript shieldManager;
-	private HazardManagerScript hazardManager;
+    private HazardManagerScript hazardManager;
+    private ShieldScriptRounded shieldManager;
 
 
     public void Start(){
@@ -48,7 +49,8 @@ public class StateManagerScript : MonoBehaviour {
 		treeManager = Globals.treeManager;
 		cameraManager = Globals.cameraManager;
 		//shieldManager = Globals.shieldManager;
-		hazardManager = Globals.hazardManager;
+        hazardManager = Globals.hazardManager;
+        shieldManager = Globals.shieldManager;
 
 		totalSeconds = secondsForFirtstPart;
 		//guiTimerManager.SetTotalSeconds (totalSeconds);
@@ -63,7 +65,7 @@ public class StateManagerScript : MonoBehaviour {
             GameOver();
         }
 
-        leafLifeIndicator.xy = Globals.inputManager.normToScreenPoint(leafLifex, leafLifey);
+        leafLifeIndicator.xy = InputManagerScript.normToWorldPoint(leafLifex, leafLifey);
         leafLifeIndicator.xys = isGameOver ? Vector2.zero : new Vector2(lives, lives) * Globals.cameraManager.cameraRatio * 0.8f;
 	}
 
@@ -93,6 +95,7 @@ public class StateManagerScript : MonoBehaviour {
 
             isGameOver = true;
             //guiTimerManager.GameOver ();
+            shieldManager.GameOver ();
             hazardManager.GameOver ();
             cameraManager.GameOver (time);
             treeManager.GameOver(time);

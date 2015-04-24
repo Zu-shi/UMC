@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SunlightScript : _Mono {
@@ -27,7 +27,7 @@ public class SunlightScript : _Mono {
     void Update () {
         xs = Camera.main.orthographicSize / 480f * originalXs;
         ys = Camera.main.orthographicSize / 480f * originalYs;
-        xy = Globals.inputManager.normToScreenPoint(normedX, 1);
+        xy = InputManagerScript.normToWorldPoint(normedX, 1);
 
         alpha = amplitude * Mathf.Sin (counter) + originalAlpha;
         counter += Time.deltaTime * Mathf.PI * 2 / period;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class CursorScript : _Mono {
 
@@ -8,7 +9,16 @@ public class CursorScript : _Mono {
     public Sprite idleSceneTreeCursor;
     public Sprite idleSceneBadTreeCursor;
     public GameObject clickWave;
-    public bool allowClicks{get; set;}
+    private bool _allowClicks;
+    public bool allowClicks{
+        get{return _allowClicks;} 
+        set{
+            _allowClicks = value;
+            if(!value){
+                DOTween.To(() => alpha, x => alpha = x, 0, 0.7f);
+            }
+        }
+    }
 
     _Mono leftArrow;
     _Mono rightArrow;
@@ -18,7 +28,7 @@ public class CursorScript : _Mono {
     float waitTimeBeforeClick = 1.5f;
     float clickTimer = 1.5f;
     //float detectMoveDistance = 8f; //Old distance for Mouse
-    float detectMoveDistance = 14f;
+    float detectMoveDistance = 14f / 800f;
     bool waitingForClick = true;
     bool hasTree = false;
     bool inValidRegion = false;
@@ -77,7 +87,7 @@ public class CursorScript : _Mono {
                 xys = new Vector2(30, 30);
                 if(hasTree){
                     Clickable validAreaTest = Scout(x,y);
-                    if(validAreaTest!=null && validAreaTest.nickname=="ValidArea"){
+                    if(validAreaTest!=null && validAreaTest.nickname == "ValidArea"){
                         saplingIcon.spriteRenderer.sprite = idleSceneTreeCursor;
                         saplingIcon.alpha = 0.9f;
                     }else{
@@ -94,10 +104,12 @@ public class CursorScript : _Mono {
                 break;
             }
             case(GlobalManagerScript.Scene.TREE):{
-                spriteRenderer.sprite = treeSceneCursor;
+                spriteRenderer.sprite = idleSceneCursor;
                 float sizeRatio = Utils.halfScreenHeight / Utils.resolutionWidth;
                 xs = sizeRatio * originalXs;
                 ys = sizeRatio * originalYs;
+//                Debug.Log(sizeRatio);
+//                Debug.Log(originalXs);
                 saplingIcon.xy = new Vector2(-10000,-10000);
                 treeBound.alpha = 0f;
                 break;
@@ -105,8 +117,10 @@ public class CursorScript : _Mono {
         }
         AdministerClicks();
 
-        alphaAngle += Mathf.PI / flashesPerSecond * Time.deltaTime;
-        alpha = 0.55f + 0.2f * Mathf.Sin(alphaAngle);
+        if (allowClicks){
+            alphaAngle += Mathf.PI / flashesPerSecond * Time.deltaTime;
+            alpha = 0.55f + 0.2f * Mathf.Sin(alphaAngle);
+        }
 
         if(x - xprev > Camera.main.orthographicSize/300f){
             switchCounter++;
@@ -133,7 +147,7 @@ public class CursorScript : _Mono {
         if(allowClicks){
             clickTimer -= Time.deltaTime;
             
-            if( Utils.PointDistance(new Vector2(x, y), new Vector2(xprev, yprev)) > detectMoveDistance ){
+            if( Utils.PointDistance(new Vector2(x, y), new Vector2(xprev, yprev)) / Camera.main.orthographicSize > detectMoveDistance ){
                 clickTimer = waitTimeBeforeClick;
                 waitingForClick = true;
             }
@@ -167,6 +181,8 @@ public class CursorScript : _Mono {
                     else if(clickObj.nickname == "GameOver" && Globals.globalManager.currentScene.Equals(GlobalManagerScript.Scene.TREE)){
                         //Debug.LogWarning("Game Over Clicked");
                         Globals.RestartIdleScene();
+                    }else if(clickObj.nickname == "VirtualKeyboard"){
+                        clickObj.gameObject.GetComponent<KeyboardKeyScript>().AlertVirtualKeyboardManager();
                     }
                 }
             }

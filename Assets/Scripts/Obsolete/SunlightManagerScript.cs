@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,7 +13,7 @@ public class SunlightManagerScript : MonoBehaviour {
     void Start () {
         rays = new List<_Mono>();
         for(int i = 0; i < numRays; i++){
-            Vector2 point = Globals.inputManager.normToScreenPoint( 0.5f + i * range / (numRays - 1) - range/2, 1f);
+            Vector2 point = InputManagerScript.normToWorldPoint( 0.5f + i * range / (numRays - 1) - range/2, 1f);
             GameObject ray = Object.Instantiate(rayPrefab, new Vector3(point.x, point.y, 0f), Quaternion.identity) as GameObject;
             SunlightScript rayMono = ray.GetComponent<SunlightScript>();
             rayMono.normedX = 0.5f + i * range / (numRays - 1) - range/2;

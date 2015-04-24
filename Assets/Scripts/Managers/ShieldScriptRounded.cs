@@ -1,4 +1,4 @@
-﻿#pragma warning disable 0168 // variable declared but not used.
+#pragma warning disable 0168 // variable declared but not used.
 #pragma warning disable 0219 // variable assigned but not used.
 #pragma warning disable 0414 // private field assigned but not used.
 
@@ -105,21 +105,21 @@ public class ShieldScriptRounded : _Mono {
         leaf.ys = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
         float lwidth = Globals.inputManager.inputNormX;
         float lheight = Globals.inputManager.inputNormY;
-        leaf.xy = Globals.inputManager.normToScreenPoint(lwidth, lheight);
+        leaf.xy = InputManagerScript.normToWorldPoint(lwidth, lheight);
         i = 0;
         leaf = leaves[i];
         leaf.xs = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
         leaf.ys = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
         float lwidth2 = lwidth + 0.04f;
         float lheight2 = lheight - 0.05f;
-        leaf.xy = Globals.inputManager.normToScreenPoint(lwidth2, lheight2);
+        leaf.xy = InputManagerScript.normToWorldPoint(lwidth2, lheight2);
         i = 2;
         leaf = leaves[i];
         leaf.xs = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
         leaf.ys = isCenterLeaf(i) ? bigLeafSize * Camera.main.orthographicSize / 480f : smallLeafSize * Camera.main.orthographicSize / 480f;
         float lwidth3 = lwidth - 0.04f;
         float lheight3 = lheight - 0.05f;
-        leaf.xy = Globals.inputManager.normToScreenPoint(lwidth3, lheight3);
+        leaf.xy = InputManagerScript.normToWorldPoint(lwidth3, lheight3);
 	}
     
     bool isCenterLeaf(int i){
@@ -210,5 +210,15 @@ public class ShieldScriptRounded : _Mono {
             if(l != null)
                 Destroy(l.gameObject);
         }
+        leaves.Clear();
+    }
+
+    public void GameOver(){
+        foreach(_Mono l in leaves) {
+            if(l != null)
+                Destroy(l.gameObject);
+        }
+        leaves.Clear();
+        Destroy();
     }
 }

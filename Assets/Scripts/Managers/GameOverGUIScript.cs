@@ -22,13 +22,15 @@ public class GameOverGUIScript : _Mono{
 
 	// Update is called once per frame
     public void Show () {
+        Globals.virtualKeyboardManager.Show();
+
+        /*
         int h = Mathf.FloorToInt( Globals.treeManager.mainTree.recordHeight );
         Debug.Log(Globals.stateManager.currentStage);
         guiTextInstance.text = (Globals.stateManager.currentStage != Globals.STAGE_THREE) ?
         "Your tree grew to be " + h + " inches tall!" + "\n Click here to continue." :
                 "Your tree grew to be " + h + " inches tall! \n You grew " + Globals.treeManager.mainTree.numFruits + " fruits!\n Score: " + 
                 (h + Globals.treeManager.mainTree.numFruits * 5) + "\n Click here to continue." ;
-        
 
         guiTextMono = guiTextInstance.gameObject.AddComponent<_Mono>();
         guiTextMono.guiTextAlpha = 0f;
@@ -46,6 +48,7 @@ public class GameOverGUIScript : _Mono{
         guiTextMono.y = 0.5f;
 
         //box.bounds.size = new Vector2(cam.orthographicSize * cam.aspect, cam.orthographicSize);
+        */
 	}
 
     void AllowClicks(){

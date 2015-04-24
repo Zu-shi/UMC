@@ -39,6 +39,9 @@ public class StreamBugHazardScript : Hazard {
 
     public override void Update()
     {
+        if(Globals.DEADLY_BUG){
+            damage = 1f;
+        }
         base.Update();
     }
   

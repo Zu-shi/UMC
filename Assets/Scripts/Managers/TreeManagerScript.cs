@@ -131,7 +131,7 @@ public class TreeManagerScript : _Mono {
         //targetGrowthPercentage = Mathf.Min(Mathf.Min(secondsSurvived / 100f + 0.14f, currentGrowthPercentage + 0.05f));
         //targetGrowthPercentage = targetGrowthPercentage + 0.01f;
         //targetGrowthPercentage = targetGrowthPercentage + 0.1f;
-        targetGrowthPercentage = targetGrowthPercentage + 0.03f;
+        targetGrowthPercentage = targetGrowthPercentage + 0.04f;
         Debug.Log("Growing to " + targetGrowthPercentage);
         Sequence s = DOTween.Sequence();
         Tween t = DOTween.To(() => currentGrowthPercentage, x => currentGrowthPercentage = x, currentGrowthPercentage, EssenceScript.rewardDelay);
