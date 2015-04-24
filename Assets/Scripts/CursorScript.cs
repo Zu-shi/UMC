@@ -102,7 +102,7 @@ public class CursorScript : _Mono {
                         saplingIcon.alpha = 0.25f;
                     }
                     saplingIcon.x = x;
-                    saplingIcon.y = y + saplingIcon.spriteRenderer.sprite.rect.height/2;
+                    saplingIcon.y = y + saplingIcon.spriteRenderer.sprite.bounds.extents.y/2;
                 }else{
                     treeBound.GetComponent<CameraFollowingScript>().LateUpdate();
                     saplingIcon.xy = treeBound.xy;

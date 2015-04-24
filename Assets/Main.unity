@@ -222,7 +222,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1581261457
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 313ee1f9ed82446f5a4283c6c626df0b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9253abeea117e47a5b49a5dc0b6da356, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &37912695
 MonoBehaviour:
@@ -865,7 +865,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1914160653
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fc540e5b4605847779b5963aecf3c7ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 218c6735be3d643eb8e475af57434dd4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1020693307
 MonoBehaviour:
@@ -1503,12 +1503,12 @@ Prefab:
     - target: {fileID: 11400000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
       propertyPath: idleSceneTreeCursor
       value: 
-      objectReference: {fileID: 21300000, guid: fc540e5b4605847779b5963aecf3c7ff,
+      objectReference: {fileID: 21300000, guid: 218c6735be3d643eb8e475af57434dd4,
         type: 3}
     - target: {fileID: 11400000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
       propertyPath: idleSceneBadTreeCursor
       value: 
-      objectReference: {fileID: 21300000, guid: f276c1b224e254dec8f1d5498a0d57c3,
+      objectReference: {fileID: 21300000, guid: 218c6735be3d643eb8e475af57434dd4,
         type: 3}
     - target: {fileID: 21200000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
       propertyPath: m_SortingOrder
@@ -1531,6 +1531,15 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 25d0d9d4b86c744c9a4754975dc9bb79,
         type: 3}
+    - target: {fileID: 11400000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
+      propertyPath: descriptionAreaPrefab
+      value: 
+      objectReference: {fileID: 13275838, guid: 087b0789f033d4c3ea2c9e64ed633c0a,
+        type: 2}
+    - target: {fileID: 11400000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
+      propertyPath: circlePrefab
+      value: 
+      objectReference: {fileID: 118144, guid: 4db23d6234fd140cd9f31866d5eeded5, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
   m_IsPrefabParent: 0

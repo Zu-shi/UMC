@@ -6,8 +6,8 @@ public class TreeModel : _Mono {
 
     private const int DRAWING_ORDER_PER_Y = 2;
 	protected const float scale = 0.65f;
-	protected const float SPRITE_WIDTH = 16f / scale;
-	protected const float SPRITE_HEIGHT = 64f / scale;
+	protected const float SPRITE_WIDTH = 64f / scale;
+	protected const float SPRITE_HEIGHT = 256f / scale;
 	public Sprite foilageSprite;
     public Sprite angledSprite;
     public Sprite foilageSpriteRed;
@@ -193,7 +193,7 @@ public class TreeModel : _Mono {
                 PositionFoilage();
             }
         } else {
-            rotationTracker += Mathf.PI / 150f;
+            rotationTracker += Mathf.PI / 240f;
             float myAngleTemp = myAnglePermanant + Mathf.Sin (rotationTracker) * angleSway;
             myAngle = myAngleTemp;
         }

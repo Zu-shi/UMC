@@ -812,7 +812,7 @@ GUIText:
   m_GameObject: {fileID: 174682}
   m_Enabled: 1
   serializedVersion: 3
-  m_Text: ENTER YOUR INITIALS!
+  m_Text: NEW TREE GROWN! ENTER YOUR INITIALS!
   m_Anchor: 4
   m_Alignment: 1
   m_PixelOffset: {x: 0, y: 0}

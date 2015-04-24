@@ -12,7 +12,7 @@ public static class Globals {
     public const float INITIAL_HEIGHT = 140;
     public static List<TreeModel> mainTrees = new List<TreeModel>();
     public const bool RANDOM_SEED = true;
-    public static bool DEADLY_BUG = true;
+    public static bool DEADLY_BUG = false;
     private static GameObject treePrefab;
 
     public static Vector2 mainTreePos{
