@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 467098}
   - 132: {fileID: 13256684}
+  - 114: {fileID: 11407374}
   m_Layer: 0
   m_Name: GuiTextChild
   m_TagString: Untagged
@@ -56,6 +57,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 404518}
   m_RootOrder: 0
+--- !u!114 &11407374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36bfaec77daa842aa9e5fe90042f2bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!132 &13256684
 GUIText:
   m_ObjectHideFlags: 1
@@ -65,8 +77,8 @@ GUIText:
   m_Enabled: 1
   serializedVersion: 3
   m_Text: 
-  m_Anchor: 0
-  m_Alignment: 0
+  m_Anchor: 4
+  m_Alignment: 1
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
@@ -76,7 +88,7 @@ GUIText:
   m_FontStyle: 0
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_PixelCorrect: 1
   m_RichText: 1
 --- !u!1001 &100100000

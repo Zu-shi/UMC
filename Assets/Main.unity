@@ -1480,11 +1480,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
       propertyPath: treeSceneCursor
@@ -1522,6 +1522,15 @@ Prefab:
       propertyPath: m_Name
       value: CursorManager
       objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
+      propertyPath: m_SortingLayerID
+      value: -1914160653
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25d0d9d4b86c744c9a4754975dc9bb79,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0de32911383084f26812017d1410ccf3, type: 2}
   m_IsPrefabParent: 0

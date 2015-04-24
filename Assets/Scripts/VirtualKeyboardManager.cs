@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
-public class VirtualKeyboardManager : MonoBehaviour {
+public class VirtualKeyboardManager : _Mono {
 
     //Set all as child
     public GameObject plainGuitextPrefab;
@@ -30,7 +31,12 @@ public class VirtualKeyboardManager : MonoBehaviour {
     string ENTER_MESSAGE = "Done";
     bool showed = false;
 
-	public void Show () {
+    public void Start(){
+        guiTextAlpha = 0f;
+    }
+
+    public void Show () {
+        DOTween.To(() => guiTextAlpha, x => guiTextAlpha = x, 1f, 0.7f); 
         nameYValue = 0.7f;
         nameGap = 0.09f;
         cam = Camera.main;
@@ -77,8 +83,15 @@ public class VirtualKeyboardManager : MonoBehaviour {
         }else if(message.Equals(BACKSPACE_MESSAGE)){
             name = name.Substring(0, name.Length - 1);
         }else if(message.Equals(ENTER_MESSAGE)){
-            Globals.treeManager.mainTree.transform.parent.name = name;
-            Globals.treeManager.mainTree.transform.parent.GetComponent<TreeContainerScript>().creator = name;
+            TreeContainerScript container = Globals.treeManager.mainTree.transform.parent.GetComponent<TreeContainerScript>();
+            container.name = name;
+            container.creator = name;
+            container.height = Mathf.FloorToInt( Globals.treeManager.mainTree.recordHeight );
+            BoxCollider box = container.gameObject.AddComponent<BoxCollider>();
+            box.size = new Vector3(20f, 20f, 15f);
+            box.center = Globals.treeManager.mainTree.transform.position;
+            Clickable click = container.gameObject.AddComponent<Clickable>();
+            click.nickname = "Description";
             Globals.RestartIdleScene();
         }
 

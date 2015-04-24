@@ -4,12 +4,15 @@ using DG.Tweening;
 
 public class CursorScript : _Mono {
 
+    public GameObject circlePrefab;
+    public GUIText descriptionAreaPrefab;
     public Sprite treeSceneCursor;
     public Sprite idleSceneCursor;
     public Sprite idleSceneTreeCursor;
     public Sprite idleSceneBadTreeCursor;
     public GameObject clickWave;
     private bool _allowClicks;
+    private _Mono circleHint;
     public bool allowClicks{
         get{return _allowClicks;} 
         set{
@@ -25,8 +28,8 @@ public class CursorScript : _Mono {
 
     _Mono saplingIcon;
     _Mono treeBound;
-    float waitTimeBeforeClick = 1.5f;
-    float clickTimer = 1.5f;
+    float waitTimeBeforeClick = 0.8f;
+    float clickTimer = 0.9f;
     //float detectMoveDistance = 8f; //Old distance for Mouse
     float detectMoveDistance = 14f / 800f;
     bool waitingForClick = true;
@@ -42,9 +45,13 @@ public class CursorScript : _Mono {
     float yprev;
     //float yprev;
     int switchCounter = 0;
+    GUIText descriptionGUIText;
 
 	// Use this for initialization
 	void Start () {
+        circleHint = (GameObject.Instantiate(circlePrefab) as GameObject).AddComponent<_Mono>();
+        circleHint.alpha = 0.3f;
+        descriptionGUIText = GameObject.Instantiate(descriptionAreaPrefab);
         saplingIcon = GameObject.Find("SaplingIcon").GetComponent<_Mono>();
         treeBound = GameObject.Find("TreeArea").GetComponent<_Mono>();
         leftArrow = GameObject.Find("LeftArrow").GetComponent<_Mono>();
@@ -141,10 +148,30 @@ public class CursorScript : _Mono {
         yprev = y;
         z = 0;
 
+        if(clickTimer < 0.4f && clickTimer > 0f){
+            circleHint.xy = xy;
+            circleHint.xys = xys * clickTimer / 10f;
+        }else{
+            circleHint.xys = Vector2.zero;
+        }
 	}
 
     void AdministerClicks(){
+        descriptionGUIText.text = "";
         if(allowClicks){
+            
+            Clickable descriptionTest = Scout(x,y);
+            if(descriptionTest!=null && Globals.globalManager.currentScene.Equals(GlobalManagerScript.Scene.IDLE)){
+                if(descriptionTest.nickname == "Description"){
+                    TreeContainerScript tcs = descriptionTest.GetComponent<TreeContainerScript>();
+                    if(tcs.creator.Trim() != ""){
+                        descriptionGUIText.text = "Tree by " + tcs.creator + "\n" + tcs.height + " inches tall" + "\nPlanted on " + tcs.date;
+                    }else{
+                        descriptionGUIText.text = tcs.height + " inches tall" + "\nPlanted on " + tcs.date;}
+                }
+            }
+
+
             clickTimer -= Time.deltaTime;
             
             if( Utils.PointDistance(new Vector2(x, y), new Vector2(xprev, yprev)) / Camera.main.orthographicSize > detectMoveDistance ){
