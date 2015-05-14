@@ -24,6 +24,10 @@ public class FlashingScript : _Mono {
         s.SetLoops(10000000, LoopType.Yoyo);
         s.Play();
 	}
+
+    void Update(){
+      //  alpha = 1f;
+    }
 	
 	// Update is called once per frame
     void LateUpdate () {
